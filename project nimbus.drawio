@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.1.1">
   <diagram name="Page-1" id="qrO_EoMkNC8z30uaFV1Z">
-    <mxGraphModel dx="1489" dy="1903" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1737" dy="2037" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -90,7 +90,7 @@
         <mxCell id="azz3f0snGlN7z82BxQjp-1" parent="MnzGmmFR2AVTdVrL-Gr0-15" style="rounded=0;whiteSpace=wrap;html=1;" value="&amp;lt;AddStory&amp;gt;" vertex="1">
           <mxGeometry height="30" width="145" x="237.5" y="290" as="geometry" />
         </mxCell>
-        <mxCell id="azz3f0snGlN7z82BxQjp-3" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="StoryForm.jsx" vertex="1">
+        <mxCell id="azz3f0snGlN7z82BxQjp-3" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="Stories.jsx" vertex="1">
           <mxGeometry height="340" width="620" x="750" y="540" as="geometry">
             <mxRectangle height="30" width="70" x="70" y="110" as="alternateBounds" />
           </mxGeometry>
@@ -116,7 +116,7 @@
         <mxCell id="azz3f0snGlN7z82BxQjp-39" parent="azz3f0snGlN7z82BxQjp-3" style="rounded=0;whiteSpace=wrap;html=1;" value="&amp;lt;Situation&amp;gt;" vertex="1">
           <mxGeometry height="40" width="120" x="250" y="50" as="geometry" />
         </mxCell>
-        <mxCell id="azz3f0snGlN7z82BxQjp-24" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="StoryForm.jsx" vertex="1">
+        <mxCell id="azz3f0snGlN7z82BxQjp-24" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" value="Stories.jsx" vertex="1">
           <mxGeometry height="340" width="620" x="1460" y="540" as="geometry">
             <mxRectangle height="30" width="70" x="70" y="110" as="alternateBounds" />
           </mxGeometry>
@@ -193,8 +193,8 @@
         <mxCell id="azz3f0snGlN7z82BxQjp-46" edge="1" parent="1" source="MnzGmmFR2AVTdVrL-Gr0-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="MnzGmmFR2AVTdVrL-Gr0-15">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="40" y="355" />
-              <mxPoint x="40" y="625" />
+              <mxPoint x="20" y="355" />
+              <mxPoint x="20" y="625" />
             </Array>
           </mxGeometry>
         </mxCell>
