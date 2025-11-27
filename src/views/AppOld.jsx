@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import reactLogo from '../assets/react.svg'
+import viteLogo from '../assets/vite.svg'
+import '../index.css'
 
-function App() {
+function AppOld() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className='flex items-center justify-center h-screen'>
+    <div className='flex flex-col items-center justify-center h-screen'>
       <div>
         <div className='grid grid-cols-2'>
           <a className='flex justify-end' href="https://vite.dev" target="_blank">
@@ -23,6 +23,8 @@ function App() {
             count is {count}
           </button>
         </div>
+      </div>
+      <div>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
@@ -31,4 +33,4 @@ function App() {
   )
 }
 
-export default App
+export default AppOld
