@@ -1,11 +1,14 @@
 import TextSpan from "./TextSpan";
 import "../../index.css"
+import ScrollRow from "./ScrollRow";
 
-function randomSort(arr) {
-  	return arr
-    	.map((val) => ({ val, sort: Math.random() }))
-    	.sort((a, b) => a.sort - b.sort)
-    	.map(({ val }) => val);
+function shuffle(arr) {
+  const a = [...arr];     // copy so original not mutated
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 export default function AnimatedScroll({ stuffs }) {
@@ -16,30 +19,9 @@ export default function AnimatedScroll({ stuffs }) {
 
     return (
         <>
-            <div className="relative flex overflow-hidden">
-                <div className="whitespace-nowrap animate-scroll">
-                    {spans}
-                </div>
-                <div className="whitespace-nowrap animate-scroll2">
-                    <div className="flex">{spans}</div>
-                </div>
-            </div>
-            <div className="relative flex overflow-hidden">
-                <div className="whitespace-nowrap animate-scroll">
-                    {spans}
-                </div>
-                <div className="whitespace-nowrap animate-scroll2">
-                    <div className="flex">{spans}</div>
-                </div>
-            </div>
-            <div className="relative flex overflow-hidden">
-                <div className="whitespace-nowrap animate-scroll">
-                    {spans}
-                </div>
-                <div className="whitespace-nowrap animate-scroll2">
-                    <div className="flex">{spans}</div>
-                </div>
-            </div>
+            <ScrollRow spans={shuffle(spans)} />
+            <ScrollRow spans={shuffle(spans)} />
+            <ScrollRow spans={shuffle(spans)} />
         </>
     )
 }

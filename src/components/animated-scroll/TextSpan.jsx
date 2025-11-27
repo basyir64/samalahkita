@@ -1,6 +1,6 @@
 import '../../index.css'
 
-export default function TextSpan( {key, text} ) {
+export default function TextSpan({ key, text }) {
 
     return (
         <span className=
