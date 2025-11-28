@@ -65,9 +65,9 @@ export default function Marquee() {
       "category": "main"
     }
   ]
-  situations.forEach(s => {
-    s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
-  });
+  // situations.forEach(s => {
+  //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
+  // });
 
 
   return (
