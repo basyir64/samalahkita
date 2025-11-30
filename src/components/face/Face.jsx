@@ -10,10 +10,11 @@ export default function Face() {
             </div>
             <div className='flex justify-center gap-4'>
                 <span><input className='border-1' type="text" /></span>
-                <span>add</span>
+                {/* <span>add</span> add button inside result */}
             </div>
-            <div className='my-10 flex justify-center gap-4'>
-                {t('intro')}
+            <div className='my-10 grid grid-col justify-center gap-4'>
+                <span className='text-center'> {t('intro')} </span>
+                <span>luahan user tak perlu tulis panjang2 sbb boleh pilih situations</span>
             </div>
         </div>
     )

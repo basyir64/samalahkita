@@ -10,11 +10,11 @@ export default function Navbar() {
 
     return (
         <nav className='my-4 mx-8 flex justify-between'>
-            <span>{t('title')}</span>
+            <span className='text-3xl font-bold'>{t('title')}</span>
             <span className='flex gap-4'>
-                <button onClick={() => changeLanguage("en")} >ENG</button>
-                <button onClick={() => changeLanguage("ms")} >BM</button>
-                <span>about</span>
+                <span><button onClick={() => changeLanguage("en")} >ENG</button></span>
+                <span><button onClick={() => changeLanguage("ms")} >BM</button></span>
+                <span>About</span>
             </span>
         </nav>
     );

@@ -38,5 +38,30 @@ html {
     @apply inline-flex m-[10px] tracking-[0.1em]
     bg-white text-[#030000] px-[20px] py-[15px]
     rounded-[25px] border border-white transition
-    duration-500 shadow-[-3px_3px_2px_rgba(0,0,0,0.3)];
+    duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
 }
+
+.pill-card {
+  @apply m-[10px] cursor-pointer
+    bg-white text-[#030000] px-[30px] py-[25px]
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[-5px_5px_5px_rgba(0,0,0,0.3)];
+}
+
+.pill-button {
+    @apply inline-flex m-[10px] cursor-pointer text-sm
+    bg-white text-[#030000] px-[15px] py-[10px]
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
+}
+
+.pill-modal {
+  @apply m-[10px] 
+    bg-white text-[#030000] px-[30px] py-[25px]
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[-5px_5px_5px_rgba(0,0,0,0.3)];
+}
+
+
+
+

@@ -5,7 +5,7 @@ import App from './views/App'
 import './i18n';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
-import Stories from './components/stories/Stories';
+import Stories from './views/Stories';
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
