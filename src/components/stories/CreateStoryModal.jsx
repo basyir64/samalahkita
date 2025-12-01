@@ -6,27 +6,29 @@ import ModalPage2 from './ModalPage2';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     if (!open) return null;
-    const descriptions = [
+    const instructions = [
         <>
-            1/3: Taip cerita ringkas anda yang berkaitan dengan luahan ini.
-            <br /> Latar belakang, sejarah atau situasi lain boleh dipilih kemudian
-            ...phone/emel sanitise...
+            Ceritakan luahan anda. Pastikan ia ringkas dan tidak terpesong kerana situasi lain boleh diisi dibawah.
+            {/* ...phone/emel sanitise... */}
         </>,
         <>
-            2/3:
+            Isi sekurang-kurangnya 1 maklumat diri anda.
         </>,
         <>
-            3/3:
+            Hampir sedia untuk dihantar.
+        </>,
+        <>
+            Salin dan simpan nombor kad cerita anda untuk rujukan.
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);
     const [pages, setPages] = useState(
         [
-            { id: 1, desc: 0},
-            { id: 2, desc: 1},
-            { id: 3, desc: 2}
+            { id: 1, instruction: 0 },
+            { id: 2, instruction: 1 },
+            { id: 3, instruction: 2 },
+            { id: 4, instruction: 3 },
         ]);
-    const [otherSituations, setOtherSituations] = useState([]);
     const [story, setStory] = useState(
         {
             //id
@@ -35,8 +37,18 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             gender: "",
             location: "",
             sector: "",
-            otherSituations: otherSituations
+            otherSituations: [],
+            textLength: 0
         });
+    const maxTextLength = 200;
+    function isNextDisabled(currentPage) {
+        if (currentPage === 1) {
+            if ((!story.textLength || story.textLength > maxTextLength) || story.otherSituations.length > 5) return true;
+        } else if (currentPage === 2) {
+            if (!story.gender && !story.ageRange && !story.location && !story.sector) return true;
+        }
+        return false;
+    }
 
     function handleClickNext(currentPage) {
         setCurrentPage(++currentPage);
@@ -48,19 +60,19 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
     return (
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-            <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+            <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel className="pill-modal">
-                    <DialogTitle className="font-bold">Cerita Baru</DialogTitle>
-                    <Description className="text-sm mb-4">{descriptions[pages.find(page => page.id === currentPage).desc]}</Description>
-                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
+                    <DialogTitle className="">{situation.text}</DialogTitle>
+                    <Description className="text-sm mb-4 text-gray-600">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
+                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} max={maxTextLength} />
                     <ModalPage2 isCurrent={currentPage === 2} story={story} setStory={setStory} />
                     <div className="flex justify-between gap-4 mt-10">
-                        <span className='underline cursor-pointer' onClick={() => setIsOpen(false)}>Batal</span>
+                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>Batal</button>
                         <div className='flex gap-4'>
-                            {currentPage !== 1 && <span className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >Kembali</span>}
+                            {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >Kembali</button>}
                             {currentPage === pages[pages.length - 1].id ?
-                                <span className='underline cursor-pointer'>Hantar</span> :
-                                <span className='underline cursor-pointer' onClick={() => handleClickNext(currentPage)}>Seterusnya</span>}
+                                <button className='underline cursor-pointer'>Hantar</button> :
+                                <button disabled={isNextDisabled(currentPage)} className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-400` : ` cursor-pointer`}`} onClick={() => handleClickNext(currentPage)}>Seterusnya</button>}
                         </div>
                     </div>
                 </DialogPanel>

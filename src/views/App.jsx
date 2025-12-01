@@ -9,11 +9,11 @@ export default function App() {
 
     return (
         <div className="">
-            <Navbar/>
-            <Marquee/>
-            <Face/>
-            <UserGuide/>
-            <Stats/>
+            <Navbar />
+            <Marquee />
+            <Face />
+            <UserGuide />
+            <Stats />
         </div>
     )
 }

@@ -1,9 +1,10 @@
 import "../../index.css"
-import Row from "./Row";
+import { Link } from "react-router";
+import { useEffect, useRef, useState } from "react";
 
-export default function Marquee() {
+export default function Marquee({ size, story, setStory }) {
 
-  const situations = [
+  const situationsRef = useRef([
     {
       "id": 1,
       "name": "Kucing meninggal",
@@ -64,17 +65,104 @@ export default function Marquee() {
       "level": "2",
       "category": "main"
     }
-  ]
+  ]).current;
   // situations.forEach(s => {
   //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
   // });
 
+  const [selectedSituations, setSelectedSituations] = useState(story.otherSituations);
+
+  useEffect(() => {
+    setSelectedSituations(story.otherSituations);
+    console.log(JSON.stringify(story, null, 2));
+  }, [story.otherSituations])
+
+  function handleSituationsChange(selectedSituationId) {
+    setStory(prev => {
+      if (prev.otherSituations.some(s => s === selectedSituationId)) {
+        return {
+          ...prev,
+          otherSituations: prev.otherSituations.filter(s => s !== selectedSituationId)
+        }
+      };
+      return {
+        ...prev,
+        otherSituations: [...prev.otherSituations, selectedSituationId],
+      };
+    });
+  }
+
+  const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
+  const shuffledRowsRef = useRef(rows.map(() =>
+    shuffle(situationsRef.map(s => s.id))
+  )).current;
+
+  useEffect(() => {
+    console.log(JSON.stringify(selectedSituations, null, 2))
+  }, [selectedSituations])
 
   return (
-    <div>
-      <Row stuffs={situations} />
-      <Row stuffs={situations} />
-      <Row stuffs={situations} />
+    <div className={`${size === "small" ? "grid width-[100px]" : ""}`}>
+      {rows.map((row, i) => (
+        <div key={row.id} className="relative flex overflow-hidden">
+          <span className="whitespace-nowrap animate-scroll">
+            {shuffledRowsRef[i].map(id => {
+              const s = situationsRef.find(x => x.id === id);
+              return (
+                <Pill
+                  key={`r${i}-p${id}`}
+                  size={size}
+                  id={id}
+                  name={s.name}
+                  isSelected={selectedSituations.some(s => s == id)}
+                  onClick={() => handleSituationsChange(id)}
+                />
+              );
+            })}
+          </span>
+
+          <span className="whitespace-nowrap animate-scroll2">
+            {shuffledRowsRef[i].map(id => {
+              const s = situationsRef.find(x => x.id === id);
+              return (
+                <Pill
+                  key={`r${i}-p2-${id}`}
+                  size={size}
+                  id={id}
+                  name={s.name}
+                  isSelected={selectedSituations.some(s => s == id)}
+                  onClick={() => handleSituationsChange(id)}
+                />
+              );
+            })}
+          </span>
+        </div>
+      ))}
     </div>
-  )
+  );
+}
+
+function Pill({ size, id, name, isSelected, onClick }) {
+  return size === "small" ? (
+    <span
+      onClick={onClick}
+      className={`pill-small ${isSelected ? "bg-[#f1efe3]" : "bg-white"}`}
+    >
+      {name}
+    </span>
+  ) : (
+    <Link to={`/stories/situation/${id}`}>
+      <span className="pill">{name}</span>
+    </Link>
+  );
+}
+
+
+function shuffle(arr) {
+  const a = [...arr];     // copy so original not mutated
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }

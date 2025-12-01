@@ -35,8 +35,15 @@ html {
 }
 
 .pill {
-    @apply inline-flex m-[10px] tracking-[0.1em]
+    @apply hover:bg-[#f1efe3] inline-flex m-[10px] tracking-[0.1em]
     bg-white text-[#030000] px-[20px] py-[15px]
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
+}
+
+.pill-small {
+    @apply text-xs hover:bg-[#f1efe3] inline-flex m-[5px] tracking-[0.1em]
+    text-[#030000] px-[10px] py-[5px] cursor-pointer
     rounded-[25px] border border-white transition
     duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
 }
@@ -48,19 +55,25 @@ html {
     duration-500 shadow-[-5px_5px_5px_rgba(0,0,0,0.3)];
 }
 
-.pill-button {
-    @apply inline-flex m-[10px] cursor-pointer text-sm
-    bg-white text-[#030000] px-[15px] py-[10px]
-    rounded-[25px] border border-white transition
-    duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
-}
-
 .pill-modal {
-  @apply m-[10px] 
+  @apply m-[10px] w-[500px]
     bg-white text-[#030000] px-[30px] py-[25px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[-5px_5px_5px_rgba(0,0,0,0.3)];
 }
+
+.my-radio {
+    @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3] data-checked:bg-[#f1efe3];
+}
+
+.my-select {
+  @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white;
+}
+
+.my-option {
+  @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3]
+}
+
 
 
 
