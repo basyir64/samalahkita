@@ -70,24 +70,20 @@ export default function Marquee({ size, story, setStory }) {
   //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
   // });
 
-  const [selectedSituations, setSelectedSituations] = useState(story.otherSituations);
-
-  useEffect(() => {
-    setSelectedSituations(story.otherSituations);
-    console.log(JSON.stringify(story, null, 2));
-  }, [story.otherSituations])
+  const [selectedSituations, setSelectedSituations] = useState([]);
 
   function handleSituationsChange(selectedSituationId) {
+    const situation = situationsRef.find(s => s.id === selectedSituationId);
     setStory(prev => {
-      if (prev.otherSituations.some(s => s === selectedSituationId)) {
+      if (prev.otherSituations.some(s => s.id === selectedSituationId)) {
         return {
           ...prev,
-          otherSituations: prev.otherSituations.filter(s => s !== selectedSituationId)
+          otherSituations: prev.otherSituations.filter(s => s.id !== selectedSituationId)
         }
       };
       return {
         ...prev,
-        otherSituations: [...prev.otherSituations, selectedSituationId],
+        otherSituations: [...prev.otherSituations, situation],
       };
     });
   }
@@ -100,6 +96,11 @@ export default function Marquee({ size, story, setStory }) {
   useEffect(() => {
     console.log(JSON.stringify(selectedSituations, null, 2))
   }, [selectedSituations])
+
+  useEffect(() => {
+    setSelectedSituations(story?.otherSituations);
+    console.log(JSON.stringify(story, null, 2));
+  }, [story?.otherSituations])
 
   return (
     <div className={`${size === "small" ? "grid width-[100px]" : ""}`}>
@@ -114,7 +115,7 @@ export default function Marquee({ size, story, setStory }) {
                   size={size}
                   id={id}
                   name={s.name}
-                  isSelected={selectedSituations.some(s => s == id)}
+                  isSelected={selectedSituations?.some(s => s.id == id)}
                   onClick={() => handleSituationsChange(id)}
                 />
               );
@@ -130,7 +131,7 @@ export default function Marquee({ size, story, setStory }) {
                   size={size}
                   id={id}
                   name={s.name}
-                  isSelected={selectedSituations.some(s => s == id)}
+                  isSelected={selectedSituations?.some(s => s.id == id)}
                   onClick={() => handleSituationsChange(id)}
                 />
               );

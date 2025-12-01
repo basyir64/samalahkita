@@ -8,7 +8,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     if (!open) return null;
     const instructions = [
         <>
-            Ceritakan luahan anda. Pastikan ia ringkas dan tidak terpesong kerana situasi lain boleh diisi dibawah.
+            Ceritakan luahan anda. Pastikan ia ringkas — situasi lain boleh ditambah dibawah.
             {/* ...phone/emel sanitise... */}
         </>,
         <>
@@ -41,9 +41,10 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             textLength: 0
         });
     const maxTextLength = 200;
+    const maxOtherSituationsSize = 3;
     function isNextDisabled(currentPage) {
         if (currentPage === 1) {
-            if ((!story.textLength || story.textLength > maxTextLength) || story.otherSituations.length > 5) return true;
+            if (!story.textLength || story.textLength > maxTextLength || story.otherSituations.length > maxOtherSituationsSize) return true;
         } else if (currentPage === 2) {
             if (!story.gender && !story.ageRange && !story.location && !story.sector) return true;
         }
@@ -64,7 +65,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
                 <DialogPanel className="pill-modal">
                     <DialogTitle className="">{situation.text}</DialogTitle>
                     <Description className="text-sm mb-4 text-gray-600">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
-                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} max={maxTextLength} />
+                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} maxTextLength={maxTextLength} maxOtherSituationsSize={maxOtherSituationsSize}/>
                     <ModalPage2 isCurrent={currentPage === 2} story={story} setStory={setStory} />
                     <div className="flex justify-between gap-4 mt-10">
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>Batal</button>
