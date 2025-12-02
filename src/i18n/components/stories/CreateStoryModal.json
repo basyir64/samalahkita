@@ -1,0 +1,12 @@
+{
+  "en": {
+    "story_text_instruction": "instruction",
+    "user_info_instruction": "instruction",
+    "send_confirm_instruction": "321379204jnkjwebfokbwbd3  wf23"
+  },
+  "ms": {
+    "story_text_instruction": "Ceritakan luahan anda. Pastikan ia ringkas — situasi lain boleh ditambah dibawah.",
+    "user_info_instruction": "Isi sekurang-kurangnya 1 maklumat diri anda.",
+    "send_confirm_instruction": "lalalalalal"
+  }
+}

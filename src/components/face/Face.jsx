@@ -2,7 +2,7 @@ import '../../index.css';
 import { useTranslation } from 'react-i18next';
 
 export default function Face() {
-    const { t } = useTranslation("views");
+    const { t } = useTranslation("components");
     return (
         <div className='my-2'>
             <div className='my-8 flex justify-center'>

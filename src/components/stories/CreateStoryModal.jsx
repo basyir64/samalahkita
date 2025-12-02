@@ -1,24 +1,28 @@
 import '../../index.css';
-import { Description, Dialog, DialogPanel, DialogTitle, Textarea } from '@headlessui/react'
+import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useState } from 'react';
 import ModalPage1 from './ModalPage1';
 import ModalPage2 from './ModalPage2';
+import { useTranslation } from 'react-i18next'; 
+import ModalPage3 from './ModalPage3';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     if (!open) return null;
+
+    const { t } = useTranslation("components");
     const instructions = [
         <>
-            Ceritakan luahan anda. Pastikan ia ringkas — situasi lain boleh ditambah dibawah.
+            {t('story_text_instruction')}
             {/* ...phone/emel sanitise... */}
         </>,
         <>
-            Isi sekurang-kurangnya 1 maklumat diri anda.
+            {t('user_info_instruction')}
         </>,
         <>
-            Hampir sedia untuk dihantar.
+            {t('send_confirm_instruction')}
         </>,
         <>
-            Salin dan simpan nombor kad cerita anda untuk rujukan.
+            {t('send_confirm_instruction')}
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);
@@ -67,13 +71,14 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
                     <Description className="text-sm mb-4 text-gray-600">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
                     <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} maxTextLength={maxTextLength} maxOtherSituationsSize={maxOtherSituationsSize}/>
                     <ModalPage2 isCurrent={currentPage === 2} story={story} setStory={setStory} />
+                    <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
                     <div className="flex justify-between gap-4 mt-10">
-                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>Batal</button>
+                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('cancel_button')}</button>
                         <div className='flex gap-4'>
-                            {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >Kembali</button>}
+                            {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
                             {currentPage === pages[pages.length - 1].id ?
                                 <button className='underline cursor-pointer'>Hantar</button> :
-                                <button disabled={isNextDisabled(currentPage)} className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-400` : ` cursor-pointer`}`} onClick={() => handleClickNext(currentPage)}>Seterusnya</button>}
+                                <button disabled={isNextDisabled(currentPage)} className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-400` : ` cursor-pointer`}`} onClick={() => handleClickNext(currentPage)}>{t('next_button')}</button>}
                         </div>
                     </div>
                 </DialogPanel>

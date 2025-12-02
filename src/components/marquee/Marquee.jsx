@@ -1,8 +1,12 @@
 import "../../index.css"
 import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
+import { useAllSituations } from "../../services/firestore";
 
 export default function Marquee({ size, story, setStory }) {
+
+  const {situations, loading} = useAllSituations();
+  console.log(JSON.stringify(situations, null, 2));
 
   const situationsRef = useRef([
     {
@@ -66,9 +70,9 @@ export default function Marquee({ size, story, setStory }) {
       "category": "main"
     }
   ]).current;
-  // situations.forEach(s => {
-  //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
-  // });
+  situationsRef.forEach(s => {
+    s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
+  });
 
   const [selectedSituations, setSelectedSituations] = useState([]);
 
@@ -94,12 +98,7 @@ export default function Marquee({ size, story, setStory }) {
   )).current;
 
   useEffect(() => {
-    console.log(JSON.stringify(selectedSituations, null, 2))
-  }, [selectedSituations])
-
-  useEffect(() => {
     setSelectedSituations(story?.otherSituations);
-    console.log(JSON.stringify(story, null, 2));
   }, [story?.otherSituations])
 
   return (

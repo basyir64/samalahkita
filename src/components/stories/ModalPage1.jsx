@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../../index.css';
 import { Textarea } from '@headlessui/react';
 import Marquee from '../marquee/Marquee';
-
+import { useTranslation } from 'react-i18next';
 
 export default function ModalPage1({ isCurrent, story, setStory, maxTextLength, maxOtherSituationsSize }) {
     if (!isCurrent) return null;
 
     const [text, setText] = useState("");
     const [currentLength, setCurrentLength] = useState(story.textLength);
-    const [selectedSituations, setSelectedSituations] = useState([]);
+    const { t } = useTranslation("components");
 
     function handleTextChange(text) {
         setText(text);
@@ -43,7 +43,7 @@ export default function ModalPage1({ isCurrent, story, setStory, maxTextLength, 
             </div>
             <div className='grid grid-col mt-8'>
                 <div className="text-sm my-2 text-gray-600">
-                    Pilih luahan dibawah untuk latar belakang, sejarah atau situasi anda yang lain jika berkaitan. Tinggalkan jika tiada.
+                    {t('other_situations_instruction')}
                 </div>
                 <div className='my-2'>
                     {story.otherSituations.map(s => (

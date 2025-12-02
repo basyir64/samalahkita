@@ -1,25 +1,28 @@
 import '../../index.css';
-import { Radio, RadioGroup, Field, Select } from '@headlessui/react';
+import { Radio, RadioGroup, Field } from '@headlessui/react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function ModalPage2({ isCurrent, story, setStory }) {
     if (!isCurrent) return null;
 
+    const { t } = useTranslation("components");
+
     const genders = [
-        { id: 0, text: "Rahsia", value: "" },
-        { id: 1, text: "Lelaki", value: "male" },
-        { id: 2, text: "Perempuan", value: "female" },
+        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
+        { id: 1, text: <>{t('male_user_input')}</>, value: "male" },
+        { id: 2, text: <>{t('female_user_input')}</>, value: "female" },
     ];
 
     const ageRanges = [
-        { id: 0, text: "Rahsia", value: "" },
+        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
         { id: 1, text: "13-17", value: "13-17" },
         { id: 2, text: "18-25", value: "18-25" },
         { id: 3, text: "26-30", value: "26-30" },
     ];
 
     const locations = [
-        { id: 0, text: "Rahsia", value: "" },
+        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
         { id: 1, text: "Johor", value: "johor" },
         { id: 2, text: "Kedah", value: "kedah" },
         { id: 3, text: "Kelantan", value: "kelantan" },
@@ -40,13 +43,17 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
 
 
     const sectors = [
-        { id: 0, text: "Rahsia", value: "" },
-        { id: 1, text: "Sektor Awam", value: "public" },
-        { id: 2, text: "Sektor Swasta", value: "private" },
-        { id: 3, text: "Pelajar", value: "student" },
-        { id: 4, text: "Suri Rumah", value: "housewife" },
-        { id: 5, text: "Penganggur", value: "unemployed" },
-        { id: 6, text: "Pemilik Perniagaan", value: "business_owner" },
+        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
+        { id: 1, text: <>{t('public_sector_user_input')}</>, value: "public" },
+        { id: 2, text: <>{t('private_sector_user_input')}</>, value: "private" },
+        { id: 3, text: <>{t('student_user_input')}</>, value: "student" },
+        { id: 4, text: <>{t('housewife_user_input')}</>, value: "housewife" },
+        { id: 5, text: <>{t('freelance_user_input')}</>, value: "freelance" },
+        { id: 6, text: <>{t('rider_user_input')}</>, value: "rider" },
+        { id: 7, text: <>{t('agent_user_input')}</>, value: "agent" },
+        { id: 8, text: <>{t('business_owner_user_input')}</>, value: "business_owner" },
+        { id: 9, text: <>{t('unemployed_user_input')}</>, value: "unemployed" },
+        
     ];
 
     const [selectedGender, setSelectedGender] = useState(genders[0]);
@@ -89,7 +96,7 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
     return (
         <div className='grid grid-col'>
             <div className='flex flex-col gap-1 mb-4'>
-                <div>Jantina</div>
+                <div>{t('gender_field')}</div>
                 <RadioGroup value={story.gender} onChange={handleGenderChange} className={"flex flex-wrap gap-2"}>
                     {genders.map((gender) => (
                         <Field key={gender.id}>
@@ -101,7 +108,7 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
                 </RadioGroup>
             </div>
             <div className='flex flex-col gap-1 mb-4'>
-                <div>Umur</div>
+                <div>{t('age_field')}</div>
                 <select value={story.ageRange} onChange={(e) => handleAgeChange(e.target.value)} className={"my-select"}>
                     {ageRanges.map(range => (
                         <option key={range.id} className='my-option' value={range.value}>{range.text}</option>
@@ -109,7 +116,7 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
                 </select>
             </div>
             <div className='flex flex-col gap-1 mb-4'>
-                <div>Lokasi</div>
+                <div>{t('location_field')}</div>
                 <select value={story.location} onChange={(e) => handleLocationChange(e.target.value)} className={"my-select"}>
                     {locations.map(location => (
                         <option key={location.id} className='my-option' value={location.value}>{location.text}</option>
@@ -117,7 +124,7 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
                 </select>
             </div>
             <div className='flex flex-col gap-1 mb-4'>
-                <div>Pekerjaan</div>
+                <div>{t('occupation_field')}</div>
                 <select value={story.sector} onChange={(e) => handleSectorChange(e.target.value)} className={"my-select"}>
                     {sectors.map(sector => (
                         <option key={sector.id} className='my-option' value={sector.value}>{sector.text}</option>

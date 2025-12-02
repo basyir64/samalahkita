@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import Navbar from '../components/navbar/Navbar';
 import Feed from '../components/stories/Feed';
 import '../index.css';
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import CreateStoryModal from '../components/stories/CreateStoryModal';
+import { useTranslation } from 'react-i18next';
 
 export default function Stories() {
     const params = useParams();
     //get situation by param id from marquee
-    const situation = { id: params.situationid, text: "Kucing baru meninggal dunia" };
+    const situation = { id: params.situationid, text: "ehvwfoiu23g 984cq72341032" };
     const [isOpen, setIsOpen] = useState(false);
+    const { t } = useTranslation("views");
 
     return (
         <div className=''>
-            <Navbar />
             <div className='grid grid-col justify-center my-20'>
                 <div className='text-center'>
                     <div>
@@ -22,7 +22,7 @@ export default function Stories() {
                     {/* <div className='pill-button' onClick={() => setOpen(true)}>
                         + Cerita Baru
                     </div> */}
-                    <span className='underline cursor-pointer' onClick={() => setIsOpen(true)}>Tambah cerita baru</span>
+                    <span className='underline cursor-pointer' onClick={() => setIsOpen(true)}>{t('add_story_button')}</span>
                 </div>
                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} />
             </div>
