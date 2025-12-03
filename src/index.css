@@ -63,7 +63,11 @@ html {
 }
 
 .my-radio {
-    @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3] data-checked:bg-[#f1efe3];
+  @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3] data-checked:bg-[#f1efe3];
+}
+
+.my-checkbox {
+  @apply w-[14px] h-[18px] rounded text-sm px-2 py-1 cursor-pointer border hover:bg-[#f1efe3];
 }
 
 .my-select {

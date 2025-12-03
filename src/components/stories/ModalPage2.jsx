@@ -1,6 +1,6 @@
 import '../../index.css';
-import { Radio, RadioGroup, Field } from '@headlessui/react';
-import { useState } from 'react';
+import { Radio, RadioGroup, Field, Checkbox } from '@headlessui/react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function ModalPage2({ isCurrent, story, setStory }) {
@@ -53,13 +53,14 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
         { id: 7, text: <>{t('agent_user_input')}</>, value: "agent" },
         { id: 8, text: <>{t('business_owner_user_input')}</>, value: "business_owner" },
         { id: 9, text: <>{t('unemployed_user_input')}</>, value: "unemployed" },
-        
+
     ];
 
     const [selectedGender, setSelectedGender] = useState(genders[0]);
     const [selectedAge, setSelectedAge] = useState(ageRanges[0]);
     const [selectedLocation, setSelectedLocation] = useState(locations[0]);
     const [selectedSector, setSelectedSector] = useState(sectors[0]);
+    const [isTermsOfUseChecked, setIsTermsOfUseChecked] = useState(false);
 
     function handleGenderChange(selectedGender) {
         setSelectedGender(selectedGender);
@@ -92,6 +93,18 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
             sector: selectedSector
         }))
     }
+
+    function handleTermsOfUseCheckboxChange(isTermsOfUseChecked) {
+        setIsTermsOfUseChecked(!isTermsOfUseChecked);
+        setStory(prev => ({
+            ...prev,
+            isTermsOfUseChecked: !isTermsOfUseChecked
+        }))
+    }
+
+    // useEffect(() => {
+    //     console.log(JSON.stringify(story, null, 2))
+    // }, [story])
 
     return (
         <div className='grid grid-col'>
@@ -130,6 +143,13 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
                         <option key={sector.id} className='my-option' value={sector.value}>{sector.text}</option>
                     ))}
                 </select>
+            </div>
+            <div className='flex flex-col gap-1 mt-10 '>
+                <div className={'flex gap-2 cursor-pointer'}
+                onClick={() => handleTermsOfUseCheckboxChange(isTermsOfUseChecked)}>
+                    <span className={`my-checkbox ${isTermsOfUseChecked ? "bg-[#f1efe3]" : "bg-white"}`}></span>
+                    <span className='text-sm'>Dengan menekan Hantar, </span>
+                </div>
             </div>
         </div>
     );

@@ -42,7 +42,8 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             location: "",
             sector: "",
             otherSituations: [],
-            textLength: 0
+            textLength: 0,
+            isTermsOfUseChecked: false
         });
     const maxTextLength = 200;
     const maxOtherSituationsSize = 3;
@@ -50,7 +51,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
         if (currentPage === 1) {
             if (!story.textLength || story.textLength > maxTextLength || story.otherSituations.length > maxOtherSituationsSize) return true;
         } else if (currentPage === 2) {
-            if (!story.gender && !story.ageRange && !story.location && !story.sector) return true;
+            if ((!story.gender && !story.ageRange && !story.location && !story.sector) || !story.isTermsOfUseChecked) return true;
         }
         return false;
     }
