@@ -80,7 +80,7 @@ html {
   @apply whitespace-normal break-words w-[400px]
     bg-white text-[#030000] px-[20px] py-[10px] focus:bg-[#f1efe3]
     rounded-[25px] transition focus:border-none focus:outline-none
-    duration-500 shadow-[0px_5px_5px_rgba(0,0,0,0.3)];
+    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
 }
 
 .pill-searchresult {
