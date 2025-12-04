@@ -9,7 +9,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 if (import.meta.env.DEV) {
-  connectFirestoreEmulator(db, "127.0.0.1", 8089);
+  connectFirestoreEmulator(db, "127.0.0.1", 8090);
 }
 
 export { db };

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../fb_cloud_firestore";
+import { db } from "../fb_emulator_connect";
+
+// modify run/debug configuration and add env var -> FIRESTORE_EMULATOR_HOST=127.0.0.1:8089
+// temporarily allow self signed certs (bash session) -> export NODE_TLS_REJECT_UNAUTHORIZED=0
+// import and export dev data, and temporarily allow self signed certs (command session)->
+// NODE_TLS_REJECT_UNAUTHORIZED=0 firebase emulators:start --import=./firestore-export --export-on-exit=./firestore-export --only firestore
 
 export function useAllSituations() {
   const [situations, setSituations] = useState([]);
