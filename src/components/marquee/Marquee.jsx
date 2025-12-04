@@ -37,9 +37,9 @@ export default function Marquee({ size, story, setStory }) {
       "category": "main"
     }
   ]).current;
-  situationsRef.forEach(s => {
-    s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
-  });
+  // situationsRef.forEach(s => {
+  //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
+  // });
 
   const [selectedSituations, setSelectedSituations] = useState([]);
 

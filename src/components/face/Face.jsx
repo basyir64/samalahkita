@@ -1,6 +1,7 @@
 import '../../index.css';
 import { useTranslation } from 'react-i18next';
 import Typewriter from '../custom/Typewriter';
+import MySearchbar from '../custom/MySearchbar';
 
 export default function Face() {
     const { t } = useTranslation("components");
@@ -11,7 +12,7 @@ export default function Face() {
                 {t('title')}
             </div>
             <div className='flex justify-center gap-4'>
-                <span><input className='border-1' type="text" /></span>
+                <MySearchbar/>
                 {/* <span>add</span> add button inside result */}
             </div>
             <div className='my-10 grid grid-col justify-center gap-4'>
