@@ -37,21 +37,30 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
         {
             //id
             text: "",
+            textLength: 0,
+            hasAdvice: false,
+            adviceText: "",
+            adviceTextLength: 0,
+            otherSituations: [],
             ageRange: "",
             gender: "",
             location: "",
             sector: "",
-            otherSituations: [],
-            textLength: 0,
             isTermsOfUseChecked: false
         });
     const maxTextLength = 200;
+    const maxAdviceTextLength = 100;
     const maxOtherSituationsSize = 3;
     function isNextDisabled(currentPage) {
         if (currentPage === 1) {
-            if (!story.textLength || story.textLength > maxTextLength || story.otherSituations.length > maxOtherSituationsSize) return true;
+            if (!story.textLength || story.textLength > maxTextLength || 
+                (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength)) || 
+                story.otherSituations.length > maxOtherSituationsSize) 
+                return true;
         } else if (currentPage === 2) {
-            if ((!story.gender && !story.ageRange && !story.location && !story.sector) || !story.isTermsOfUseChecked) return true;
+            if ((!story.gender && !story.ageRange && !story.location && !story.sector) || 
+            !story.isTermsOfUseChecked) 
+            return true;
         }
         return false;
     }
@@ -70,11 +79,11 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
                 <DialogPanel className="pill-modal">
                     <DialogTitle className="">{situation.text}</DialogTitle>
                     <Description className="text-sm mb-4 text-gray-600">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
-                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} maxTextLength={maxTextLength} maxOtherSituationsSize={maxOtherSituationsSize}/>
+                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize}/>
                     <ModalPage2 isCurrent={currentPage === 2} story={story} setStory={setStory} />
                     <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
                     <div className="flex justify-between gap-4 mt-10">
-                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('cancel_button')}</button>
+                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                         <div className='flex gap-4'>
                             {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
                             {currentPage === pages[pages.length - 1].id ?

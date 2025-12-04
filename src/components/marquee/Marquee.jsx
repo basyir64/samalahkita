@@ -1,12 +1,9 @@
 import "../../index.css"
 import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
-import { useAllSituations } from "../../services/firestore";
+import { useAllSituations } from "../../services/situationsService";
 
 export default function Marquee({ size, story, setStory }) {
-
-  const {situations, loading} = useAllSituations();
-  console.log(JSON.stringify(situations, null, 2));
 
   const situationsRef = useRef([
     {
@@ -36,36 +33,6 @@ export default function Marquee({ size, story, setStory }) {
     {
       "id": 5,
       "name": "Kejiranan rasa tak selamat",
-      "level": "2",
-      "category": "main"
-    },
-    {
-      "id": 6,
-      "name": "Saya baru dibuang kerja",
-      "level": "2",
-      "category": "main"
-    },
-    {
-      "id": 7,
-      "name": "Rasa tidak dipedulikan oleh kekasih",
-      "level": "2",
-      "category": "main"
-    },
-    {
-      "id": 8,
-      "name": "Crush tolak cinta",
-      "level": "2",
-      "category": "main"
-    },
-    {
-      "id": 9,
-      "name": "Adakah aku terlalu sensitif?",
-      "level": "2",
-      "category": "main"
-    },
-    {
-      "id": 10,
-      "name": "Ibu bapa yang terlalu mengongkong",
       "level": "2",
       "category": "main"
     }
@@ -101,8 +68,14 @@ export default function Marquee({ size, story, setStory }) {
     setSelectedSituations(story?.otherSituations);
   }, [story?.otherSituations])
 
+  const { situations, loading } = useAllSituations();
+
+  useEffect(() => {
+    console.log(JSON.stringify(situations, null, 2));
+  }, [situations])
+
   return (
-    <div className={`${size === "small" ? "grid width-[100px]" : ""}`}>
+    <div className={`${size === "small" ? "grid grid-col width-[100px]" : ""}`}>
       {rows.map((row, i) => (
         <div key={row.id} className="relative flex overflow-hidden">
           <span className="whitespace-nowrap animate-scroll">
@@ -121,7 +94,7 @@ export default function Marquee({ size, story, setStory }) {
             })}
           </span>
 
-          <span className="whitespace-nowrap animate-scroll2">
+          <span className="whitespace-nowrap animate-scroll">
             {shuffledRowsRef[i].map(id => {
               const s = situationsRef.find(x => x.id === id);
               return (

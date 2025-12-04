@@ -2,6 +2,8 @@ import '../../index.css';
 import { Radio, RadioGroup, Field, Checkbox } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import MyCheckbox from '../custom/MyCheckbox';
+import MySelect from '../custom/MySelect';
 
 export default function ModalPage2({ isCurrent, story, setStory }) {
     if (!isCurrent) return null;
@@ -56,11 +58,11 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
 
     ];
 
-    const [selectedGender, setSelectedGender] = useState(genders[0]);
-    const [selectedAge, setSelectedAge] = useState(ageRanges[0]);
-    const [selectedLocation, setSelectedLocation] = useState(locations[0]);
-    const [selectedSector, setSelectedSector] = useState(sectors[0]);
-    const [isTermsOfUseChecked, setIsTermsOfUseChecked] = useState(false);
+    const [selectedGender, setSelectedGender] = useState(story?.gender || genders[0]);
+    const [selectedAge, setSelectedAge] = useState(story?.ageRange || ageRanges[0]);
+    const [selectedLocation, setSelectedLocation] = useState(story?.location || locations[0]);
+    const [selectedSector, setSelectedSector] = useState(story?.sector || sectors[0]);
+    const [isTermsOfUseChecked, setIsTermsOfUseChecked] = useState(story?.isTermsOfUseChecked || false);
 
     function handleGenderChange(selectedGender) {
         setSelectedGender(selectedGender);
@@ -110,7 +112,7 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
         <div className='grid grid-col'>
             <div className='flex flex-col gap-1 mb-4'>
                 <div>{t('gender_field')}</div>
-                <RadioGroup value={story.gender} onChange={handleGenderChange} className={"flex flex-wrap gap-2"}>
+                <RadioGroup value={selectedGender} onChange={handleGenderChange} className={"flex flex-wrap gap-2"}>
                     {genders.map((gender) => (
                         <Field key={gender.id}>
                             <Radio value={gender.value} className="my-radio">
@@ -120,36 +122,11 @@ export default function ModalPage2({ isCurrent, story, setStory }) {
                     ))}
                 </RadioGroup>
             </div>
-            <div className='flex flex-col gap-1 mb-4'>
-                <div>{t('age_field')}</div>
-                <select value={story.ageRange} onChange={(e) => handleAgeChange(e.target.value)} className={"my-select"}>
-                    {ageRanges.map(range => (
-                        <option key={range.id} className='my-option' value={range.value}>{range.text}</option>
-                    ))}
-                </select>
-            </div>
-            <div className='flex flex-col gap-1 mb-4'>
-                <div>{t('location_field')}</div>
-                <select value={story.location} onChange={(e) => handleLocationChange(e.target.value)} className={"my-select"}>
-                    {locations.map(location => (
-                        <option key={location.id} className='my-option' value={location.value}>{location.text}</option>
-                    ))}
-                </select>
-            </div>
-            <div className='flex flex-col gap-1 mb-4'>
-                <div>{t('occupation_field')}</div>
-                <select value={story.sector} onChange={(e) => handleSectorChange(e.target.value)} className={"my-select"}>
-                    {sectors.map(sector => (
-                        <option key={sector.id} className='my-option' value={sector.value}>{sector.text}</option>
-                    ))}
-                </select>
-            </div>
-            <div className='flex flex-col gap-1 mt-10 '>
-                <div className={'flex gap-2 cursor-pointer'}
-                onClick={() => handleTermsOfUseCheckboxChange(isTermsOfUseChecked)}>
-                    <span className={`my-checkbox ${isTermsOfUseChecked ? "bg-[#f1efe3]" : "bg-white"}`}></span>
-                    <span className='text-sm'>Dengan menekan Hantar, </span>
-                </div>
+            <MySelect label={t('age_field')} options={ageRanges} value={selectedAge} onChange={handleAgeChange}/>
+            <MySelect label={t('location_field')} options={locations} value={selectedLocation} onChange={handleLocationChange}/>
+            <MySelect label={t('occupation_field')} options={sectors} value={selectedSector} onChange={handleSectorChange}/>
+            <div className='mt-8'>
+                <MyCheckbox text={"Dengan menekan Hantar"} onClick={handleTermsOfUseCheckboxChange} value={isTermsOfUseChecked}/>
             </div>
         </div>
     );

@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 @import "tailwindcss";
 
-@theme {
+@theme inline{
+  /* Global font */
   --font-merriweather: "Merriweather", Georgia, serif;
   --font-weight: 400;
-  --time: 50s;
+
+  /* Marquee */
+  --time: 55s;
   --animate-scroll: scroll var(--time) linear infinite;
   @keyframes scroll {
     0% {
@@ -16,15 +19,26 @@
     }
   }
 
-  --animate-scroll2: scroll var(--time) linear infinite;
-
-  @keyframes scroll2 {
+  /* Typewriter Effect */
+  --animate-typewriter: typewriter var(--duration, 1000s) steps(var(--steps, 1000)) alternate, blink 1s;
+  @keyframes typewriter {
     0% {
-      transform: translateX(0);
+      width: 0%;
+      visibility: hidden;
     }
 
     100% {
-      transform: translateX(-200%);
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+
+    100% {
+      border-color: currentColor;
     }
   }
 }
@@ -56,7 +70,7 @@ html {
 }
 
 .pill-modal {
-  @apply m-[10px] w-[500px]
+  @apply whitespace-normal break-words m-[10px] w-[500px]
     bg-white text-[#030000] px-[30px] py-[25px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[-5px_5px_5px_rgba(0,0,0,0.3)];

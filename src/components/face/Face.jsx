@@ -1,12 +1,14 @@
 import '../../index.css';
 import { useTranslation } from 'react-i18next';
+import Typewriter from '../custom/Typewriter';
 
 export default function Face() {
     const { t } = useTranslation("components");
     return (
-        <div className='my-2'>
-            <div className='my-8 flex justify-center'>
-                <span className='text-3xl font-bold'>{t('title')}</span>
+        <div className='my-2 grid grid-col justify-center'>
+            <div className='flex justify-center text-3xl font-bold mt-10 mb-4'>
+                {/* <Typewriter text={t('title')} className='mt-10 mb-4 text-3xl font-bold text-center'/> */}
+                {t('title')}
             </div>
             <div className='flex justify-center gap-4'>
                 <span><input className='border-1' type="text" /></span>

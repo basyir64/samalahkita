@@ -1,11 +1,11 @@
 {
   "en": {
-    "cancel_button": "Cancel",
+    "close_button": "Close",
     "back_button": "Back",
     "next_button": "Next"
   },
   "ms": {
-    "cancel_button": "Batal",
+    "close_button": "Tutup",
     "back_button": "Kembali",
     "next_button": "Seterusnya"
   }
