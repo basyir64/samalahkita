@@ -1,0 +1,63 @@
+import { useEffect, useState } from "react";
+import { collection, getDocs, query, addDoc, doc } from "firebase/firestore";
+import { db } from "../fb_emulator_connect";
+
+// MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
+// intellij idea: modify run/debug configuration and add env var -> FIRESTORE_EMULATOR_HOST=127.0.0.1:8089
+// temporarily allow self signed certs (bash session) -> export NODE_TLS_REJECT_UNAUTHORIZED=0
+// import and export dev data, and temporarily allow self signed certs (command session)->
+// NODE_TLS_REJECT_UNAUTHORIZED=0 firebase emulators:start --import=./firestore-export --export-on-exit=./firestore-export --only firestore
+
+export function useSituationService() {
+  const [allSituations, setAllSituations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // const [savedSituationRef, setSavedSituationRef] = useState({});
+
+  // Load all situations
+  async function loadAll() {
+    setLoading(true);
+
+    const snapshot = await getDocs(collection(db, "situations"));
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    setAllSituations(data);
+    setLoading(false);
+  };
+
+  // Load queried situations
+  async function loadByQuery(constraints = []) {
+    setLoading(true);
+
+    const q = query(collection(db, "situations"), ...constraints);
+    const snapshot = await getDocs(q);
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    setAllSituations(data);
+    setLoading(false);
+
+    return data; // optional — sometimes people want the result directly
+  };
+
+  async function save(situation) {
+    setLoading(true);
+    const docRef = await addDoc(collection(db, "situations"), situation);
+    setLoading(false);
+
+    return docRef;
+  }
+
+  // Load all on mount
+  useEffect(() => {
+    loadAll();
+  }, []);
+
+  return {
+    allSituations,
+    loading,
+    refresh: loadAll,  // optional
+    querySituations: loadByQuery,
+    save
+  };
+}
+
+

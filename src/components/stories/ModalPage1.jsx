@@ -3,7 +3,7 @@ import '../../index.css';
 import { Textarea } from '@headlessui/react';
 import Marquee from '../marquee/Marquee';
 import { useTranslation } from 'react-i18next';
-import MyCheckbox from '../custom/MyCheckbox';
+import MyCheckbox from '../custom-inputs/MyCheckbox';
 
 export default function ModalPage1({ isCurrent, story, setStory, maxTextLength, maxAdviceTextLength, maxOtherSituationsSize }) {
     if (!isCurrent) return null;
@@ -82,7 +82,7 @@ export default function ModalPage1({ isCurrent, story, setStory, maxTextLength, 
                 <MyCheckbox text={"Saya ada nasihat untuk orang lain"} onClick={handleHasAdviceChecboxClick} value={hasAdvice} />
                 {hasAdvice &&
                     <div className='grid grid-col'>
-                        <Textarea rows={2} spellCheck={false} className="mt-4 border px-1" value={adviceText}
+                        <Textarea rows={2} spellCheck={false} className="mt-4 border rounded-[5px] px-1" value={adviceText}
                             onChange={(e) => {
                                 handleAdviceTextChange(e.target.value)
                             }} />

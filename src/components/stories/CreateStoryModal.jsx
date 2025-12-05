@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ModalPage3 from './ModalPage3';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
-    if (!open) return null;
+    if (!isOpen) return null;
 
     const { t } = useTranslation("components");
     const instructions = [

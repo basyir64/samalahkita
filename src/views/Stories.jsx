@@ -4,7 +4,7 @@ import '../index.css';
 import { useParams } from "react-router";
 import CreateStoryModal from '../components/stories/CreateStoryModal';
 import { useTranslation } from 'react-i18next';
-import Typewriter from '../components/custom/Typewriter';
+import Typewriter from '../components/custom-inputs/Typewriter';
 
 export default function Stories() {
     const params = useParams();

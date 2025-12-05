@@ -1,7 +1,7 @@
 import "../../index.css"
 import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
-import { useAllSituations } from "../../services/situationsService";
+import { useSituationService } from "../../hooks/useSituationService";
 
 export default function Marquee({ size, story, setStory }) {
 
@@ -37,9 +37,9 @@ export default function Marquee({ size, story, setStory }) {
       "category": "main"
     }
   ]).current;
-  // situationsRef.forEach(s => {
-  //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
-  // });
+  situationsRef.forEach(s => {
+    s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
+  });
 
   const [selectedSituations, setSelectedSituations] = useState([]);
 
@@ -68,7 +68,7 @@ export default function Marquee({ size, story, setStory }) {
     setSelectedSituations(story?.otherSituations);
   }, [story?.otherSituations])
 
-  const { situations, loading } = useAllSituations();
+  const { situations, loading } = useSituationService();
 
   useEffect(() => {
     console.log(JSON.stringify(situations, null, 2));

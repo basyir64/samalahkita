@@ -1,7 +1,7 @@
 import '../../index.css';
 import { useTranslation } from 'react-i18next';
-import Typewriter from '../custom/Typewriter';
-import MySearchbar from '../custom/MySearchbar';
+import Typewriter from '../custom-inputs/Typewriter';
+import HomeSearchBar from '../custom-inputs/HomeSearchBar';
 
 export default function Face() {
     const { t } = useTranslation("components");
@@ -12,12 +12,12 @@ export default function Face() {
                 {t('title')}
             </div>
             <div className='flex justify-center gap-4'>
-                <MySearchbar/>
+                <HomeSearchBar/>
                 {/* <span>add</span> add button inside result */}
             </div>
             <div className='my-10 grid grid-col justify-center gap-4'>
                 <span className='text-center'> {t('intro')} </span>
-                <span>luahan user tak perlu tulis panjang2 sbb boleh pilih situations</span>
+                <span>guide guide guide</span>
             </div>
         </div>
     )

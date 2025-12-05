@@ -2,8 +2,8 @@ import '../../index.css';
 import { Radio, RadioGroup, Field, Checkbox } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MyCheckbox from '../custom/MyCheckbox';
-import MySelect from '../custom/MySelect';
+import MyCheckbox from '../custom-inputs/MyCheckbox';
+import MySelect from '../custom-inputs/MySelect';
 
 export default function ModalPage2({ isCurrent, story, setStory }) {
     if (!isCurrent) return null;
