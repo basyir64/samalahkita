@@ -10,7 +10,7 @@ export default function CardStack({ stack }) {
     };
 
     return (
-        <div className="relative w-[800px] h-[400px] mb-10">
+        <div className="relative w-[800px] h-[400px] mt-45 mb-10">
             {stack.map((card, idx) => {
 
                 // compute offset order: rotate so activeIndex becomes top
@@ -22,14 +22,14 @@ export default function CardStack({ stack }) {
                     <div
                         key={card.id}
                         onClick={order === 0 ? onCardClick : undefined}
-                        className="pill-card absolute inset-0 transition-all duration-500 ease-in-out"
+                        className="pill-stack-card absolute inset-0 transition-all duration-500 ease-in-out"
                         style={{
-                            transform: `translateX(${offsetY}px)`,
+                            transform: `translateY(${offsetY}px)`,
                             zIndex,
                         }}
                     >
                         <div className='flex justify-between mb-4'>
-                            <span className='text-lg'>{card.content}</span>
+                            <span className='text-xl'>{card.content}</span>
                             <span className='flex gap-4'>
                                 <span>Cerita</span>
                                 <span>Bacaan</span>

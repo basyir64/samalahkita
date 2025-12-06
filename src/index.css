@@ -7,7 +7,7 @@
   --font-weight: 400;
 
   /* Marquee */
-  --time: 55s;
+  --time: 35s;
   --animate-scroll: scroll var(--time) linear infinite;
   @keyframes scroll {
     0% {
@@ -62,11 +62,18 @@ html {
     duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
 }
 
-.pill-card {
+.pill-stack-card {
   @apply m-[10px] cursor-pointer
     bg-white text-[#030000] px-[30px] py-[25px]
     rounded-[25px] border border-white transition
-    duration-500 shadow-[0px_0px_10px_rgba(0,0,0,0.3)];
+    duration-500 shadow-[0px_-10px_10px_rgba(0,0,0,0.1)];
+}
+
+.pill-card {
+  @apply whitespace-normal break-words w-full
+    bg-white text-[#030000] px-[20px] py-[10px]
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
 }
 
 .pill-modal {
@@ -85,15 +92,20 @@ html {
 
 .pill-searchresult {
   @apply absolute top-full left-0 mt-2
-    whitespace-normal break-words w-[400px]
+    whitespace-normal break-words w-[400px] 
     bg-white px-[5px] py-[5px] z-50
     rounded-[25px] transition duration-500
-    shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
+    shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
+    max-h-60 overflow-y-auto;
 }
 
 .pill-searchresult-item {
   @apply whitespace-normal break-words text-[#030000] px-[10px] py-[5px] hover:bg-[#f1efe3]
   rounded-[25px] cursor-pointer;
+}
+
+.my-tooltip {
+  @apply text-xs h-[16px] px-[6px] border border-gray-400 rounded cursor-pointer hover:bg-[#f1efe3];
 }
 
 .my-radio {

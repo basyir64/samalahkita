@@ -17,7 +17,7 @@ export default function Face() {
             </div>
             <div className='my-10 grid grid-col justify-center gap-4'>
                 <span className='text-center'> {t('intro')} </span>
-                <span>guide guide guide</span>
+                <span className='text-center'>guide guide guide</span>
             </div>
         </div>
     )

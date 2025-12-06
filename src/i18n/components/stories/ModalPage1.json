@@ -1,8 +1,38 @@
 {
-    "en": {
-        "other_situations_instruction": "duck."
-    },
-    "ms": {
-        "other_situations_instruction": "Pilih luahan dibawah untuk latar belakang, sejarah atau situasi anda yang lain jika berkaitan. Tinggalkan jika tiada."
-    }
+  "en": {
+    "gender_field": "Gender",
+    "age_field": "Age",
+    "location_field": "Location",
+    "occupation_field": "Occupation",
+    "secret_user_input": "I prefer not to disclose",
+    "male_user_input": "Male",
+    "female_user_input": "Female",
+    "public_sector_user_input": "Public Sector",
+    "private_sector_user_input": "Private Sector",
+    "student_user_input": "Student",
+    "housewife_user_input": "Housewife",
+    "unemployed_user_input": "Unemployed",
+    "business_owner_user_input": "Business Owner",
+    "freelance_user_input": "Freelance",
+    "rider_user_input": "Rider And Delivery",
+    "agent_user_input": "Affiliate/Agent/Distributor/Dropship, etc."
+  },
+  "ms": {
+    "gender_field": "Jantina",
+    "age_field": "Umur",
+    "location_field": "Lokasi",
+    "occupation_field": "Pekerjaan",
+    "secret_user_input": "Rahsia",
+    "male_user_input": "Lelaki",
+    "female_user_input": "Perempuan",
+    "public_sector_user_input": "Sektor Awam",
+    "private_sector_user_input": "Sektor Swasta",
+    "student_user_input": "Pelajar",
+    "housewife_user_input": "Suri Rumah",
+    "unemployed_user_input": "Penganggur",
+    "business_owner_user_input": "Pemilik Perniagaan",
+    "freelance_user_input": "Pekerja Bebas",
+    "rider_user_input": "Rider/Penghantaran",
+    "agent_user_input": "Affiliate/Agent/Pengedar/Dropship, dsb."
+  }
 }

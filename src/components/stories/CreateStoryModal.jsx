@@ -1,22 +1,21 @@
 import '../../index.css';
 import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useState } from 'react';
-import ModalPage1 from './ModalPage1';
 import ModalPage2 from './ModalPage2';
-import { useTranslation } from 'react-i18next'; 
+import ModalPage1 from './ModalPage1';
+import { useTranslation } from 'react-i18next';
 import ModalPage3 from './ModalPage3';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
-    if (!isOpen) return null;
 
     const { t } = useTranslation("components");
     const instructions = [
         <>
-            {t('story_text_instruction')}
-            {/* ...phone/emel sanitise... */}
+            {t('user_info_instruction')}
         </>,
         <>
-            {t('user_info_instruction')}
+            {t('story_text_instruction')}
+            {/* ...phone/emel sanitise... */}
         </>,
         <>
             {t('send_confirm_instruction')}
@@ -53,14 +52,13 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     const maxOtherSituationsSize = 3;
     function isNextDisabled(currentPage) {
         if (currentPage === 1) {
-            if (!story.textLength || story.textLength > maxTextLength || 
-                (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength)) || 
-                story.otherSituations.length > maxOtherSituationsSize) 
+            if (!story.gender && !story.ageRange && !story.location && !story.sector)
                 return true;
         } else if (currentPage === 2) {
-            if ((!story.gender && !story.ageRange && !story.location && !story.sector) || 
-            !story.isTermsOfUseChecked) 
-            return true;
+            if (!story.textLength || story.textLength > maxTextLength ||
+                (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength)) ||
+                story.otherSituations.length > maxOtherSituationsSize)
+                return true;
         }
         return false;
     }
@@ -75,12 +73,13 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
     return (
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+            <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel className="pill-modal">
-                    <DialogTitle className="">{situation.text}</DialogTitle>
+                    <DialogTitle className="">{situation.name}</DialogTitle>
                     <Description className="text-sm mb-4 text-gray-600">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
-                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize}/>
-                    <ModalPage2 isCurrent={currentPage === 2} story={story} setStory={setStory} />
+                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
+                    <ModalPage2 isOpen={isOpen} isCurrent={currentPage === 2} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize} />
                     <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
                     <div className="flex justify-between gap-4 mt-10">
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>

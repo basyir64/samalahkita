@@ -48,8 +48,8 @@ export default function HomeSearchBar() {
                                     // ))
                                 )
                         }
-                        <div className='pill-searchresult-item underline' onMouseDown={(e) => {
-                            e.preventDefault(); // prevents blur from hiding dropdown
+                        <div className='pill-searchresult-item underline' onPointerDown={(e) => {
+                            e.preventDefault(); // prevents blur from hiding search result
                             setIsSituationModalOpen(true);
                         }}>Add new</div>
                     </div>

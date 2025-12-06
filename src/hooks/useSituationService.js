@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, doc } from "firebase/firestore";
+import { collection, getDocs, query, addDoc, doc, where, getDoc } from "firebase/firestore";
 import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
@@ -11,7 +11,6 @@ import { db } from "../fb_emulator_connect";
 export function useSituationService() {
   const [allSituations, setAllSituations] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [savedSituationRef, setSavedSituationRef] = useState({});
 
   // Load all situations
   async function loadAll() {
@@ -20,23 +19,35 @@ export function useSituationService() {
     const snapshot = await getDocs(collection(db, "situations"));
     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    setAllSituations(data);
-    setLoading(false);
+    setTimeout(() => (
+      setLoading(false)
+    ), 1000);
+    return data;
+
   };
 
   // Load queried situations
-  async function loadByQuery(constraints = []) {
+  async function loadByQuery(constraints) {
     setLoading(true);
 
     const q = query(collection(db, "situations"), ...constraints);
     const snapshot = await getDocs(q);
     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    // console.log(JSON.stringify(snapshot.docs, null, 2))
 
-    setAllSituations(data);
     setLoading(false);
-
     return data; // optional — sometimes people want the result directly
   };
+
+  async function loadById(id) {
+    setLoading(true);
+
+    const docRef = doc(db, "situations", id);
+    const snapshot = await getDoc(docRef);
+    setLoading(false);
+
+    return { id: snapshot.id, ...snapshot.data() };
+  }
 
   async function save(situation) {
     setLoading(true);
@@ -54,8 +65,9 @@ export function useSituationService() {
   return {
     allSituations,
     loading,
-    refresh: loadAll,  // optional
-    querySituations: loadByQuery,
+    loadAll,
+    loadByQuery,
+    loadById,
     save
   };
 }
