@@ -44,7 +44,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, situation, set
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel className="pill-modal">
                     <DialogTitle className="">Create New</DialogTitle>
-                    <Description className="text-sm mb-4 text-gray-600">Add your text below</Description>
+                    <Description className="text-sm mb-4 text-gray-500">Add your text below</Description>
                     <div>
                         <input
                             type="text"
@@ -62,7 +62,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, situation, set
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                         <button
                             disabled={textLength > maxTextLength}
-                            className={`underline ${textLength > maxTextLength ? ` cursor-not-allowed text-gray-400` : ` cursor-pointer`}`}
+                            className={`underline ${textLength > maxTextLength ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
                             onClick={() => handleSaveClick(situation)}>Save</button>
                     </div>
                 </DialogPanel>

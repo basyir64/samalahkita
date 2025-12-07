@@ -1,63 +1,15 @@
 import '../../index.css';
-import { Radio, RadioGroup, Field, Checkbox } from '@headlessui/react';
+import { Radio, RadioGroup, Field } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MyCheckbox from '../custom-inputs/MyCheckbox';
 import MySelect from '../custom-inputs/MySelect';
+import { useUserOptions } from '../../hooks/useUserOptions';
 
 export default function ModalPage1({ isCurrent, story, setStory }) {
 
     const { t } = useTranslation("components");
-
-    const genders = [
-        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
-        { id: 1, text: <>{t('male_user_input')}</>, value: "Male" },
-        { id: 2, text: <>{t('female_user_input')}</>, value: "Female" },
-    ];
-
-    const ageRanges = [
-        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
-        { id: 1, text: "13-17", value: "13-17" },
-        { id: 2, text: "18-25", value: "18-25" },
-        { id: 3, text: "26-30", value: "26-30" },
-    ];
-
-    const locations = [
-        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
-        { id: 1, text: "Johor", value: "johor" },
-        { id: 2, text: "Kedah", value: "kedah" },
-        { id: 3, text: "Kelantan", value: "kelantan" },
-        { id: 4, text: "Melaka", value: "melaka" },
-        { id: 5, text: "Negeri Sembilan", value: "negeri_sembilan" },
-        { id: 6, text: "Pahang", value: "pahang" },
-        { id: 7, text: "Penang", value: "penang" },
-        { id: 8, text: "Perak", value: "perak" },
-        { id: 9, text: "Perlis", value: "perlis" },
-        { id: 10, text: "Sabah", value: "sabah" },
-        { id: 11, text: "Sarawak", value: "sarawak" },
-        { id: 12, text: "Selangor", value: "selangor" },
-        { id: 13, text: "Terengganu", value: "terengganu" },
-        { id: 14, text: "Kuala Lumpur", value: "kuala_lumpur" },
-        { id: 15, text: "Putrajaya", value: "putrajaya" },
-        { id: 16, text: "Labuan", value: "labuan" },
-    ];
-
-
-    const sectors = [
-        { id: 0, text: <>{t('secret_user_input')}</>, value: "" },
-        { id: 1, text: <>{t('public_sector_user_input')}</>, value: "public" },
-        { id: 2, text: <>{t('private_sector_user_input')}</>, value: "private" },
-        { id: 3, text: <>{t('student_user_input')}</>, value: "student" },
-        { id: 4, text: <>{t('housewife_user_input')}</>, value: "housewife" },
-        { id: 5, text: <>{t('freelance_user_input')}</>, value: "freelance" },
-        { id: 6, text: <>{t('rider_user_input')}</>, value: "rider" },
-        { id: 7, text: <>{t('agent_user_input')}</>, value: "agent" },
-        { id: 8, text: <>{t('business_owner_user_input')}</>, value: "business_owner" },
-        { id: 9, text: <>{t('unemployed_user_input')}</>, value: "unemployed" },
-
-    ];
-
-    const [selectedGender, setSelectedGender] = useState(story?.gender || genders[0]);
+    const {genders, ageRanges, locations, sectors} = useUserOptions();
+    const [selectedGender, setSelectedGender] = useState(story?.gender);
     const [selectedAge, setSelectedAge] = useState(story?.ageRange || ageRanges[0]);
     const [selectedLocation, setSelectedLocation] = useState(story?.location || locations[0]);
     const [selectedSector, setSelectedSector] = useState(story?.sector || sectors[0]);

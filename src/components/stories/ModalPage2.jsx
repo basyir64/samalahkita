@@ -73,7 +73,7 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
             </div>
             <div className='grid grid-col'>
                 <div className='flex mt-6 gap-2'>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-500">
                         {isOtherSituationsTooltipOpen ? t('other_situations_instruction_tooltip') : t('other_situations_instruction')}
                     </span>
                     <MyTooltip isOpen={isOtherSituationsTooltipOpen} setIsOpen={setIsOtherSituationsTooltipOpen} />

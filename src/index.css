@@ -62,6 +62,13 @@ html {
     duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
 }
 
+.pill-small-non-interactive {
+    @apply text-xs inline-flex m-[5px] tracking-[0.1em]
+    text-[#030000] px-[10px] py-[5px] 
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
+}
+
 .pill-stack-card {
   @apply m-[10px] cursor-pointer
     bg-white text-[#030000] px-[30px] py-[25px]
@@ -71,7 +78,7 @@ html {
 
 .pill-card {
   @apply whitespace-normal break-words w-full
-    bg-white text-[#030000] px-[20px] py-[10px]
+    bg-white text-[#030000] px-[20px] py-[20px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
 }

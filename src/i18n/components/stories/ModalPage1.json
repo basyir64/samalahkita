@@ -1,8 +1,8 @@
 {
   "en": {
-    "gender_field": "Gender",
+    "gender_field": "Gender *",
     "age_field": "Age",
-    "location_field": "Location",
+    "location_field": "Location (State)",
     "occupation_field": "Occupation",
     "secret_user_input": "I prefer not to disclose",
     "male_user_input": "Male",
@@ -18,9 +18,9 @@
     "agent_user_input": "Affiliate/Agent/Distributor/Dropship, etc."
   },
   "ms": {
-    "gender_field": "Jantina",
+    "gender_field": "Jantina *",
     "age_field": "Umur",
-    "location_field": "Lokasi",
+    "location_field": "Lokasi (Negeri)",
     "occupation_field": "Pekerjaan",
     "secret_user_input": "Rahsia",
     "male_user_input": "Lelaki",

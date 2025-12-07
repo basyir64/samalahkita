@@ -16,30 +16,31 @@ export default function Stories() {
     const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation("views");
 
-    useEffect(() => {   
+    useEffect(() => {
         async function getSituationById() {
             if (loading && !situationid) return;
             const result = await loadById(situationid);
             setSituation(result);
-        }   
+        }
 
         getSituationById();
     }, [situationid]);
 
     return (
-        <div className=''>
-            <div className='grid grid-col justify-center mt-10'>
-                <div className='text-center'>
-                    {loading ? <>Loading...</> :
-                        <div>
+        <div>
+            {loading ?
+                <div className='grid grid-col justify-center mt-10'>Loading...</div> :
+                <div className='grid grid-col justify-center mt-10'>
+                    <div className='text-center'>
+                        <div className='flex justify-center'>
                             <Typewriter text={situation.name} />
                             <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} />
                         </div>
-                    }
-                    <span className='underline cursor-pointer' onClick={() => setIsOpen(true)}>{t('add_story_button')}</span>
+                        <span className='underline cursor-pointer' onClick={() => setIsOpen(true)}>{t('add_story_button')}</span>
+                    </div>
+                    <Feed situation={situation} />
                 </div>
-            </div>
-            <Feed />
+            }
         </div>
     );
 }

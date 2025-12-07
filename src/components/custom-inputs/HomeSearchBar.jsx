@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../../index.css';
 import { useSituationService } from '../../hooks/useSituationService';
 import CreateSituationModal from '../situations/CreateSituationModal';
 import { useTranslation } from 'react-i18next';
-import { where } from "firebase/firestore";
 
 export default function HomeSearchBar() {
     // will scale later, after beta test
     const { t } = useTranslation("components");
-    const { allSituations, loading, querySituations } = useSituationService();
+    const { loadAll, loading } = useSituationService();
     const [keyword, setKeyword] = useState("");
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
     const [isSituationModalOpen, setIsSituationModalOpen] = useState(false);
@@ -18,6 +17,16 @@ export default function HomeSearchBar() {
         setKeyword(keyword);
         // querySituations([where("type", "==", 1)])
     }
+
+    const [allSituations, setAllSituation] = useState([]);
+
+    useEffect(() => {
+        async function getAllSituations() {
+            const result = await loadAll();
+            setAllSituation(result);
+        }
+        getAllSituations();
+    }, [])
 
     return (
         <div>

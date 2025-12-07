@@ -6,7 +6,7 @@
   },
   "ms": {
     "story_text_instruction": "Ceritakan luahan anda.",
-    "user_info_instruction": "Isi sekurang-kurangnya 1 maklumat diri anda.",
+    "user_info_instruction": "Isi sekurang-kurangnya 2 maklumat diri anda.",
     "send_confirm_instruction": "lalalalalal"
   }
 }
