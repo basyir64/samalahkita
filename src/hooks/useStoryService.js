@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, doc, where, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, addDoc, orderBy, startAfter, limit } from "firebase/firestore";
 import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
@@ -8,8 +8,9 @@ import { db } from "../fb_emulator_connect";
 // import and export dev data, and temporarily allow self signed certs (command session)->
 // NODE_TLS_REJECT_UNAUTHORIZED=0 firebase emulators:start --import=./firestore-export --export-on-exit=./firestore-export --only firestore
 
-export function useStoryService() { 
+export function useStoryService() {
     const [loading, setLoading] = useState(false);
+    const [lastVisibleStory, setLastVisibleStory] = useState({});
 
     // Load all stories
     async function loadAll() {
@@ -44,8 +45,32 @@ export function useStoryService() {
         // console.log(JSON.stringify(snapshot.docs, null, 2))
 
         setLoading(false);
-        return data; 
+        return data;
     };
+
+    async function loadFirstPage(constraints = []) {
+        setLoading(true);
+        // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
+        const first = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), limit(1));
+        const snapshot = await getDocs(first);
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
+        setLoading(false);
+        return data;
+    }
+
+    async function loadNextPage(constraints = []) {
+        if (!lastVisibleStory) return [];
+        setLoading(true);
+        const next = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), startAfter(lastVisibleStory), limit(1));
+        const snapshot = await getDocs(next);
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
+        setLoading(false);
+        return data;
+    }
 
     // Load all on mount
     //   useEffect(() => {
@@ -54,6 +79,8 @@ export function useStoryService() {
 
     return {
         loading,
+        loadFirstPage,
+        loadNextPage,
         loadAll,
         loadByQuery,
         // loadById,

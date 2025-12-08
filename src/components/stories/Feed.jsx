@@ -5,17 +5,22 @@ import StoryCard from './StoryCard';
 import { where } from 'firebase/firestore';
 
 export default function Feed({ situation }) {
-    const { loadByQuery, loading } = useStoryService();
+    const { loadByQuery, loading, loadFirstPage, loadNextPage } = useStoryService();
     const [stories, setStories] = useState([]);
 
     useEffect(() => {
-        async function getStoriesBySituationId() {
-            const result = await loadByQuery([where("situationId", "==", situation.id)])
+        async function getStoriesFirstPage() {
+            const result = await loadFirstPage([where("situationId", "==", situation.id)])
             setStories(result);
         }
 
-        getStoriesBySituationId();
+        getStoriesFirstPage();
     }, [])
+
+    async function handleNextClick() {
+        const result = await loadNextPage([where("situationId", "==", situation.id)]);
+        setStories(prev => ([...prev, ...result]));
+    }
 
     return (
         <div className='flex flex-wrap my-8'>
@@ -28,6 +33,7 @@ export default function Feed({ situation }) {
                             <hr className='my-6 border-t-2 border-gray-200'/>
                         </div>
                     )}
+                    <button onClick={() => handleNextClick()} className='cursor-pointer'>Next</button>
                 </div>
             }
         </div>

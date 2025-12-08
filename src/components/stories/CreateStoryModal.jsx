@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ModalPage3 from './ModalPage3';
 import { useStoryService } from '../../hooks/useStoryService';
 import { useUserOptions } from '../../hooks/useUserOptions';
+import { serverTimestamp } from 'firebase/firestore';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
@@ -43,7 +44,9 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             gender: genders[0].value,
             location: "",
             sector: "",
-            isTermsOfUseChecked: false
+            isTermsOfUseChecked: false,
+            sticker: "",
+            createdAt: null,
         });
     const maxTextLength = 200;
     const maxAdviceTextLength = 100;
@@ -71,22 +74,21 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
     const [storySave, setStorySave] = useState({});
     const { save, loading } = useStoryService();
-    const date = new Date().toLocaleDateString("en-GB");
-    const time = new Date().toLocaleTimeString("en-GB");
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
         setStorySave({
-            date: `${date},${time}`,
+            createdAt: serverTimestamp(),
             text: story.text,
             situationId: situation.id,
-            ...(story.gender && { gender: story.gender }),
+            gender: story.gender,
             ...(story.ageRange && { ageRange: story.ageRange }),
             ...(story.location && { location: story.location }),
             ...(story.sector && { sector: story.sector }),
             ...(story.otherSituations.length > 0 && { otherSituations: story.otherSituations.map(s => s.name) }),
             ...(story.hasAdvice && { adviceText: story.adviceText }),
+            ...(story.sticker && { sticker: story.sticker }),
         });
     }, [story])
 
@@ -102,37 +104,39 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     }
 
     return (
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-            <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
-            <div className="fixed inset-0 flex items-center justify-center p-4">
-                <DialogPanel className="pill-modal">
-                    <DialogTitle className="">{situation.name}</DialogTitle>
-                    <Description className="text-sm mb-4 text-gray-500">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
-                    {/* {JSON.stringify(storySave, null, 2)} */}
-                    <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
-                    <ModalPage2 isOpen={isOpen} isCurrent={currentPage === 2} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize} />
-                    <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
-                    <div className='text-right mt-10 mb-2'>{message}</div>
-                    <div className="flex justify-between gap-4">
-                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
-                        <div className='flex gap-4'>
-                            {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
-                            {currentPage === pages[pages.length - 1].id ?
-                                <button
-                                    disabled={loading}
-                                    className={`underline ${loading ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
-                                    onClick={() => handleSaveClick(storySave)}>
-                                    {loading ? "Loading..." : "Save"}
-                                </button> :
-                                <button
-                                    disabled={isNextDisabled(currentPage)}
-                                    className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext(currentPage)}>
-                                    {t('next_button')}
-                                </button>}
+        <div>
+            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50"> 
+                <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
+                <div className="fixed inset-0 flex items-center justify-center p-4">
+                    <DialogPanel className="pill-modal">
+                        <DialogTitle className="">{situation.name}</DialogTitle>
+                        <Description className="text-sm mb-4 text-gray-500">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
+                        {/* {JSON.stringify(storySave, null, 2)} */}
+                        <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
+                        <ModalPage2 isCurrent={currentPage === 2} isOpen={isOpen} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize} />
+                        <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
+                        <div className='text-right mt-10 mb-2'>{message}</div>
+                        <div className="flex justify-between gap-4">
+                            <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
+                            <div className='flex gap-4'>
+                                {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
+                                {currentPage === pages[pages.length - 1].id ?
+                                    <button
+                                        disabled={loading}
+                                        className={`underline ${loading ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                                        onClick={() => handleSaveClick(storySave)}>
+                                        {loading ? "Loading..." : "Save"}
+                                    </button> :
+                                    <button
+                                        disabled={isNextDisabled(currentPage)}
+                                        className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext(currentPage)}>
+                                        {t('next_button')}
+                                    </button>}
+                            </div>
                         </div>
-                    </div>
-                </DialogPanel>
-            </div>
-        </Dialog>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+        </div>
     );
 }
