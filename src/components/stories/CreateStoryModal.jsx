@@ -46,6 +46,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             sector: "",
             isTermsOfUseChecked: false,
             sticker: "",
+            profile: `apple-svgrepo-com.png`,
             createdAt: null,
         });
     const maxTextLength = 200;
@@ -89,6 +90,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             ...(story.otherSituations.length > 0 && { otherSituations: story.otherSituations.map(s => s.name) }),
             ...(story.hasAdvice && { adviceText: story.adviceText }),
             ...(story.sticker && { sticker: story.sticker }),
+            ...(story.profile && { profile: story.profile }),
         });
     }, [story])
 
@@ -105,7 +107,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
     return (
         <div>
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50"> 
+            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
                 <div className="fixed inset-0 flex items-center justify-center p-4">
                     <DialogPanel className="pill-modal">

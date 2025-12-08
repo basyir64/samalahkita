@@ -63,7 +63,7 @@ html {
 }
 
 .pill-small-non-interactive {
-    @apply text-xs inline-flex m-[5px] tracking-[0.1em]
+    @apply text-xs inline-flex my-[5px] tracking-[0.1em]
     text-[#030000] px-[10px] py-[5px] 
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
