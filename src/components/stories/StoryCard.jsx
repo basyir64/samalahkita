@@ -75,8 +75,8 @@ export default function StoryCard({ story, setStory, isPreview }) {
             <div className='flex justify-between'>
                 <div className='flex gap-2'>
                     {isPreview ?
-                        <div><img className='w-15 cursor-pointer' src={selectedProfileUrl} onClick={() => setIsProfileBoxOpen(!isProfileBoxOpen)} /></div> :
-                        <div><img className='w-20' src={`${STICKERS_BASE_URL}/${story.profile}`} /></div>
+                        <div><img className='w-24 cursor-pointer' src={selectedProfileUrl} onClick={() => setIsProfileBoxOpen(!isProfileBoxOpen)} /></div> :
+                        <div><img className='w-24' src={`${STICKERS_BASE_URL}/${story.profile}`} /></div>
                     }
                     {arrangeHeaderItems(sectorAndGender, ageRange, location)}
                 </div>
@@ -89,7 +89,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
                         <span className='text-sm text-gray-500'>Pilih ikon profile. Tekan semula untuk tutup.</span>
                         <div className='flex flex-wrap w-full max-h-30 gap-2 overflow-y-auto'>
                             {profileUrls.map((url, i) => (
-                                <img key={i} className='w-16 cursor-pointer' src={url} onClick={() => handleSelectProfileClick(url)} />
+                                <img key={i} className='w-24 cursor-pointer' src={url} onClick={() => handleSelectProfileClick(url)} />
                             ))}
                         </div>
                     </div>}
