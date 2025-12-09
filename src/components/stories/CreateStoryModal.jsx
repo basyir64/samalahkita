@@ -45,8 +45,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             location: "",
             sector: "",
             isTermsOfUseChecked: false,
-            sticker: "",
-            profile: `apple-svgrepo-com.png`,
+            profile: `watery_eye_cat.webp`,
             createdAt: null,
         });
     const maxTextLength = 200;
@@ -89,7 +88,6 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             ...(story.sector && { sector: story.sector }),
             ...(story.otherSituations.length > 0 && { otherSituations: story.otherSituations.map(s => s.name) }),
             ...(story.hasAdvice && { adviceText: story.adviceText }),
-            ...(story.sticker && { sticker: story.sticker }),
             ...(story.profile && { profile: story.profile }),
         });
     }, [story])

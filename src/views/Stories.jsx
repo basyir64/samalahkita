@@ -6,7 +6,7 @@ import CreateStoryModal from '../components/stories/CreateStoryModal';
 import { useTranslation } from 'react-i18next';
 import Typewriter from '../components/custom-inputs/Typewriter';
 import { useSituationService } from '../hooks/useSituationService';
-import { where } from 'firebase/firestore';
+import { useDetectScroll } from '../hooks/useDetectScroll';
 
 export default function Stories() {
     const params = useParams();
@@ -15,6 +15,7 @@ export default function Stories() {
     const [situation, setSituation] = useState({})
     const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation("views");
+    const { isScrollingUp } = useDetectScroll();
 
     useEffect(() => {
         async function getSituationById() {
@@ -30,15 +31,21 @@ export default function Stories() {
         <div>
             {loading ?
                 <div className='grid grid-col justify-center mt-10'>Loading...</div> :
-                <div className='grid grid-col justify-center mt-10'>
-                    <div className='text-center'>
-                        <div className='flex justify-center'>
-                            <Typewriter text={situation.name} />
-                            <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} />
+                <div>
+                    <div className={`sticky ${isScrollingUp ? "top-14" : "top-2"} z-40 py-4 grid grid-col justify-center`}>
+                            <div className='pill-feed-title'>
+                               <Typewriter text={situation.name} />
+                            </div>
                         </div>
-                        <span className='underline cursor-pointer' onClick={() => setIsOpen(true)}>{t('add_story_button')}</span>
+                    <div className='grid grid-col justify-center mt-2'>
+                        <div className='text-center'>
+                            <div className='flex justify-center'>
+                                <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} />
+                            </div>
+                            <span className='underline cursor-pointer' onClick={() => setIsOpen(true)}>{t('add_story_button')}</span>
+                        </div>
+                        <Feed situation={situation} />
                     </div>
-                    <Feed situation={situation} />
                 </div>
             }
         </div>

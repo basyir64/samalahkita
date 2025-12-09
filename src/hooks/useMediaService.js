@@ -23,7 +23,7 @@ export function useMediaService() {
     }
 
     async function loadAllProfileUrls() {
-        const result = await fetch(`${PROFILES_API_URL}`);
+        const result = await fetch(`${STICKERS_API_URL}`);
         const files = await result.json();
         return files
             .filter(f => /\.(png|jpg|jpeg|webp)$/i.test(f.name))

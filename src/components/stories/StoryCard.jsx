@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export default function StoryCard({ story, setStory, isPreview }) {
 
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
-    const { STICKERS_BASE_URL, PROFILES_BASE_URL, loadAllStickerUrls, loadAllProfileUrls } = useMediaService();
+    const { STICKERS_BASE_URL, loadAllProfileUrls } = useMediaService();
     const sectorAndGender = [
         `${story.gender ? getTranslatedGenderText(story.gender) : ""}`,
         `${story.sector ? getTranslatedSectorText(story.sector) : ""}`]
@@ -15,13 +15,14 @@ export default function StoryCard({ story, setStory, isPreview }) {
     const ageRange = story.ageRange ? story.ageRange + " tahun" : "";
     const location = story.location ? getLocationText(story.location) : "";
     const date = new Date().toLocaleDateString("en-GB");
-    const [isStickerBoxOpen, setIsStickerBoxOpen] = useState(false);
-    const [stickerUrls, setStickerUrls] = useState([]);
-    const [selectedStickerUrl, setSelectedStickerUrl] = useState(story.sticker ? `${STICKERS_BASE_URL}/${story.sticker}` : "");
+
+    // const [isStickerBoxOpen, setIsStickerBoxOpen] = useState(false);
+    // const [stickerUrls, setStickerUrls] = useState([]);
+    // const [selectedStickerUrl, setSelectedStickerUrl] = useState(story.sticker ? `${STICKERS_BASE_URL}/${story.sticker}` : "");
 
     const [isProfileBoxOpen, setIsProfileBoxOpen] = useState(false);
     const [profileUrls, setProfileUrls] = useState([]);
-    const [selectedProfileUrl, setSelectedProfileUrl] = useState(story.profile ? `${PROFILES_BASE_URL}/${story.profile}` : `${STICKERS_BASE_URL}/watery_eye_cat.webp`);
+    const [selectedProfileUrl, setSelectedProfileUrl] = useState(story.profile ? `${STICKERS_BASE_URL}/${story.profile}` : `${STICKERS_BASE_URL}/watery_eye_cat.webp`);
 
     function arrangeHeaderItems(sectorAndGender, ageRange, location) {
         if (!sectorAndGender && !location) return <div className='flex text-xs'>{ageRange}</div>
@@ -37,32 +38,32 @@ export default function StoryCard({ story, setStory, isPreview }) {
     }
 
     useEffect(() => {
-        async function getAllStickerUrls() {
-            const urls = await loadAllStickerUrls();
-            setStickerUrls(urls);
-        }
+        // async function getAllStickerUrls() {
+        //     const urls = await loadAllStickerUrls();
+        //     setStickerUrls(urls);
+        // }
         async function getAllProfileUrls() {
             const urls = await loadAllProfileUrls();
             setProfileUrls(urls);
         }
 
-        if (isStickerBoxOpen) getAllStickerUrls();
+        // if (isStickerBoxOpen) getAllStickerUrls();
         if (isProfileBoxOpen) getAllProfileUrls();
-    }, [isStickerBoxOpen, isProfileBoxOpen]);
+    }, [isProfileBoxOpen]);
 
 
-    function handleSelectStickerClick(url) {
-        setSelectedStickerUrl(url);
-        const sticker = url.split("admin/")[1];
-        setStory(prev => ({
-            ...prev,
-            sticker: sticker
-        }))
-    }
+    // function handleSelectStickerClick(url) {
+    //     setSelectedStickerUrl(url);
+    //     const sticker = url.split("admin/")[1];
+    //     setStory(prev => ({
+    //         ...prev,
+    //         sticker: sticker
+    //     }))
+    // }
 
     function handleSelectProfileClick(url) {
         setSelectedProfileUrl(url);
-        const profile = url.split("profiles/")[1];
+        const profile = url.split("admin/")[1];
         setStory(prev => ({
             ...prev,
             profile: profile
@@ -75,7 +76,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
                 <div className='flex gap-2'>
                     {isPreview ?
                         <div><img className='w-15 cursor-pointer' src={selectedProfileUrl} onClick={() => setIsProfileBoxOpen(!isProfileBoxOpen)} /></div> :
-                        <div><img className='w-20' src={`${PROFILES_BASE_URL}/${story.sticker}`} /></div>
+                        <div><img className='w-20' src={`${STICKERS_BASE_URL}/${story.profile}`} /></div>
                     }
                     {arrangeHeaderItems(sectorAndGender, ageRange, location)}
                 </div>
@@ -94,7 +95,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
                     </div>}
                 </div>}
             <div className='my-4'>{story.text}</div>
-            {isPreview ?
+            {/* {isPreview ?
                 (selectedStickerUrl ?
                     <div>
                         <img
@@ -107,8 +108,8 @@ export default function StoryCard({ story, setStory, isPreview }) {
                         Sticker
                     </div>) :
                 <div><img className='w-40' src={`${STICKERS_BASE_URL}/${story.sticker}`} /></div>
-            }
-            {isPreview &&
+            } */}
+            {/* {isPreview &&
                 <div className='flex flex-wrap'>
                     {isStickerBoxOpen &&
                         <div className='mt-2'>
@@ -119,7 +120,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
                                 ))}
                             </div>
                         </div>}
-                </div>}
+                </div>} */}
             {story.otherSituations.length > 0 &&
                 <div className='mt-6'>
                     <div className='text-sm text-gray-500'>Situasi lain</div>

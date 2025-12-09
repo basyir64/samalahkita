@@ -55,6 +55,13 @@ html {
     duration-500 shadow-[-3px_5px_5px_rgba(0,0,0,0.3)];
 }
 
+.pill-feed-title {
+    @apply inline-flex tracking-[0.1em]
+    bg-white text-[#030000] px-[20px] py-[15px]
+    rounded-[25px] transition bg-white/10 backdrop-blur-md
+    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
+}
+
 .pill-small {
     @apply text-xs hover:bg-[#f1efe3] inline-flex m-[5px] tracking-[0.1em]
     text-[#030000] px-[10px] py-[5px] cursor-pointer

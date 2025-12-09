@@ -49,26 +49,22 @@ export function useStoryService() {
     };
 
     async function loadFirstPage(constraints = []) {
-        setLoading(true);
         // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
         const first = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), limit(1));
         const snapshot = await getDocs(first);
         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
         setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
-        setLoading(false);
         return data;
     }
 
     async function loadNextPage(constraints = []) {
         if (!lastVisibleStory) return [];
-        setLoading(true);
         const next = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), startAfter(lastVisibleStory), limit(1));
         const snapshot = await getDocs(next);
         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
         setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
-        setLoading(false);
+        
         return data;
     }
 
@@ -81,7 +77,6 @@ export function useStoryService() {
         loading,
         loadFirstPage,
         loadNextPage,
-        loadAll,
         loadByQuery,
         // loadById,
         save
