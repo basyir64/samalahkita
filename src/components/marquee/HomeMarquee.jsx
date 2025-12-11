@@ -1,25 +1,26 @@
 import "../../index.css"
-import { Link } from "react-router";
 import { useSituationService } from "../../hooks/useSituationService";
 import Pill from "./Pill";
 import { useState, useEffect } from "react";
 
-export default function HomeMarquee({ size, story, setStory }) {
-    const { loadAll, loading } = useSituationService();
+export default function HomeMarquee({ size }) {
+    const { loadAll } = useSituationService();
     const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
     const [allSituations, setAllSituation] = useState([]);
+    const [isSituationsLoading, setIsSituationsLoading] = useState(true);
 
     useEffect(() => {
         async function getAllSituations() {
             const result = await loadAll();
             setAllSituation(result);
+            setIsSituationsLoading(false);
         }
         getAllSituations();
     }, [])
 
     return (
         <div>
-            {loading ?
+            {isSituationsLoading ?
                 <div className="text-center">Loading...</div> :
                 rows.map(row => {
                     const shuffledIds = shuffle(allSituations.map(situation => situation.id));

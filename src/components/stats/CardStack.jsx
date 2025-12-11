@@ -2,21 +2,21 @@ import '../../index.css';
 
 import { useState } from "react";
 
-export default function CardStack({ stack }) {
+export default function CardStack({ stack: list }) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const onCardClick = () => {
-        setActiveIndex((i) => (i + 1) % stack.length);
+        setActiveIndex((i) => (i + 1) % list.length);
     };
 
     return (
         <div className="relative w-[800px] h-[400px] mt-45 mb-10">
-            {stack.map((card, idx) => {
+            {list.map((card, idx) => {
 
                 // compute offset order: rotate so activeIndex becomes top
-                const order = (idx - activeIndex + stack.length) % stack.length;
+                const order = (idx - activeIndex + list.length) % list.length;
                 const offsetY = order * -40; // px or rem
-                const zIndex = stack.length - order;
+                const zIndex = list.length - order;
 
                 return (
                     <div

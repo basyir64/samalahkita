@@ -6,10 +6,11 @@ import Pill from "./Pill";
 
 export default function OtherSituationsMarquee({ isOpen, size, story, setStory }) {
   const situationsRef = useRef([]);
-  const { loadAll, loading } = useSituationService();
+  const { loadAll } = useSituationService();
   const [selectedSituations, setSelectedSituations] = useState([]);
   const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
   const shuffledRowsRef = useRef([]);
+  const [isSituationsLoading, setIsSituationsLoading] = useState(true);
 
   useEffect(() => {
     async function getAllSituations() {
@@ -21,6 +22,7 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory }
       shuffledRowsRef.current = rows.map(() =>
         shuffle(situationsRef.current.map(s => s.id))
       );
+      setIsSituationsLoading(false);
     }
     if (isOpen) getAllSituations();
   }, [isOpen])
@@ -51,7 +53,7 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory }
 
   return (
     <div className={`${size === "small" ? "grid grid-col width-[100px]" : ""}`}>
-      {loading ?
+      {isSituationsLoading ?
         <div className="text-center">Loading...</div> :
         rows.map((row, i) => (
           <div key={row.id} className="relative flex overflow-hidden">

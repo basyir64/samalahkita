@@ -49,7 +49,7 @@ export default function Feed({ situation }) {
     }
 
     return (
-        <div className='flex flex-wrap my-8'>
+        <div className='flex flex-wrap my-4'>
             {storiesRef.current.length > 0 ?
                 <div className='flex flex-col w-full'>
                     {storiesRef.current.map(s =>

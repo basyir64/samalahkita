@@ -14,14 +14,8 @@ export function useSituationService() {
 
   // Load all situations
   async function loadAll() {
-    setLoading(true);
-
     const snapshot = await getDocs(collection(db, "situations"));
     const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    setTimeout(() => (
-      setLoading(false)
-    ), 1000);
     return data;
 
   };
@@ -40,11 +34,8 @@ export function useSituationService() {
   };
 
   async function loadById(id) {
-    setLoading(true);
-
     const docRef = doc(db, "situations", id);
     const snapshot = await getDoc(docRef);
-    setLoading(false);
 
     return { id: snapshot.id, ...snapshot.data() };
   }

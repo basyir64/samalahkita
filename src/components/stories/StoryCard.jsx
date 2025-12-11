@@ -1,11 +1,14 @@
 import '../../index.css';
 import { useUserOptions } from '../../hooks/useUserOptions';
 import { useMediaService } from '../../hooks/useMediaService';
-import { useEffect, useState } from 'react';
+import { useStoryService } from '../../hooks/useStoryService';
+import useDateFormatter from '../../hooks/useDateFormatter';
+import { useEffect, useState, useRef } from 'react';
 
 export default function StoryCard({ story, setStory, isPreview }) {
 
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
+    const { updateViews } = useStoryService();
     const { STICKERS_BASE_URL, loadAllProfileUrls } = useMediaService();
     const sectorAndGender = [
         `${story.gender ? getTranslatedGenderText(story.gender) : ""}`,
@@ -70,6 +73,38 @@ export default function StoryCard({ story, setStory, isPreview }) {
         }))
     }
 
+    function addViewedStory(storyId) {
+        const viewed = JSON.parse(localStorage.getItem("viewedStories") || "[]");
+        if (!viewed.includes(storyId)) {
+            viewed.push(storyId);
+            localStorage.setItem("viewedStories", JSON.stringify(viewed));
+        }
+    }
+
+    function hasViewedStory(storyId) {
+        const viewed = JSON.parse(localStorage.getItem("viewedStories") || "[]");
+        return viewed.includes(storyId);
+    }
+
+    useEffect(() => {
+        async function updateStoryViews(id) {
+            if (hasViewedStory(id)) return;
+
+            addViewedStory(id)
+            const isSuccess = await updateViews(id);
+            if (!isSuccess) {
+                console.log("error updating")
+                return;
+            }
+        }
+
+        if (!isPreview) {
+            updateStoryViews(story.id);
+        }
+    }, [isPreview])
+
+    const { formattedDate, formattedTime } = useDateFormatter(story.createdAt);
+
     return (
         <div className={`grid grid-col`}>
             <div className='flex justify-between'>
@@ -80,7 +115,12 @@ export default function StoryCard({ story, setStory, isPreview }) {
                     }
                     {arrangeHeaderItems(sectorAndGender, ageRange, location)}
                 </div>
-                {/* <span className='text-gray-500 text-sm'>{story.createdAt.toDate()}</span> */}
+                {!isPreview &&
+                    <div className='flex flex-col text-right'>
+                        <div className='text-gray-500 text-sm'>{formattedDate}</div>
+                        <div className='text-gray-500 text-sm'>{formattedTime}</div>
+                        <div className='text-gray-500 text-xs'>{story.views + (story.views > 1 ? " views" : " view")}</div>
+                    </div>}
             </div>
             {/* {story.createdAt.toDate()} */}
             {isPreview &&
@@ -121,13 +161,14 @@ export default function StoryCard({ story, setStory, isPreview }) {
                             </div>
                         </div>}
                 </div>} */}
-            {story.otherSituations.length > 0 &&
+            {story.otherSituations?.length > 0 &&
                 <div className='mt-6'>
-                    <div className='text-sm text-gray-500'>Situasi lain</div>
+                    <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
                     <div className='flex flex-wrap gap-2'>
+                        {!isPreview && <div className='my-[5px]'>#</div>}
                         {story.otherSituations.map((s, i) => (
                             <div key={i} className='pill-small-non-interactive'>
-                                {s.name ? s.name : s}
+                                {isPreview ? s.name : s}
                             </div>
                         ))}
                     </div>

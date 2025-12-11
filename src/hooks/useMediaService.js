@@ -10,6 +10,8 @@ export function useMediaService() {
     const PROFILES_BASE_URL = `${BASE_URL}/profiles`;
     const PROFILES_API_URL = `${API_URL}/profiles`;
 
+    const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system`;
+
     function loadStickerUrlByFilename(name) {
         return `${STICKERS_BASE_URL}/stickers/admin/${name}`;
     }
@@ -33,6 +35,7 @@ export function useMediaService() {
     return {
         STICKERS_BASE_URL,
         PROFILES_BASE_URL,
+        SYSTEM_ICON_BASE_URL,
         loadAllStickerUrls,
         loadAllProfileUrls
     }

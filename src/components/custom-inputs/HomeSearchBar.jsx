@@ -12,10 +12,10 @@ export default function HomeSearchBar() {
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
     const [isSituationModalOpen, setIsSituationModalOpen] = useState(false);
     const [situation, setSituation] = useState({ name: "", nameLength: 0, type: 1 });
+    const [isLoadingSituations, setIsLoadingSituations] = useState(true);
 
     function handleKeywordChange(keyword) {
         setKeyword(keyword);
-        // querySituations([where("type", "==", 1)])
     }
 
     const [allSituations, setAllSituation] = useState([]);
@@ -24,6 +24,7 @@ export default function HomeSearchBar() {
         async function getAllSituations() {
             const result = await loadAll();
             setAllSituation(result);
+            setIsLoadingSituations(false);
         }
         getAllSituations();
     }, [])
@@ -43,7 +44,7 @@ export default function HomeSearchBar() {
                 {isSearchBarFocused && (
                     <div className="pill-searchresult">
                         {
-                            loading ?
+                            isLoadingSituations ?
                                 <div className='pill-searchresult-item'>Loading...</div> :
                                 (
                                     keyword &&

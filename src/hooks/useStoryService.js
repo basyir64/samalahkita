@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, orderBy, startAfter, limit } from "firebase/firestore";
+import { collection, getDocs, query, addDoc, orderBy, startAfter, limit, updateDoc, increment, doc } from "firebase/firestore";
 import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
@@ -64,14 +64,22 @@ export function useStoryService() {
         const snapshot = await getDocs(next);
         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
-        
+
         return data;
     }
 
-    // Load all on mount
-    //   useEffect(() => {
-    //     loadAll();
-    //   }, []);
+    async function updateViews(id) {
+        try {
+            const storyRef = doc(db, "stories", id);
+            await updateDoc(storyRef, {
+                views: increment(1)
+            });
+            return true;
+        } catch (error) {
+            console.log("Error updating views: " + error)
+            return false;
+        }
+    }
 
     return {
         loading,
@@ -79,7 +87,8 @@ export function useStoryService() {
         loadNextPage,
         loadByQuery,
         // loadById,
-        save
+        save,
+        updateViews
     };
 }
 

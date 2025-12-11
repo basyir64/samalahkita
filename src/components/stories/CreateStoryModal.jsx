@@ -80,6 +80,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     useEffect(() => {
         setStorySave({
             createdAt: serverTimestamp(),
+            views: 0,
             text: story.text,
             situationId: situation.id,
             gender: story.gender,
