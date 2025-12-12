@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, orderBy, startAfter, limit, updateDoc, increment, doc } from "firebase/firestore";
+import { collection, getDocs, query, addDoc, orderBy, startAfter, limit, updateDoc, increment, doc, getCountFromServer, getAggregateFromServer, sum, runTransaction } from "firebase/firestore";
 import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
@@ -28,9 +28,25 @@ export function useStoryService() {
 
     // save story
     async function save(story) {
-        setLoading(true);
-        const docRef = await addDoc(collection(db, "stories"), story);
-        setLoading(false);
+        // const docRef = await addDoc(collection(db, "stories"), story);
+
+        const storyRef = doc(collection(db, "stories"));
+        const situationRef = doc(db, "situations", story.situationId);
+
+        try {
+            await runTransaction(db, async (transaction) => {
+                transaction.set(storyRef, story);
+                transaction.update(situationRef, {
+                    storiesCount: increment(1),
+                });
+            });
+            // console.log("Transaction successfully committed!");
+            return true;
+        } catch (e) {
+            console.log("Transaction failed: ", e);
+            return false;
+        }
+
 
         return docRef;
     }
@@ -81,6 +97,34 @@ export function useStoryService() {
         }
     }
 
+    async function countAllStories() {
+        try {
+            const coll = collection(db, "stories");
+            const snapshot = await getCountFromServer(coll);
+            const count = snapshot.data().count;
+            // console.log('count: ', count);
+            return count;
+        } catch (error) {
+            console.error("Firestore Error getting count: " + error);
+            return false;
+        }
+    }
+
+    async function sumAllViews() {
+        try {
+            const coll = collection(db, 'stories');
+            const snapshot = await getAggregateFromServer(coll, {
+                totalViews: sum('views')
+            });
+            const viewsSum = snapshot.data().totalViews;
+            return viewsSum;
+
+        } catch (error) {
+            console.error("Firestore Error getting sum: " + error);
+            return false;
+        }
+    }
+
     return {
         loading,
         loadFirstPage,
@@ -88,7 +132,9 @@ export function useStoryService() {
         loadByQuery,
         // loadById,
         save,
-        updateViews
+        updateViews,
+        countAllStories,
+        sumAllViews
     };
 }
 

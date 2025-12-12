@@ -73,9 +73,10 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     }
 
     const [storySave, setStorySave] = useState({});
-    const { save, loading } = useStoryService();
+    const { save } = useStoryService();
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [message, setMessage] = useState("");
+    const [isSaveLoading, setIsSaveLoading] = useState(false);
 
     useEffect(() => {
         setStorySave({
@@ -94,14 +95,15 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     }, [story])
 
     async function handleSaveClick(storySave) {
-        const ref = await save(storySave);
-        if (ref?.id) {
+        setIsSaveLoading(true);
+        const result = await save(storySave);
+        if (result) {
             setIsSaveSuccess(true);
-            loadAll;
-            setMessage("Saved: " + ref.id);
+            setMessage("Saved");
         } else {
             setMessage("Error");
         }
+        setIsSaveLoading(false);
     }
 
     return (
@@ -123,10 +125,10 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
                                 {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
                                 {currentPage === pages[pages.length - 1].id ?
                                     <button
-                                        disabled={loading}
-                                        className={`underline ${loading ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                                        disabled={isSaveLoading}
+                                        className={`underline ${isSaveLoading ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
                                         onClick={() => handleSaveClick(storySave)}>
-                                        {loading ? "Loading..." : "Save"}
+                                        {isSaveLoading ? "Loading..." : "Save"}
                                     </button> :
                                     <button
                                         disabled={isNextDisabled(currentPage)}

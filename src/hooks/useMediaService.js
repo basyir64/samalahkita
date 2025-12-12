@@ -8,7 +8,6 @@ export function useMediaService() {
     const STICKERS_API_URL = `${API_URL}/stickers/admin`;
 
     const PROFILES_BASE_URL = `${BASE_URL}/profiles`;
-    const PROFILES_API_URL = `${API_URL}/profiles`;
 
     const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system`;
 
@@ -32,11 +31,21 @@ export function useMediaService() {
             .map(f => f.download_url);
     }
 
+    async function resourceExistsAndHealthy(url) {
+        try {
+            const res = await fetch(url, { method: "HEAD" });
+            return res.ok; // true if status is 200–299
+        } catch (err) {
+            return false; // network error
+        }
+    }
+
     return {
         STICKERS_BASE_URL,
         PROFILES_BASE_URL,
         SYSTEM_ICON_BASE_URL,
         loadAllStickerUrls,
-        loadAllProfileUrls
+        loadAllProfileUrls,
+        resourceExistsAndHealthy
     }
 }

@@ -64,7 +64,7 @@ html {
 
 .pill-feed-addstory {
     @apply inline-flex tracking-[0.1em]
-    text-[#030000] px-[18px] py-[5px]
+    text-[#030000] px-[24px] py-[18px]
     rounded-[25px] cursor-pointer hover:bg-[#f1efe3] bg-white/10 backdrop-blur-md
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
 }
@@ -84,10 +84,10 @@ html {
 }
 
 .pill-stack-card {
-  @apply m-[10px] cursor-pointer
-    bg-white text-[#030000] px-[30px] py-[25px]
-    rounded-[25px] border border-white transition 
-    duration-500 shadow-[0px_-5px_5px_rgba(0,0,0,0.1)];
+  @apply m-[10px] cursor-pointer bg-white/10 backdrop-blur-md
+    bg-white text-[#030000] px-[30px] py-[40px]
+    transition
+    duration-500 shadow-[0px_-10px_20px_rgba(0,0,0,0.3)];
 }
 
 .pill-card {

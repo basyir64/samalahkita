@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, doc, where, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, addDoc, doc, where, getDoc, getCountFromServer } from "firebase/firestore";
 import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
@@ -22,15 +22,18 @@ export function useSituationService() {
 
   // Load queried situations
   async function loadByQuery(constraints) {
-    setLoading(true);
 
-    const q = query(collection(db, "situations"), ...constraints);
-    const snapshot = await getDocs(q);
-    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    // console.log(JSON.stringify(snapshot.docs, null, 2))
+    try {
+      const q = query(collection(db, "situations"), ...constraints);
+      const snapshot = await getDocs(q);
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      // console.log(JSON.stringify(snapshot.docs, null, 2))
 
-    setLoading(false);
-    return data; // optional — sometimes people want the result directly
+      return data; // optional — sometimes people want the result directly
+    } catch (error) {
+      console.error("Error loadByQuery situations: " + error)
+      return false;
+    }
   };
 
   async function loadById(id) {
@@ -48,6 +51,19 @@ export function useSituationService() {
     return docRef;
   }
 
+  async function countAllSituations() {
+    try {
+      const coll = collection(db, "situations");
+      const snapshot = await getCountFromServer(coll);
+      const count = snapshot.data().count;
+      // console.log('count: ', count);
+      return count;
+    } catch (error) {
+      console.error("Firestore Error getting count: " + error);
+      return false;
+    }
+  }
+
   // Load all on mount
   useEffect(() => {
     loadAll();
@@ -59,7 +75,8 @@ export function useSituationService() {
     loadAll,
     loadByQuery,
     loadById,
-    save
+    save,
+    countAllSituations
   };
 }
 

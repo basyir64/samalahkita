@@ -40,17 +40,26 @@ export default function Stories() {
                         <div className='pill-feed-title'>
                             <Typewriter text={situation.name} />
                         </div>
-                        <div className='pill-feed-addstory' onClick={() => setIsOpen(true)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/add-svgrepo-com.svg`} className='w-[20px]' /> 
-                        </div>
                     </div>
-                    <div className='grid grid-col justify-center '>
+                    <div className='grid grid-col justify-center'>
                         <div className='text-center'>
                             <div className='flex justify-center'>
                                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} />
                             </div>
                         </div>
                         <Feed situation={situation} />
+                    </div>
+                    <div className={`sticky bottom-2 z-40 py-4 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-50"}`}>
+                        <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
+                            <img src={`${SYSTEM_ICON_BASE_URL}/add-svgrepo-com.svg`} className='w-[20px]' />
+                            Cerita Baru 
+                        </div>
+                        <div className='pill-feed-addstory'>
+                            <img src={`${SYSTEM_ICON_BASE_URL}/left-arrow-next-svgrepo-com.svg`} className='w-[16px]' /> 
+                        </div>
+                        <div className='pill-feed-addstory'>
+                            <img src={`${SYSTEM_ICON_BASE_URL}/right-arrow-next-svgrepo-com.svg`} className='w-[16px]' /> 
+                        </div>
                     </div>
                 </div>
             }

@@ -17,21 +17,27 @@ export default function Face() {
                 {/* <span>add</span> add button inside result */}
             </div>
             <div className='mt-10 flex flex-col text-center'>
-                <span className=''> {t('intro1')}
-                    <br /> {t('intro2')} </span>
-                <span className='mt-6 underline cursor-pointer'>{t('privacy')}</span>
-                <span className=''>{t('contact')}</span>
-                <div className='mt-8 flex justify-center gap-8'>
+                <span className=''> {t('intro1')} <br /> {t('intro2')} </span>
+                <div className='flex '>
+                    <span className=''>{t('privacy')}</span>
+                    <Link><span className='ml-1 cursor-pointer underline'>{t('privacyLink')}</span></Link>
+                    <span className='ml-1'>{t('contact')}</span>
+                </div>
+                <div className='mt-6 flex justify-center gap-8'>
                     <Link className='flex items-center' to="https://www.instagram.com/samalahkita.my?igsh=dXQ0Z3ppc2wzMjE3&utm_source=qr">
-                        <img className='mt-4 w-5' src={`${SYSTEM_ICON_BASE_URL}/instagram-svgrepo-com.svg`} />
-                        <span className='mt-3 ml-1'>@samalahkita.my</span>
-                    </Link>
+                        <img className='mt-1 w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/instagram-svgrepo-com.svg`} />
+                        <span className='ml-1'>@samalahkita.my</span>
+                    </Link> 
                     <Link className='flex items-center'>
-                        <img className='mt-4 w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/email-svgrepo-com.svg`} />
-                        <span className='mt-3 ml-1'>samalahkita@gmail.com</span>
+                        <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/email-svgrepo-com.svg`} />
+                        <span className='ml-1'>basyirzainuddin@gmail.com</span>
+                    </Link>
+                    <Link className='flex items-center' to={"https://github.com/basyir64/samalahkita"}>
+                        <img className='w-[24px]' src={`${SYSTEM_ICON_BASE_URL}/github-svgrepo-com.svg`} />
+                        <span className='ml-1'>GitHub</span>
                     </Link>
                 </div>
-                <span className='mt-2 text-gray-500'>Thank You For Being Here, Anonymous!</span>
+                <span className='mt-2'>Thank You For Being Here, Anonymous!</span>
             </div>
         </div>
     )
