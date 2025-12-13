@@ -6,6 +6,7 @@ export function useMediaService() {
 
     const STICKERS_BASE_URL = `${BASE_URL}/stickers/admin`;
     const STICKERS_API_URL = `${API_URL}/stickers/admin`;
+    const CONCEALER_BASE_URL = `${BASE_URL}/conceal`;
 
     const PROFILES_BASE_URL = `${BASE_URL}/profiles`;
 
@@ -44,6 +45,7 @@ export function useMediaService() {
         STICKERS_BASE_URL,
         PROFILES_BASE_URL,
         SYSTEM_ICON_BASE_URL,
+        CONCEALER_BASE_URL,
         loadAllStickerUrls,
         loadAllProfileUrls,
         resourceExistsAndHealthy

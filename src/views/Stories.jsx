@@ -51,7 +51,7 @@ export default function Stories() {
                     </div>
                     <div className={`sticky bottom-2 z-40 py-4 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-50"}`}>
                         <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/add-svgrepo-com.svg`} className='w-[20px]' />
+                            <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[20px]' />
                             Cerita Baru 
                         </div>
                         <div className='pill-feed-addstory'>

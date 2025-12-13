@@ -17,11 +17,6 @@ export default function StoryCard({ story, setStory, isPreview }) {
         .join(", ");
     const ageRange = story.ageRange ? story.ageRange + " tahun" : "";
     const location = story.location ? getLocationText(story.location) : "";
-    const date = new Date().toLocaleDateString("en-GB");
-
-    // const [isStickerBoxOpen, setIsStickerBoxOpen] = useState(false);
-    // const [stickerUrls, setStickerUrls] = useState([]);
-    // const [selectedStickerUrl, setSelectedStickerUrl] = useState(story.sticker ? `${STICKERS_BASE_URL}/${story.sticker}` : "");
 
     const [isProfileBoxOpen, setIsProfileBoxOpen] = useState(false);
     const [profileUrls, setProfileUrls] = useState([]);
@@ -41,28 +36,13 @@ export default function StoryCard({ story, setStory, isPreview }) {
     }
 
     useEffect(() => {
-        // async function getAllStickerUrls() {
-        //     const urls = await loadAllStickerUrls();
-        //     setStickerUrls(urls);
-        // }
         async function getAllProfileUrls() {
             const urls = await loadAllProfileUrls();
             setProfileUrls(urls);
         }
 
-        // if (isStickerBoxOpen) getAllStickerUrls();
         if (isProfileBoxOpen) getAllProfileUrls();
     }, [isProfileBoxOpen]);
-
-
-    // function handleSelectStickerClick(url) {
-    //     setSelectedStickerUrl(url);
-    //     const sticker = url.split("admin/")[1];
-    //     setStory(prev => ({
-    //         ...prev,
-    //         sticker: sticker
-    //     }))
-    // }
 
     function handleSelectProfileClick(url) {
         setSelectedProfileUrl(url);
@@ -72,6 +52,10 @@ export default function StoryCard({ story, setStory, isPreview }) {
             profile: profile
         }))
     }
+
+    // useEffect(() => {
+    //     console.log(JSON.stringify(story, null, 2))
+    // }, [story])
 
     function addViewedStory(storyId) {
         const viewed = JSON.parse(localStorage.getItem("viewedStories") || "[]");
@@ -87,11 +71,11 @@ export default function StoryCard({ story, setStory, isPreview }) {
     }
 
     useEffect(() => {
-        async function updateStoryViews(id) {
-            if (hasViewedStory(id)) return;
+        async function updateStoryViews(story) {
+            if (hasViewedStory(story.id)) return;
 
-            addViewedStory(id)
-            const isSuccess = await updateViews(id);
+            addViewedStory(story.id)
+            const isSuccess = await updateViews(story);
             if (!isSuccess) {
                 console.log("error updating")
                 return;
@@ -99,11 +83,22 @@ export default function StoryCard({ story, setStory, isPreview }) {
         }
 
         if (!isPreview) {
-            updateStoryViews(story.id);
+            updateStoryViews(story);
         }
     }, [isPreview])
 
     const { formattedDate, formattedTime } = useDateFormatter(story.createdAt);
+
+    const scrollRef = useRef(null);
+    function handleWheel(e) {
+        if (!scrollRef.current) return;
+
+        // Prevent vertical scrolling
+        // e.preventDefault();
+
+        // Scroll horizontally instead
+        scrollRef.current.scrollLeft += e.deltaY;
+    };
 
     return (
         <div className={`grid grid-col`}>
@@ -124,43 +119,22 @@ export default function StoryCard({ story, setStory, isPreview }) {
             </div>
             {/* {story.createdAt.toDate()} */}
             {isPreview &&
-                <div className='flex flex-wrap'>
+                <div className='relative'>
                     {isProfileBoxOpen && <div className='mt-2'>
                         <span className='text-sm text-gray-500'>Pilih ikon profile. Tekan semula untuk tutup.</span>
-                        <div className='flex flex-wrap w-full max-h-30 gap-2 overflow-y-auto'>
+                        <div
+                            ref={scrollRef}
+                            onWheel={(e) => handleWheel(e)}
+                            className='flex py-4 w-full gap-2 overflow-x-auto absolute bg-white/10 backdrop-blur-md border border-white shadow-[0px_0px_5px_rgba(0,0,0,0.3)]'>
                             {profileUrls.map((url, i) => (
                                 <img key={i} className='w-24 cursor-pointer' src={url} onClick={() => handleSelectProfileClick(url)} />
                             ))}
                         </div>
                     </div>}
-                </div>}
+                </div>
+
+            }
             <div className='my-4'>{story.text}</div>
-            {/* {isPreview ?
-                (selectedStickerUrl ?
-                    <div>
-                        <img
-                            onClick={() => setIsStickerBoxOpen(!isStickerBoxOpen)}
-                            className='w-25 cursor-pointer' src={`${STICKERS_BASE_URL}/${story.sticker}`} />
-                    </div> :
-                    <div
-                        onClick={() => setIsStickerBoxOpen(!isStickerBoxOpen)}
-                        className='border border-dashed rounded-[25px] p-1 cursor-pointer hover:bg-[#f1efe3] w-max text-xs text-gray-500'>
-                        Sticker
-                    </div>) :
-                <div><img className='w-40' src={`${STICKERS_BASE_URL}/${story.sticker}`} /></div>
-            } */}
-            {/* {isPreview &&
-                <div className='flex flex-wrap'>
-                    {isStickerBoxOpen &&
-                        <div className='mt-2'>
-                            <span className='text-sm text-gray-500'>Tekan semula sticker untuk tutup.</span>
-                            <div className='flex flex-wrap w-full max-h-30 gap-2 overflow-y-auto'>
-                                {stickerUrls.map((url, i) => (
-                                    <img key={i} className='w-16 cursor-pointer' src={url} onClick={() => handleSelectStickerClick(url)} />
-                                ))}
-                            </div>
-                        </div>}
-                </div>} */}
             {story.otherSituations?.length > 0 &&
                 <div className='mt-6'>
                     <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>

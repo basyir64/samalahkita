@@ -8,6 +8,8 @@ import ModalPage3 from './ModalPage3';
 import { useStoryService } from '../../hooks/useStoryService';
 import { useUserOptions } from '../../hooks/useUserOptions';
 import { serverTimestamp } from 'firebase/firestore';
+import { useMediaService } from '../../hooks/useMediaService';
+import ModalPage4 from './ModalPage4';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
@@ -23,6 +25,9 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
         </>,
         <>
             {t('send_confirm_instruction')}
+        </>,
+        <>
+            Muat turun dan kongsi cerita anda di sosial media. Pilih perincian yang anda mahu sembunyikan di bawah.
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +36,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             { id: 1, instruction: 0 },
             { id: 2, instruction: 1 },
             { id: 3, instruction: 2 },
+            { id: 4, instruction: 3 },
         ]);
     const [story, setStory] = useState(
         {
@@ -106,29 +112,57 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
         setIsSaveLoading(false);
     }
 
+    const { SYSTEM_ICON_BASE_URL } = useMediaService();
+
     return (
         <div>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
                 <div className="fixed inset-0 flex items-center justify-center p-4">
                     <DialogPanel className="pill-modal">
-                        <DialogTitle className="">{situation.name}</DialogTitle>
-                        <Description className="text-sm mb-4 text-gray-500">{instructions[pages.find(page => page.id === currentPage).instruction]}</Description>
-                        {/* {JSON.stringify(storySave, null, 2)} */}
+                        <DialogTitle className="">
+                            <div className='flex justify-between'>
+                                {
+                                    currentPage === 4 ?
+                                        <div>
+                                            <Description className="text-sm text-gray-500 mb-4">
+                                                {instructions[pages.find(page => page.id === currentPage).instruction]}
+                                            </Description>
+                                        </div>
+                                        : <div>
+                                            <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
+                                            {situation.name}
+                                            <Description className="text-sm text-gray-500 mb-4">
+                                                {instructions[pages.find(page => page.id === currentPage).instruction]}
+                                            </Description>
+                                        </div>
+                                }
+                            </div>
+                        </DialogTitle>
+
+                        {/* <div>
+                            {situation.name}
+                            <Description className="text-sm mb-4 text-gray-500">
+                                {instructions[pages.find(page => page.id === currentPage).instruction]}
+                            </Description>
+                        </div> */}
+
+                        {/* {JSON.stringify(story, null, 2)} */}
                         <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
                         <ModalPage2 isCurrent={currentPage === 2} isOpen={isOpen} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize} />
                         <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
+                        <ModalPage4 isCurrent={currentPage === 4} situationName={situation.name} story={story} />
                         <div className='text-right mt-10 mb-2'>{message}</div>
                         <div className="flex justify-between gap-4">
                             <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                             <div className='flex gap-4'>
                                 {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
-                                {currentPage === pages[pages.length - 1].id ?
+                                {currentPage === 3 ?
                                     <button
                                         disabled={isSaveLoading}
-                                        className={`underline ${isSaveLoading ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
-                                        onClick={() => handleSaveClick(storySave)}>
-                                        {isSaveLoading ? "Loading..." : "Save"}
+                                        className={`underline ${isSaveLoading ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                                        onClick={() => isSaveSuccess ? setCurrentPage(4) : handleSaveClick(storySave)}>
+                                        {isSaveLoading ? "Loading..." : (isSaveSuccess ? "Share" : "Save")}
                                     </button> :
                                     <button
                                         disabled={isNextDisabled(currentPage)}

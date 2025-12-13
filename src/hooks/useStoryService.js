@@ -46,9 +46,6 @@ export function useStoryService() {
             console.log("Transaction failed: ", e);
             return false;
         }
-
-
-        return docRef;
     }
 
     // Load queried stories
@@ -84,15 +81,23 @@ export function useStoryService() {
         return data;
     }
 
-    async function updateViews(id) {
+    async function updateViews(story) {
+        const storyRef = doc(db, "stories", story.id);
+        const situationRef = doc(db, "situations", story.situationId);
+
         try {
-            const storyRef = doc(db, "stories", id);
-            await updateDoc(storyRef, {
-                views: increment(1)
+            await runTransaction(db, async (transaction) => {
+                transaction.update(storyRef, {
+                    views: increment(1),
+                });
+                transaction.update(situationRef, {
+                    totalViews: increment(1),
+                });
             });
+            // console.log("Transaction successfully committed!");
             return true;
-        } catch (error) {
-            console.log("Error updating views: " + error)
+        } catch (e) {
+            console.log("Transaction failed: ", e);
             return false;
         }
     }

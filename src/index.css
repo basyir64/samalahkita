@@ -77,7 +77,7 @@ html {
 }
 
 .pill-small-non-interactive {
-    @apply text-xs inline-flex my-[5px] tracking-[0.1em]
+    @apply text-xs inline-flex my-[2px] tracking-[0.1em]
     text-[#030000] px-[10px] py-[5px] 
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
@@ -92,6 +92,13 @@ html {
 
 .pill-card {
   @apply whitespace-normal break-words w-full
+    bg-white text-[#030000] px-[20px] py-[20px]
+    rounded-[25px] border border-white transition
+    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
+}
+
+.pill-card-story {
+  @apply 
     bg-white text-[#030000] px-[20px] py-[20px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
@@ -131,6 +138,10 @@ html {
 
 .my-radio {
   @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3] data-checked:bg-[#f1efe3];
+}
+
+.my-multi-select {
+  @apply rounded text-sm px-2 py-1 cursor-pointer border hover:bg-[#f1efe3];
 }
 
 .my-checkbox {
