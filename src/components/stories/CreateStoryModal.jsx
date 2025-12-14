@@ -27,7 +27,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
             {t('send_confirm_instruction')}
         </>,
         <>
-            Muat turun dan kongsi cerita anda di sosial media. Pilih perincian yang anda mahu sembunyikan di bawah.
+            Muat turun dan kongsi cerita anda di media sosial. Pilih perincian yang anda mahu sembunyikan di bawah.
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);
@@ -151,7 +151,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
                         <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
                         <ModalPage2 isCurrent={currentPage === 2} isOpen={isOpen} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize} />
                         <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
-                        <ModalPage4 isCurrent={currentPage === 4} situationName={situation.name} story={story} />
+                        <ModalPage4 isCurrent={currentPage === 4} situationName={situation.name} story={story} setStory={setStory} />
                         <div className='text-right mt-10 mb-2'>{message}</div>
                         <div className="flex justify-between gap-4">
                             <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>

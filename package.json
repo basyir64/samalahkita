@@ -13,6 +13,7 @@
     "@headlessui/react": "^2.2.9",
     "@tailwindcss/vite": "^4.1.17",
     "firebase": "^12.6.0",
+    "html-to-image": "^1.11.13",
     "i18next": "^25.6.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
