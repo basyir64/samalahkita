@@ -11,7 +11,7 @@ export default function App() {
             <HomeMarquee />
             <Face />
             <Chart />
-            <Features />
+            {/* <Features /> */}
         </div>
     )
 }

@@ -1,0 +1,61 @@
+import '../../index.css';
+import { useState, useEffect, useRef } from 'react';
+import { useUserOptions } from '../../hooks/useUserOptions';
+
+export default function SituationsSearchBar({ allSituations, keyword, setKeyword, handleResultClick }) {
+
+    const { homeSearchPlaceholders } = useUserOptions();
+    const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+    async function handleKeywordChange(keyword) {
+        setKeyword(keyword);
+    }
+
+    useEffect(() => {
+        const rotatePlaceholder = setInterval(() => {
+            setPlaceholderIndex(prev => (prev + 1) % homeSearchPlaceholders.length);
+        }, 2000);
+
+        return () => clearInterval(rotatePlaceholder);
+    }, []);
+
+    return (
+        <div className="relative">
+            <input
+                className="pill-searchbar"
+                type="text"
+                autoFocus={isSearchBarFocused}
+                onFocus={() => setIsSearchBarFocused(true)}
+                onBlur={() => setIsSearchBarFocused(false)}
+                value={keyword}
+                onChange={(e) => handleKeywordChange(e.target.value)}
+                placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
+            />
+            {isSearchBarFocused && (
+                <div className="pill-searchresult">
+                    {
+                        keyword &&
+                        allSituations.filter(s => (
+                            s.name.toLowerCase().includes(keyword.toLowerCase())
+                        )).map(s => (
+                            <div
+                                key={s.id}
+                                onPointerDown={(e) => {
+                                    e.preventDefault();
+                                    handleResultClick(s.id)
+                                }}
+                                className='pill-searchresult-item'>
+                                {s.name}
+                            </div>
+                        ))
+                    }
+                    <div className='pill-searchresult-item underline' onPointerDown={(e) => {
+                        e.preventDefault(); // prevents blur from hiding search result
+                        // setIsSituationModalOpen(true);
+                    }}>Add new</div>
+                </div>
+            )}
+        </div>
+    );
+}

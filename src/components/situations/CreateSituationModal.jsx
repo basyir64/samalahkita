@@ -3,7 +3,6 @@ import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSituationService } from '../../hooks/useSituationService';
-import { useNavigate } from 'react-router';
 
 export default function CreateSituationModal({ isOpen, setIsOpen, situation, setSituation }) {
 
@@ -12,7 +11,6 @@ export default function CreateSituationModal({ isOpen, setIsOpen, situation, set
     const { save, allSituations, loadAll } = useSituationService();
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [message, setMessage] = useState("");
-    const navigate = useNavigate();
     const [textLength, setTextLength] = useState(0);
     const maxTextLength = 100;
 

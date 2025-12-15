@@ -12,7 +12,7 @@ import { useMediaService } from '../../hooks/useMediaService';
 import ModalPage4 from './ModalPage4';
 import MyTooltip from '../custom-inputs/MyTooltip';
 
-export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
+export default function CreateStoryModal({ isOpen, setIsOpen, situation, situationsRef }) {
 
     const { genders } = useUserOptions();
     const { t } = useTranslation("components");
@@ -156,7 +156,15 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
                         {/* {JSON.stringify(story, null, 2)} */}
                         <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
-                        <ModalPage2 isCurrent={currentPage === 2} isOpen={isOpen} story={story} setStory={setStory} maxTextLength={maxTextLength} maxAdviceTextLength={maxAdviceTextLength} maxOtherSituationsSize={maxOtherSituationsSize} />
+                        <ModalPage2
+                            isCurrent={currentPage === 2}
+                            isOpen={isOpen}
+                            story={story}
+                            setStory={setStory}
+                            maxTextLength={maxTextLength}
+                            maxAdviceTextLength={maxAdviceTextLength}
+                            maxOtherSituationsSize={maxOtherSituationsSize}
+                            situationsRef={situationsRef} />
                         <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
                         <ModalPage4 isCurrent={currentPage === 4} situationName={situation.name} story={story} setStory={setStory} />
                         <div className='text-right mt-10 mb-2'>{message}</div>

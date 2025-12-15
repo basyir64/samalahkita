@@ -3,28 +3,36 @@ import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import { useSituationService } from "../../hooks/useSituationService";
 import Pill from "./Pill";
+import SituationsSearchBar from "../search-bar/SituationsSearchBar";
 
-export default function OtherSituationsMarquee({ isOpen, size, story, setStory }) {
-  const situationsRef = useRef([]);
+export default function OtherSituationsMarquee({ isOpen, size, story, setStory, situationsRef }) {
   const { loadAll } = useSituationService();
   const [selectedSituations, setSelectedSituations] = useState([]);
-  const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
+  const rows = [{ id: 1 }, { id: 2 }];
   const shuffledRowsRef = useRef([]);
   const [isSituationsLoading, setIsSituationsLoading] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
+  // Fetch all situations only once (triggered after user opens the CreateStoryModal for the first time)
   useEffect(() => {
     async function getAllSituations() {
+      // console.log("fetching...");
       const result = await loadAll();
       situationsRef.current = result;
-      // situationsRef.current.forEach(s => {
-      //   s.name = "fig7q36 9rct82yn-r7tb 2   x893bcrxn2"
-      // });
+      shuffledRowsRef.current = rows.map(() =>
+        shuffle(situationsRef.current.map(s => s.id))
+      );
+      setIsSituationsLoading(false);
+      
+    }
+
+    if (isOpen && situationsRef.current.length === 0) getAllSituations();
+    else {
       shuffledRowsRef.current = rows.map(() =>
         shuffle(situationsRef.current.map(s => s.id))
       );
       setIsSituationsLoading(false);
     }
-    if (isOpen) getAllSituations();
   }, [isOpen])
 
   function handleSituationsChange(selectedSituationId) {
@@ -48,48 +56,53 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory }
   }, [story?.otherSituations])
 
   // useEffect(() => {
-  //   console.log(JSON.stringify(situationsRef, null, 2));
-  // }, [situationsRef])
+  //   console.log(JSON.stringify(situationsRef.current, null, 2));
+  // }, [situationsRef.current])
 
   return (
-    <div className={`${size === "small" ? "grid grid-col width-[100px]" : ""}`}>
+    <div>
       {isSituationsLoading ?
         <div className="text-center">Loading...</div> :
-        rows.map((row, i) => (
-          <div key={row.id} className="relative flex overflow-hidden">
-            <span className="whitespace-nowrap animate-scroll">
-              {shuffledRowsRef.current[i].map(id => {
-                const s = situationsRef.current.find(x => x.id === id);
-                return (
-                  <Pill
-                    key={`r${i}-p${id}`}
-                    size={size}
-                    id={id}
-                    name={s.name}
-                    isSelected={selectedSituations?.some(s => s.id == id)}
-                    onClick={() => handleSituationsChange(id)}
-                  />
-                );
-              })}
-            </span>
-
-            <span className="whitespace-nowrap animate-scroll">
-              {shuffledRowsRef.current[i].map(id => {
-                const s = situationsRef.current.find(x => x.id === id);
-                return (
-                  <Pill
-                    key={`r${i}-p2-${id}`}
-                    size={size}
-                    id={id}
-                    name={s.name}
-                    isSelected={selectedSituations?.some(s => s.id == id)}
-                    onClick={() => handleSituationsChange(id)}
-                  />
-                );
-              })}
-            </span>
+        <div className="grid grid-col">
+          {rows.map((row, i) => (
+            <div key={row.id} className="relative flex overflow-hidden">
+              <span className="whitespace-nowrap animate-scroll">
+                {shuffledRowsRef.current[i].map(id => {
+                  const s = situationsRef.current.find(x => x.id === id);
+                  return (
+                    <Pill
+                      key={`r${i}-p${id}`}
+                      size={size}
+                      id={id}
+                      name={s.name}
+                      isSelected={selectedSituations?.some(s => s.id == id)}
+                      onClick={() => handleSituationsChange(id)}
+                    />
+                  );
+                })}
+              </span>
+              <span className="whitespace-nowrap animate-scroll">
+                {shuffledRowsRef.current[i].map(id => {
+                  const s = situationsRef.current.find(x => x.id === id);
+                  return (
+                    <Pill
+                      key={`r${i}-p2-${id}`}
+                      size={size}
+                      id={id}
+                      name={s.name}
+                      isSelected={selectedSituations?.some(s => s.id == id)}
+                      onClick={() => handleSituationsChange(id)}
+                    />
+                  );
+                })}
+              </span>
+            </div>
+          ))}
+          <div className="grid gird-col mt-6">
+            <SituationsSearchBar allSituations={situationsRef.current} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleSituationsChange} />
           </div>
-        ))}
+        </div>
+      }
     </div>
   );
 }

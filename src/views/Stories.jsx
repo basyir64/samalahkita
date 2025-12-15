@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Feed from '../components/stories/Feed';
 import '../index.css';
 import { useParams } from "react-router";
@@ -19,6 +19,7 @@ export default function Stories() {
     const { isScrollingUp } = useDetectScroll();
     const [isSituationLoading, setIsSituationLoading] = useState(true)
     const {SYSTEM_ICON_BASE_URL} = useMediaService();
+    const situationsRef = useRef([]); //Stories -> CreateStoryModal -> ModalPage2 -> OtherSituationsMarquee to avoid repeated fetch on modal open/close
 
     useEffect(() => {
         async function getSituationById() {
@@ -44,7 +45,7 @@ export default function Stories() {
                     <div className='grid grid-col justify-center'>
                         <div className='text-center'>
                             <div className='flex justify-center'>
-                                <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} />
+                                <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={situationsRef} />
                             </div>
                         </div>
                         <Feed situation={situation} />

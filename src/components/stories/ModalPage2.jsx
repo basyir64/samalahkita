@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import MyCheckbox from '../custom-inputs/MyCheckbox';
 import MyTooltip from '../custom-inputs/MyTooltip';
 
-export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxTextLength, maxAdviceTextLength, maxOtherSituationsSize }) {
+export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxTextLength, maxAdviceTextLength, maxOtherSituationsSize, situationsRef }) {
 
     // Don't conditionally render useState, useEffect, etc hooks like this. 
     // Will cause 'contact React team' error and resets all props / unexpected behaviour
@@ -63,7 +63,7 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
     return (
         <div className={`${isCurrent ? "block" : "hidden"} grid grid-col`}>
             <div className='grid grid-col'>
-                <Textarea autoFocus={isCurrent} rows={5} spellCheck={false} className="border rounded-[5px] px-1" value={text}
+                <Textarea autoFocus={isCurrent} rows={3} spellCheck={false} className="border rounded-[5px] px-1" value={text}
                     onChange={(e) => {
                         handleTextChange(e.target.value)
                     }} />
@@ -83,11 +83,11 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                         <div key={s.id} className='pill-small bg-[#f1efe3]' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
                     ))}
                 </div>
-                <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} />
+                <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
                 <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-700`}`}>
                     {story.otherSituations.length}/{maxOtherSituationsSize}
                 </div>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 mt-4'>
                     <MyCheckbox text={isAdviceTooltipOpen ? t('advice_checkbox_tooltip') : t('advice_checkbox')} onClick={handleHasAdviceChecboxClick} value={hasAdvice} />
                     <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} />
                 </div>

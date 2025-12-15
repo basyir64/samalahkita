@@ -29,7 +29,7 @@ export default function CardStack({ stack: list }) {
 
                 // compute offset order: rotate so activeIndex becomes top
                 const order = (idx - activeIndex + list.length) % list.length;
-                const offsetY = order * -40; // px or rem
+                const offsetY = order * -50; // px or rem
                 const zIndex = list.length - order;
 
                 return (
