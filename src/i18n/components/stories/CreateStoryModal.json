@@ -1,12 +1,14 @@
 {
   "en": {
     "story_text_instruction": "instruction",
-    "user_info_instruction": "instruction",
+    "user_info_instruction": "A little information about you is needed. You may skip, but they would greatly improve user experience.",
+    "user_info_instruction_tooltip": "Your information is only used for the purposes of recognizing patterns of emotional expression among users and making demographic comparison as shown in the homepage. No other detail will be taken here nor in the background without your knowledge and consent.",
     "send_confirm_instruction": "321379204jnkjwebfokbwbd3  wf23"
   },
   "ms": {
     "story_text_instruction": "Ceritakan luahan anda.",
-    "user_info_instruction": "Isi sekurang-kurangnya 2 maklumat diri anda.",
+    "user_info_instruction": "Sedikit maklumat anda diperlukan. Langkau jika tiada, tetapi ia sangat membantu menambah baik pengalaman pengguna.",
+    "user_info_instruction_tooltip": "Maklumat anda hanya digunakan untuk mengenal pasti corak luahan dalam kalangan pengguna dan membuat perbandingan demografi seperti di halaman utama. Tiada perincian lain yang akan diambil samada di sini atau di latar belakang tanpa pengetahuan dan kebenaran anda.",
     "send_confirm_instruction": "lalalalalal"
   }
 }

@@ -1,33 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../../index.css';
 import { useSituationService } from '../../hooks/useSituationService';
 import CreateSituationModal from '../situations/CreateSituationModal';
 import { useTranslation } from 'react-i18next';
+import { useUserOptions } from '../../hooks/useUserOptions';
+import { useDetectScroll } from '../../hooks/useDetectScroll';
 
 export default function HomeSearchBar() {
     // will scale later, after beta test
     const { t } = useTranslation("components");
-    const { loadAll, loading } = useSituationService();
+    const { homeSearchPlaceholders } = useUserOptions();
+    const { loadAll } = useSituationService();
     const [keyword, setKeyword] = useState("");
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
     const [isSituationModalOpen, setIsSituationModalOpen] = useState(false);
     const [situation, setSituation] = useState({ name: "", nameLength: 0, type: 1 });
-    const [isLoadingSituations, setIsLoadingSituations] = useState(true);
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
+    const [isLoadingSearchResult, setIsLoadingSearchResult] = useState(false);
+    const [isAllLoaded, setIsAllLoaded] = useState(false);
+    const [allSituations, setAllSituations] = useState([]);
 
-    function handleKeywordChange(keyword) {
+    async function handleKeywordChange(keyword, isAllLoaded) {
         setKeyword(keyword);
+        if (!isAllLoaded) {
+            setIsLoadingSearchResult(true)
+            const result = await loadAll();
+            setAllSituations(result);
+            setIsLoadingSearchResult(false);
+            setIsAllLoaded(true);
+        }
     }
 
-    const [allSituations, setAllSituation] = useState([]);
-
     useEffect(() => {
-        async function getAllSituations() {
-            const result = await loadAll();
-            setAllSituation(result);
-            setIsLoadingSituations(false);
-        }
-        getAllSituations();
-    }, [])
+        const rotatePlaceholder = setInterval(() => {
+            setPlaceholderIndex(prev => (prev + 1) % homeSearchPlaceholders.length);
+        }, 2000);
+
+        return () => clearInterval(rotatePlaceholder);
+    }, []);
+
+    // useEffect(() => {
+    //     console.log(JSON.stringify(allSituations, null, 2))
+    // }, [allSituations])
 
     return (
         <div>
@@ -39,12 +53,13 @@ export default function HomeSearchBar() {
                     onFocus={() => setIsSearchBarFocused(true)}
                     onBlur={() => setIsSearchBarFocused(false)}
                     value={keyword}
-                    onChange={(e) => handleKeywordChange(e.target.value)}
+                    onChange={(e) => handleKeywordChange(e.target.value, isAllLoaded)}
+                    placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
                 />
                 {isSearchBarFocused && (
                     <div className="pill-searchresult">
                         {
-                            isLoadingSituations ?
+                            isLoadingSearchResult ?
                                 <div className='pill-searchresult-item'>Loading...</div> :
                                 (
                                     keyword &&
@@ -53,9 +68,6 @@ export default function HomeSearchBar() {
                                     )).map(s => (
                                         <div key={s.id} className='pill-searchresult-item'>{s.name}</div>
                                     ))
-                                    // allSituations.map(s => (
-                                    //     <div key={s.id} className='pill-searchresult-item'>{s.name}</div>
-                                    // ))
                                 )
                         }
                         <div className='pill-searchresult-item underline' onPointerDown={(e) => {

@@ -35,7 +35,7 @@ export default function Feed({ situation }) {
                 return;
             }
             storiesRef.current.push(...result);
-            setIsLoadingStories(false);
+            setIsLoadingStories(false); 
         }
 
         if (isAtEnd || loadMoreClickCounter > 0) {
@@ -43,9 +43,9 @@ export default function Feed({ situation }) {
         }
     }, [isAtEnd, loadMoreClickCounter]);
 
-    function handleLoadMoreClick(isAllLoaded, loadMoreClickCounter) {
+    function handleLoadMoreClick(isAllLoaded) {
         if (isAllLoaded) return;
-        setLoadMoreClickCounter(++loadMoreClickCounter)
+        setLoadMoreClickCounter(prev => (prev + 1));
     }
 
     return (
@@ -60,7 +60,7 @@ export default function Feed({ situation }) {
                     )}
                     <span
                         className={`text-center ${!isAllLoaded && " cursor-pointer underline"}`}
-                        onClick={() => handleLoadMoreClick(isAllLoaded, loadMoreClickCounter)}
+                        onClick={() => handleLoadMoreClick(isAllLoaded)}
                     >
                         {isLoadingStories ? "Loading..." : (isAllLoaded ? "End of feed" : "Load more")}
                     </span>

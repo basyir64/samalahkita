@@ -48,6 +48,28 @@ export function useUserOptions() {
 
     ];
 
+    const homeSearchPlaceholders = [
+        { id: 0, text: "#isihati"},
+        { id: 1, text: "#pengalamanhidup"},
+        { id: 2, text: "#luahan"},
+        { id: 3, text: "#pendapat"},
+        { id: 4, text: "#masalah"},
+        { id: 5, text: "#relatable"},
+        { id: 6, text: "#akusorangjeke?"},
+        { id: 7, text: "#whyme"},
+        { id: 8, text: "#venting"},
+        { id: 9, text: "#imsosad"},
+        { id: 10, text: "#disapointment"},
+        { id: 11, text: "#lifeexperience"},
+        { id: 12, text: "#amitheonlyone?"},
+        { id: 13, text: "#cerita"},
+        { id: 14, text: "#stories"},
+        { id: 15, text: "#situasi"},
+        { id: 16, text: "#situation"},
+        { id: 17, text: "#keepmeupatnight"},
+
+    ];
+
     function getTranslatedGenderText(value) {
         return genders.find(g => (g.value === value)).text;
     }
@@ -65,6 +87,7 @@ export function useUserOptions() {
         genders,
         locations,
         sectors,
+        homeSearchPlaceholders,
         getTranslatedGenderText,
         getTranslatedSectorText,
         getLocationText

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function useDetectScroll() {
   const [isAtEnd, setIsAtEnd] = useState(false);
+  const [isAtDivEnd, setIsAtDivEnd] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastY, setLastY] = useState(0);
+  const divRef = useRef(null);
 
-  // Detect scroll to the bottom of the page
   useEffect(() => {
+    // Detect if scroll is at the bottom of the page
     const handleScroll = () => {
       const atEnd = window.innerHeight + window.scrollY >= document.body.offsetHeight - 5;
 
@@ -39,6 +41,8 @@ export function useDetectScroll() {
 
   return {
     isAtEnd,
+    divRef,
+    isAtDivEnd,
     isScrollingUp
   };
 }

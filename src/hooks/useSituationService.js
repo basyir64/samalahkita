@@ -12,6 +12,8 @@ export function useSituationService() {
   const [allSituations, setAllSituations] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [lastVisibleSearchItem, setLastVisibleSearchItem] = useState({});
+
   // Load all situations
   async function loadAll() {
     const snapshot = await getDocs(collection(db, "situations"));

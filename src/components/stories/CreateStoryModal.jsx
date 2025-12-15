@@ -10,14 +10,20 @@ import { useUserOptions } from '../../hooks/useUserOptions';
 import { serverTimestamp } from 'firebase/firestore';
 import { useMediaService } from '../../hooks/useMediaService';
 import ModalPage4 from './ModalPage4';
+import MyTooltip from '../custom-inputs/MyTooltip';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
 
     const { genders } = useUserOptions();
     const { t } = useTranslation("components");
+    const [isInstructionTooltipOpen, setIsInstructionTooltipOpen] = useState(false);
+
     const instructions = [
         <>
-            {t('user_info_instruction')}
+            <span className="text-sm text-gray-500">
+                {isInstructionTooltipOpen ? t('user_info_instruction_tooltip') : t('user_info_instruction')}
+            </span>
+            <MyTooltip isOpen={isInstructionTooltipOpen} setIsOpen={setIsInstructionTooltipOpen} />
         </>,
         <>
             {t('story_text_instruction')}
@@ -57,10 +63,11 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
     const maxTextLength = 200;
     const maxAdviceTextLength = 100;
     const maxOtherSituationsSize = 3;
+
     function isNextDisabled(currentPage) {
         if (currentPage === 1) {
-            if (!story.gender || (!story.ageRange && !story.location && !story.sector))
-                return true;
+            // if ((!story.ageRange && !story.location && !story.sector))
+            //     return true;
         } else if (currentPage === 2) {
             if (!story.textLength || story.textLength > maxTextLength ||
                 (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength)) ||
@@ -70,12 +77,12 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
         return false;
     }
 
-    function handleClickNext(currentPage) {
-        setCurrentPage(++currentPage);
+    function handleClickNext() {
+        setCurrentPage(prev => (prev + 1));
     }
 
-    function handleClickBack(currentPage) {
-        setCurrentPage(--currentPage);
+    function handleClickBack() {
+        setCurrentPage(prev => (prev - 1));
     }
 
     const [storySave, setStorySave] = useState({});
@@ -166,7 +173,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation }) {
                                     </button> :
                                     <button
                                         disabled={isNextDisabled(currentPage)}
-                                        className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext(currentPage)}>
+                                        className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext()}>
                                         {t('next_button')}
                                     </button>}
                             </div>

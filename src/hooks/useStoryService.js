@@ -62,7 +62,6 @@ export function useStoryService() {
     };
 
     async function loadFirstPage(constraints = []) {
-        // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
         const first = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), limit(1));
         const snapshot = await getDocs(first);
         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
