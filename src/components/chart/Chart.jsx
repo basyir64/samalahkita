@@ -98,23 +98,23 @@ export default function Chart() {
                 <div className='flex justify-center mt-2 gap-8'>
                     <div className=''>
                         <div className='text-4xl'>{counts.situation}</div>
-                        <div className='flex items-end mb-1 ml-1'>
-                            <img className='w-[20px] mb-[1px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
-                            <div className='text-sm text-gray-500'>Situasi</div>
+                        <div className='flex rounded-[25px] w-max px-2 border'>
+                            <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
+                            <div className='text-sm'>Situasi</div>
                         </div>
                     </div>
                     <div className=''>
                         <div className='text-4xl'>{counts.story}</div>
-                        <div className='flex items-end mb-1'>
+                        <div className='flex rounded-[25px] w-max px-2 border'>
                             <img className='w-[18px] mb-[1px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
-                            <div className='text-sm text-gray-500'>Cerita</div>
+                            <div className='text-sm'>Cerita</div>
                         </div>
                     </div>
                     <div className=''>
                         <div className='text-4xl'>{counts.views}</div>
-                        <div className='flex items-end mb-1'>
+                        <div className='flex rounded-[25px] w-max px-2 border'>
                             <img className='w-[18px] mb-[1px] ml-1' src={`${SYSTEM_ICON_BASE_URL}/eye-svgrepo-com.svg`} />
-                            <div className='text-sm text-gray-500'>Bacaan</div>
+                            <div className='text-sm'>Bacaan</div>
                         </div>
                     </div>
                 </div>
@@ -126,11 +126,11 @@ export default function Chart() {
                     ranking.map((situation, i) => (
                         <div key={situation.id} className='flex gap-4 mb-4'>
                             <div className='flex'>
-                                <div className='text-gray-500'>#{i + 1} </div>
+                                <div className='mt-2 text-2xl text-gray-500'>#{i + 1} </div>
                             </div>
                             <div className='grid grid-rows-2 text-left'>
                                 <div>{situation.name}</div>
-                                <div className='flex rounded-[25px] w-max px-2 border border-[#f1efe3] gap-2'>
+                                <div className='flex rounded-[25px] w-max px-2 border gap-2'>
                                     <div className='flex '>
                                         <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
                                         <div className='text-gray-500 ml-1'>{situation.storiesCount}</div>
@@ -146,7 +146,7 @@ export default function Chart() {
             </div>
 
             <div className='mt-12'>
-                <div className='text-gray-500 tracking-[0.1em]'> 10+ 'Sticker' Rawak Sebagai Gambar Profil Cerita</div>
+                <div className='text-gray-500 tracking-[0.1em]'> Lebih dari 10 'Sticker' Cerminan Emosi.</div>
                 <div className='text-gray-500 tracking-[0.1em]'> DM IG @samalahkita.my untuk derma koleksi anda dan <br />  nama anda akan ditulis di bawah sebagai tanda terima kasih {"<3"} </div>
                 <div className='flex justify-center'>
                     <div className='relative mt-8 mb-60 w-40'>
@@ -156,7 +156,7 @@ export default function Chart() {
                                 const order =
                                     (i - activeIndex + profileUrls.length) % profileUrls.length;
 
-                                const offsetX = order * 30;
+                                const offsetX = order * 15;
                                 const zIndex = profileUrls.length - order;
                                 const scale = order === 0 ? 1.2 : 1 - order * 0.05; // front bigger
                                 const opacity = order === 0 ? 1 : Math.max(0.6, 1 - order * 0.15);
