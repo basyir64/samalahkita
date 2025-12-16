@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSituationService } from '../../hooks/useSituationService';
 import { serverTimestamp } from 'firebase/firestore';
 import containsPersonalInfo from '../../hooks/useDetectPersonalInfo';
+import { useMediaService } from '../../hooks/useMediaService';
 
 export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
 
@@ -16,6 +17,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
     const maxTextLength = 100;
     const [situation, setSituation] = useState({ createdAt: serverTimestamp(), storiesCount: 0, totalViews: 0 });
     const [isLoadingSave, setIsLoadingSave] = useState(false);
+    const { SYSTEM_ICON_BASE_URL } = useMediaService();
 
     function handleTextChange(text) {
         setText(text);
@@ -23,7 +25,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
         setSituation(prev => ({
             ...prev,
             //temporary. eventually will get firestore id. need id here to allow de-select at ModalPage2.handleSelectedSituationClick()
-            ...(setStory && {id: text}),
+            ...(setStory && { id: text }),
             name: text,
             nameLength: text.length
         }));
@@ -58,9 +60,11 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
             <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel className="pill-modal">
-                    <DialogTitle className="">Tambah Situasi Baru</DialogTitle>
+                    <DialogTitle className="">Tambah Situasi Baru
+                    </DialogTitle>
                     <Description className="text-sm mb-4 text-gray-500">Add your text below</Description>
-                    <div>
+                    <div className='flex gap-2'>
+                        {/* <img className="w-[20px]" src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /> */}
                         <input
                             type="text"
                             autoFocus={true}

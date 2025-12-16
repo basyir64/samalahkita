@@ -2,7 +2,7 @@ import '../../index.css';
 import { useState, useEffect, useRef } from 'react';
 import { useUserOptions } from '../../hooks/useUserOptions';
 
-export default function SituationsSearchBar({ allSituations, keyword, setKeyword, handleResultClick }) {
+export default function SituationsSearchBar({ size, allSituations, keyword, setKeyword, handleResultClick }) {
 
     const { homeSearchPlaceholders } = useUserOptions();
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
@@ -22,18 +22,20 @@ export default function SituationsSearchBar({ allSituations, keyword, setKeyword
 
     return (
         <div className="relative">
-            <input
-                className="pill-searchbar"
-                type="text"
-                autoFocus={isSearchBarFocused}
-                onFocus={() => setIsSearchBarFocused(true)}
-                onBlur={() => setIsSearchBarFocused(false)}
-                value={keyword}
-                onChange={(e) => handleKeywordChange(e.target.value)}
-                placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
-            />
+            <div className='flex flex-wrap gap-2'>
+                <input
+                    className={`pill-searchbar ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
+                    type="text"
+                    autoFocus={isSearchBarFocused}
+                    onFocus={() => setIsSearchBarFocused(true)}
+                    onBlur={() => setIsSearchBarFocused(false)}
+                    value={keyword}
+                    onChange={(e) => handleKeywordChange(e.target.value)}
+                    placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
+                />
+            </div>
             {isSearchBarFocused && (
-                <div className="pill-searchresult">
+                <div className={`pill-searchresult ${size === 'sm' ? 'text-sm' : ''}`}>
                     {
                         keyword &&
                         allSituations.filter(s => (
@@ -45,7 +47,7 @@ export default function SituationsSearchBar({ allSituations, keyword, setKeyword
                                     e.preventDefault();
                                     handleResultClick(s.id)
                                 }}
-                                className='pill-searchresult-item'>
+                                className={`pill-searchresult-item ${size === 'sm' ? 'text-sm' : ''}`}>
                                 {s.name}
                             </div>
                         ))

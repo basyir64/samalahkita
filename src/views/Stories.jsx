@@ -71,18 +71,16 @@ export default function Stories() {
                     </div>
                     <div className={`sticky bottom-2 z-40 py-4 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-50"}`}>
                         <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[20px]' />
+                            <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             Cerita Baru
                         </div>
                         <Link to="/">
                             <div className='pill-feed-addstory'>
-                                Home
-                                {/* <img src={`${SYSTEM_ICON_BASE_URL}/left-arrow-next-svgrepo-com.svg`} className='w-[16px]' />  */}
+                                <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' /> 
                             </div>
                         </Link>
                         <div className='pill-feed-addstory' onClick={() => handleGetRandomSituationClick(situation)}>
-                            Rawak
-                            {/* <img src={`${SYSTEM_ICON_BASE_URL}/right-arrow-next-svgrepo-com.svg`} className='w-[16px]' />  */}
+                            <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' /> 
                         </div>
                     </div>
                 </div>

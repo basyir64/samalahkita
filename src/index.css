@@ -63,7 +63,7 @@ html {
 }
 
 .pill-feed-addstory {
-    @apply inline-flex tracking-[0.1em]
+    @apply inline-flex 
     text-[#030000] px-[24px] py-[18px]
     rounded-[25px] cursor-pointer hover:bg-[#f1efe3] bg-white/10 backdrop-blur-md
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
@@ -112,8 +112,8 @@ html {
 }
 
 .pill-searchbar {
-  @apply whitespace-normal break-words w-full
-    bg-white text-[#030000] px-[20px] py-[10px] focus:bg-[#f1efe3]
+  @apply 
+    bg-white text-[#030000] focus:bg-[#f1efe3]
     rounded-[25px] transition focus:border-none focus:outline-none
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)];
 }

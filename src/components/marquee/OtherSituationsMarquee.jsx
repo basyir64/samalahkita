@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Pill from "./Pill";
 import SituationsSearchBar from "../search-bar/SituationsSearchBar";
 import CreateSituationModal from "../situations/CreateSituationModal";
+import { useMediaService } from '../../hooks/useMediaService';
 
 export default function OtherSituationsMarquee({ isOpen, size, story, setStory, situationsRef }) {
   const [selectedSituations, setSelectedSituations] = useState([]);
@@ -11,6 +12,7 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory, 
   const [keyword, setKeyword] = useState("");
   const [isShufflingRows, setIsShufflingRows] = useState(true);
   const [isSituationModalOpen, setIsSituationModalOpen] = useState(false);
+  const { SYSTEM_ICON_BASE_URL } = useMediaService();
 
   useEffect(() => {
     if (situationsRef.current.length > 0) {
@@ -93,8 +95,11 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory, 
               </span>
             </div>
           ))}
-        <div className="grid gird-col mt-6">
-          <SituationsSearchBar allSituations={situationsRef.current} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleSearchResultClick} />
+        <div className="grid mt-6">
+          <div className="flex flex-wrap gap-2">
+            <img className="w-[20px]" src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`}/>
+            <SituationsSearchBar size="sm" allSituations={situationsRef.current} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleSearchResultClick} />
+          </div>
           <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} setStory={setStory}/>
         </div>
       </div>
