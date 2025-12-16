@@ -22,10 +22,10 @@ export default function Feed({ situation }) {
         }
 
         getStoriesFirstPage();
-    }, [])
+    }, [situation])
 
     useEffect(() => {
-        console.log("isAtEnd: " + isAtEnd)
+        // console.log("isAtEnd: " + isAtEnd)
         async function getStoriesNextPage() {
             setIsLoadingStories(true);
             const result = await loadNextPage([where("situationId", "==", situation.id)]);

@@ -40,13 +40,17 @@ export default function HomeSearchBar() {
     const navigate = useNavigate();
 
     function handleResultClick(situationId) {
+        if (!situationId) {
+            setIsSituationModalOpen(true);
+            return;
+        }
         navigate(`/stories/situation/${situationId}`);
     }
 
     return (
         <div>
             <SituationsSearchBar allSituations={allSituations} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleResultClick} />
-            <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} situation={situation} setSituation={setSituation} />
+            <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} />
         </div>
     );
 }

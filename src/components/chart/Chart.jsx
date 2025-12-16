@@ -146,8 +146,10 @@ export default function Chart() {
             </div>
 
             <div className='mt-12'>
-                <div className='text-gray-500 tracking-[0.1em]'> Lebih dari 10 'Sticker' Cerminan Emosi.</div>
-                <div className='text-gray-500 tracking-[0.1em]'> DM IG @samalahkita.my untuk derma koleksi anda dan <br />  nama anda akan ditulis di bawah sebagai tanda terima kasih {"<3"} </div>
+                <div className='text-gray-500 tracking-[0.1em]'> Lebih Dari 10 'Sticker' Cerminan Emosi.</div>
+                <div className='text-gray-500 tracking-[0.1em]'> Saya perlukan bantuan anda!!! DM IG @samalahkita.my untuk derma, dan
+                    <br />  'sticker' + nama anda akan dipaparkan di bawah sebagai tanda terima kasih {"<3"} </div>
+                <div className='text-gray-500 tracking-[0.1em]'>(Mood: Sedih, Keliru, Risau, Kecewa, Sunyi, Pasrah, atau Bosan)</div>
                 <div className='flex justify-center'>
                     <div className='relative mt-8 mb-60 w-40'>
                         {
@@ -159,7 +161,6 @@ export default function Chart() {
                                 const offsetX = order * 15;
                                 const zIndex = profileUrls.length - order;
                                 const scale = order === 0 ? 1.2 : 1 - order * 0.05; // front bigger
-                                const opacity = order === 0 ? 1 : Math.max(0.6, 1 - order * 0.15);
                                 return (
                                     <img
                                         key={i}
@@ -167,7 +168,7 @@ export default function Chart() {
                                         style={{
                                             transform: `translateX(${offsetX}px) scale(${scale})`,
                                             zIndex,
-                                            
+
                                         }}
                                         src={url}
                                     />)

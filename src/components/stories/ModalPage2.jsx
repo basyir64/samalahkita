@@ -79,8 +79,8 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                     <MyTooltip isOpen={isOtherSituationsTooltipOpen} setIsOpen={setIsOtherSituationsTooltipOpen} />
                 </div>
                 <div className='my-2'>
-                    {story.otherSituations.map(s => (
-                        <div key={s.id} className='pill-small bg-[#f1efe3]' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
+                    {story.otherSituations.map((s, i) => (
+                        <div key={i} className='pill-small bg-[#f1efe3]' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
                     ))}
                 </div>
                 <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />

@@ -12,14 +12,16 @@ export function useSituationService() {
   const [allSituations, setAllSituations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [lastVisibleSearchItem, setLastVisibleSearchItem] = useState({});
-
   // Load all situations
   async function loadAll() {
-    const snapshot = await getDocs(collection(db, "situations"));
-    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return data;
-
+    try {
+      const snapshot = await getDocs(collection(db, "situations"));
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return data;
+    } catch (error) {
+      console.error("Error getting situations: " + error);
+      return false;
+    }
   };
 
   // Load queried situations
@@ -46,11 +48,13 @@ export function useSituationService() {
   }
 
   async function save(situation) {
-    setLoading(true);
-    const docRef = await addDoc(collection(db, "situations"), situation);
-    setLoading(false);
-
-    return docRef;
+    try {
+      await addDoc(collection(db, "situations"), situation);
+      return true;
+    } catch (error) {
+      console.error("Error saving situation: " + error);
+      return false;
+    }
   }
 
   async function countAllSituations() {
@@ -65,11 +69,6 @@ export function useSituationService() {
       return false;
     }
   }
-
-  // Load all on mount
-  useEffect(() => {
-    loadAll();
-  }, []);
 
   return {
     allSituations,

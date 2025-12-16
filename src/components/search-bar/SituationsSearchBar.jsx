@@ -52,7 +52,7 @@ export default function SituationsSearchBar({ allSituations, keyword, setKeyword
                     }
                     <div className='pill-searchresult-item underline' onPointerDown={(e) => {
                         e.preventDefault(); // prevents blur from hiding search result
-                        // setIsSituationModalOpen(true);
+                        handleResultClick(null);
                     }}>Add new</div>
                 </div>
             )}

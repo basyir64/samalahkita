@@ -3,52 +3,69 @@ import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSituationService } from '../../hooks/useSituationService';
+import { serverTimestamp } from 'firebase/firestore';
+import containsPersonalInfo from '../../hooks/useDetectPersonalInfo';
 
-export default function CreateSituationModal({ isOpen, setIsOpen, situation, setSituation }) {
+export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
 
     const { t } = useTranslation("components");
     const [text, setText] = useState("");
-    const { save, allSituations, loadAll } = useSituationService();
-    const [isSaveSuccess, setIsSaveSuccess] = useState(false);
+    const { save } = useSituationService();
     const [message, setMessage] = useState("");
     const [textLength, setTextLength] = useState(0);
     const maxTextLength = 100;
+    const [situation, setSituation] = useState({ createdAt: serverTimestamp(), storiesCount: 0, totalViews: 0 });
+    const [isLoadingSave, setIsLoadingSave] = useState(false);
 
     function handleTextChange(text) {
         setText(text);
         setTextLength(text.length);
         setSituation(prev => ({
             ...prev,
+            //temporary. eventually will get firestore id. need id here to allow de-select at ModalPage2.handleSelectedSituationClick()
+            ...(setStory && {id: text}),
             name: text,
             nameLength: text.length
         }));
     }
 
     async function handleSaveClick(situation) {
-        const ref = await save(situation);
-        if (ref?.id) {
-            setIsSaveSuccess(true);
-            // navigate(`/stories/situation/${ref.id}`);
-            loadAll;
-            setMessage("Saved: " + situation.name);
+        if (containsPersonalInfo(situation.name)) {
+            setMessage("Links and contacts are not allowed.")
+            return;
+        }
+
+        if (setStory) {
+            setStory(prev => ({
+                ...prev,
+                otherSituations: [...prev.otherSituations, situation]
+            }));
+            setIsOpen(false);
+            return;
         } else {
-            setMessage("Error");
+            setIsLoadingSave(true);
+            const result = await save(situation);
+            if (!result) {
+                return;
+            }
+            setMessage("Saved: " + situation.name);
+            setIsLoadingSave(false);
         }
     }
 
     return (
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+        <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-60">
             <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel className="pill-modal">
-                    <DialogTitle className="">Create New</DialogTitle>
+                    <DialogTitle className="">Tambah Situasi Baru</DialogTitle>
                     <Description className="text-sm mb-4 text-gray-500">Add your text below</Description>
                     <div>
                         <input
                             type="text"
                             autoFocus={true}
                             className='border rounded-[5px] w-full p-2'
-                            value={situation?.name}
+                            value={text}
                             spellCheck={false}
                             onChange={(e) => handleTextChange(e.target.value)} />
                         <div className={`mt-2 text-sm text-right ${textLength > maxTextLength && `text-red-700`}`}>
@@ -59,8 +76,8 @@ export default function CreateSituationModal({ isOpen, setIsOpen, situation, set
                     <div className="flex justify-between gap-4 mt-10">
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                         <button
-                            disabled={textLength > maxTextLength}
-                            className={`underline ${textLength > maxTextLength ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                            disabled={textLength > maxTextLength || isLoadingSave}
+                            className={`underline ${textLength > maxTextLength || isLoadingSave ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
                             onClick={() => handleSaveClick(situation)}>Save</button>
                     </div>
                 </DialogPanel>

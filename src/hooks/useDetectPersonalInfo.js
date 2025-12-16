@@ -1,4 +1,4 @@
-export default function containsContactInfo(text) {
+export default function containsPersonalInfo(text) {
   // Email
   if (/@/.test(text)) return true;
 

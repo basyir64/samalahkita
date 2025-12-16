@@ -70,7 +70,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
             //     return true;
         } else if (currentPage === 2) {
             if (!story.textLength || story.textLength > maxTextLength ||
-                (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength)) ||
+                (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength || !story.adviceText)) ||
                 story.otherSituations.length > maxOtherSituationsSize)
                 return true;
         }

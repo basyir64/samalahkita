@@ -8,34 +8,53 @@ import Typewriter from '../components/custom-inputs/Typewriter';
 import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
+import { Link } from 'react-router';
 
 export default function Stories() {
     const params = useParams();
     const situationid = params.situationid;
-    const { loadById } = useSituationService();
+    const { loadAll } = useSituationService();
     const [situation, setSituation] = useState({})
     const [isOpen, setIsOpen] = useState(false);
     const { t } = useTranslation("views");
     const { isScrollingUp } = useDetectScroll();
-    const [isSituationLoading, setIsSituationLoading] = useState(true)
-    const {SYSTEM_ICON_BASE_URL} = useMediaService();
-    const situationsRef = useRef([]); //Stories -> CreateStoryModal -> ModalPage2 -> OtherSituationsMarquee to avoid repeated fetch on modal open/close
+    const { SYSTEM_ICON_BASE_URL } = useMediaService();
+    const situationsRef = useRef([]);
+    const [isSituationsLoading, setIsSituationsLoading] = useState(true);
 
+    // Fetch all situations only once on this page and pass it down 
+    // to Stories -> CreateStoryModal -> ModalPage2 -> OtherSituationsMarquee via ref
     useEffect(() => {
-        async function getSituationById() {
-            if (!situationid) return;
-            const result = await loadById(situationid);
-            setSituation(result);
-            setIsSituationLoading(false);
+        async function getAllSituations() {
+            console.log("fetching...");
+            const result = await loadAll();
+            if (!result) return;
+            situationsRef.current = result;
+            const situationMatch = result.find(s => (s.id === situationid));
+            setSituation(situationMatch);
+            // setTimeout(() => { setIsSituationsLoading(false) }, 3000)
+            setIsSituationsLoading(false);
         }
 
-        getSituationById();
-    }, [situationid]);
- 
+        getAllSituations();
+    }, []);
+
+    function handleGetRandomSituationClick(currentSituation) {
+        let randomSituation = getRandomSituation();
+        while (randomSituation.id === currentSituation.id) {
+            randomSituation = getRandomSituation();
+        }
+        setSituation(randomSituation);
+    }
+
+    function getRandomSituation() {
+        return situationsRef.current[Math.floor(Math.random() * situationsRef.current.length)];
+    }
+
     return (
         <div>
-            {isSituationLoading ?
-                <div className='grid grid-col justify-center mt-10'>Loading...</div> :
+            {isSituationsLoading ?
+                <div className='text-center'>Loading...</div> :
                 <div>
                     <div className={`sticky ${isScrollingUp ? "top-14" : "top-2"} z-40 py-4 flex gap-3 justify-center`}>
                         <div className='pill-feed-title'>
@@ -53,13 +72,17 @@ export default function Stories() {
                     <div className={`sticky bottom-2 z-40 py-4 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-50"}`}>
                         <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[20px]' />
-                            Cerita Baru 
+                            Cerita Baru
                         </div>
-                        <div className='pill-feed-addstory'>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/left-arrow-next-svgrepo-com.svg`} className='w-[16px]' /> 
-                        </div>
-                        <div className='pill-feed-addstory'>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/right-arrow-next-svgrepo-com.svg`} className='w-[16px]' /> 
+                        <Link to="/">
+                            <div className='pill-feed-addstory'>
+                                Home
+                                {/* <img src={`${SYSTEM_ICON_BASE_URL}/left-arrow-next-svgrepo-com.svg`} className='w-[16px]' />  */}
+                            </div>
+                        </Link>
+                        <div className='pill-feed-addstory' onClick={() => handleGetRandomSituationClick(situation)}>
+                            Rawak
+                            {/* <img src={`${SYSTEM_ICON_BASE_URL}/right-arrow-next-svgrepo-com.svg`} className='w-[16px]' />  */}
                         </div>
                     </div>
                 </div>

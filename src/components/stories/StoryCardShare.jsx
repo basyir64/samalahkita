@@ -1,62 +1,14 @@
 import '../../index.css';
 import { useUserOptions } from '../../hooks/useUserOptions';
 import { useMediaService } from '../../hooks/useMediaService';
-import { useStoryService } from '../../hooks/useStoryService';
-import useDateFormatter from '../../hooks/useDateFormatter';
 import { useEffect, useState, useRef } from 'react';
 import { Radio, RadioGroup, Field } from '@headlessui/react';
 import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
-export default function StoryCardShare({ story, setStory, situationName, isPreview }) {
+export default function StoryCardShare({ story, situationName }) {
 
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
-    const { updateViews } = useStoryService();
-    const { STICKERS_BASE_URL, loadAllProfileUrls, SYSTEM_ICON_BASE_URL, CONCEALER_BASE_URL } = useMediaService();
-
-    const [isProfileBoxOpen, setIsProfileBoxOpen] = useState(false);
-    const [profileUrls, setProfileUrls] = useState([]);
-
-    useEffect(() => {
-        async function getAllProfileUrls() {
-            const urls = await loadAllProfileUrls();
-            setProfileUrls(urls);
-        }
-
-        if (isProfileBoxOpen) getAllProfileUrls();
-    }, [isProfileBoxOpen]);
-
-    function addViewedStory(storyId) {
-        const viewed = JSON.parse(localStorage.getItem("viewedStories") || "[]");
-        if (!viewed.includes(storyId)) {
-            viewed.push(storyId);
-            localStorage.setItem("viewedStories", JSON.stringify(viewed));
-        }
-    }
-
-    function hasViewedStory(storyId) {
-        const viewed = JSON.parse(localStorage.getItem("viewedStories") || "[]");
-        return viewed.includes(storyId);
-    }
-
-    useEffect(() => {
-        async function updateStoryViews(story) {
-            if (hasViewedStory(story.id)) return;
-
-            addViewedStory(story.id)
-            const isSuccess = await updateViews(story);
-            if (!isSuccess) {
-                console.log("error updating")
-                return;
-            }
-        }
-
-        if (!isPreview) {
-            updateStoryViews(story);
-        }
-    }, [isPreview])
-
-    const { formattedDate, formattedTime } = useDateFormatter(story.createdAt);
+    const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, CONCEALER_BASE_URL } = useMediaService();
     const [eyes, setEyes] = useState(
         {
             isSituationHidden: false,
@@ -79,7 +31,6 @@ export default function StoryCardShare({ story, setStory, situationName, isPrevi
         { id: 3, name: "see-no-evil-monkey.png" },
         { id: 4, name: "slightly-smiling-face.png" },
         { id: 5, name: "zipper-mouth-face.png" },
-        // { id: 6, name: "secret.jpg" },
     ];
 
     function handleConcealerChange(selectedConcealer) {
@@ -181,7 +132,11 @@ export default function StoryCardShare({ story, setStory, situationName, isPrevi
         if (eyes.isOtherHidden) {
             let concealedText = [];
             for (let i = 0; i < 10; i++) {
-                concealedText.push(<img className='w-[24px]' src={`${CONCEALER_BASE_URL}/${selectedConcealer}`} />)
+                concealedText.push(
+                    <div>
+                        <img className='w-[24px]' src={`${CONCEALER_BASE_URL}/${selectedConcealer}`} />
+                    </div>
+                )
             }
             setCurrentOtherSituations(<div className='flex flex-wrap'>{...concealedText}</div>);
         } else {
@@ -227,13 +182,21 @@ export default function StoryCardShare({ story, setStory, situationName, isPrevi
             <div>
                 <div className='mb-2 flex flex-wrap gap-2'>
                     <div className='text-gray-500 text-sm mt-1'>Ganti:</div>
-                    {storyItemsConcealOptions.map((storyItem, i) =>
-                    (<div
-                        key={i}
-                        className={`my-multi-select ${storyItem.isHidden ? "bg-[#f1efe3]" : ""}`}
-                        onClick={() => handleEyeClick(storyItem.name, !storyItem.isHidden)}>
-                        <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/${storyItem.iconName}`} />
-                    </div>)
+                    {storyItemsConcealOptions.map((storyItem, i) => {
+
+                        if (storyItem.name === "isOtherHidden" && story.otherSituations.length < 1) {
+                            return;
+                        } else if (storyItem.name === "isAdviceHidden" && !story.hasAdvice) {
+                            return;
+                        }
+
+                        return (<div
+                            key={i}
+                            className={`my-multi-select ${storyItem.isHidden ? "bg-[#f1efe3]" : ""}`}
+                            onClick={() => handleEyeClick(storyItem.name, !storyItem.isHidden)}>
+                            <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/${storyItem.iconName}`} />
+                        </div>)
+                    }
                     )}
                 </div>
                 <div className='mt-4 mb-4 flex gap-2'>
@@ -247,13 +210,6 @@ export default function StoryCardShare({ story, setStory, situationName, isPrevi
                                     <img className='w-[26px]' src={`${CONCEALER_BASE_URL}/${c.name}`} />
                                 </Radio>
                             </Field>)}
-                        {/* <Field key={concealers.length-1} >
-                                <Radio
-                                    value={"secret.jpg"}
-                                    className={"cursor-pointer"}>
-                                    <img className='w-[46px]' src={`${CONCEALER_BASE_URL}/secret.jpg`} />
-                                </Radio>
-                            </Field> */}
                     </RadioGroup>
                 </div>
                 <div id="story-download" className='px-2 py-2'>
@@ -275,9 +231,9 @@ export default function StoryCardShare({ story, setStory, situationName, isPrevi
                             </div>
                         </div>
                         <div className='my-4'>{currentText}</div>
-                        <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>
-                        {
-                            currentOtherSituations?.length > 0 ?
+                        {currentOtherSituations?.length > 0 ?
+                            <div>
+                                <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>
                                 <div className='flex flex-wrap gap-2'>
                                     {currentOtherSituations.map((s, i) => (
                                         <div key={i} className='pill-small-non-interactive'>
@@ -285,9 +241,13 @@ export default function StoryCardShare({ story, setStory, situationName, isPrevi
                                         </div>
                                     ))}
                                 </div>
-                                : <div>
+                            </div> :
+                            <div>
+                                {story.otherSituations.length > 0 && <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>}
+                                <div className='flex flex-wrap gap-2'>
                                     {currentOtherSituations}
                                 </div>
+                            </div>
                         }
                         {story.hasAdvice &&
                             <div className='mt-4'>
