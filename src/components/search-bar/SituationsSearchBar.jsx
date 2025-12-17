@@ -2,7 +2,7 @@ import '../../index.css';
 import { useState, useEffect, useRef } from 'react';
 import { useUserOptions } from '../../hooks/useUserOptions';
 
-export default function SituationsSearchBar({ size, allSituations, keyword, setKeyword, handleResultClick }) {
+export default function SituationsSearchBar({ size, allSituations, keyword, setKeyword, handleResultClick, isLoadingSearchResult }) {
 
     const { homeSearchPlaceholders } = useUserOptions();
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
@@ -23,20 +23,22 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
     return (
         <div className="relative flex-1">
             <input
-                    className={`pill-searchbar w-full ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
-                    type="text"
-                    autoFocus={isSearchBarFocused}
-                    onFocus={() => setIsSearchBarFocused(true)}
-                    onBlur={() => setIsSearchBarFocused(false)}
-                    value={keyword}
-                    onChange={(e) => handleKeywordChange(e.target.value)}
-                    placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
-                />
+                className={`pill-searchbar w-full ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
+                type="text"
+                autoFocus={isSearchBarFocused}
+                onFocus={() => setIsSearchBarFocused(true)}
+                onBlur={() => setIsSearchBarFocused(false)}
+                value={keyword}
+                onChange={(e) => handleKeywordChange(e.target.value)}
+                placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
+            />
             {isSearchBarFocused && (
                 <div className={`pill-searchresult ${size === 'sm' ? 'text-sm' : 'px-[5px] py-[5px]'}`}>
                     {
                         keyword &&
-                        allSituations.filter(s => (
+                        (isLoadingSearchResult ? 
+                            <div className='p-2 text-left'>Loading...</div>:
+                            allSituations.filter(s => (
                             s.name.toLowerCase().includes(keyword.toLowerCase())
                         )).map(s => (
                             <div
@@ -48,9 +50,9 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
                                 className={`pill-searchresult-item ${size === 'sm' ? 'text-sm' : ''}`}>
                                 {s.name}
                             </div>
-                        ))
+                        )))
                     }
-                    <div className='pill-searchresult-item underline' onPointerDown={(e) => {
+                    <div className='pill-searchresult-item underline text-left' onPointerDown={(e) => {
                         e.preventDefault(); // prevents blur from hiding search result
                         handleResultClick(null);
                     }}>Add new</div>

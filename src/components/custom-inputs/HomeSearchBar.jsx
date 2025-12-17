@@ -12,26 +12,33 @@ export default function HomeSearchBar() {
     const { loadAll } = useSituationService();
     const [keyword, setKeyword] = useState("");
     const [isSituationModalOpen, setIsSituationModalOpen] = useState(false);
-    const [situation, setSituation] = useState({ name: "", nameLength: 0, type: 1 });
+    // const [situation, setSituation] = useState({ name: "", nameLength: 0, type: 1 });
     const [isLoadingSearchResult, setIsLoadingSearchResult] = useState(false);
     const [isAllLoaded, setIsAllLoaded] = useState(false);
     const [allSituations, setAllSituations] = useState([]);
 
-    // Fetch all situations only once (after user typed in search keyword for the first time)
+    // fix
+    // Fetch all situations only once (after user typed in search keyword, or when the create situation modal is open)
     useEffect(() => {
-        async function handleKeywordChange(keyword) {
-            setKeyword(keyword);
-            if (!isAllLoaded) {
+        let isKeywordIn = false;
+        async function handleKeywordChange() {
+            if (!isAllLoaded && !isKeywordIn) {
+                isKeywordIn = true;
+                console.log("fetching...")
                 setIsLoadingSearchResult(true)
-                const result = await loadAll();
-                setAllSituations(result);
-                setIsLoadingSearchResult(false);
-                setIsAllLoaded(true);
+                setTimeout(async () => {
+                    const result = await loadAll();
+                    setAllSituations(result);
+                    setIsLoadingSearchResult(false);
+                    setIsAllLoaded(true);
+                }, 3000);
             }
         }
 
-        if (keyword.length > 0) handleKeywordChange(keyword)
-    }, [keyword])
+        if (keyword.length > 0 || isSituationModalOpen) {
+            handleKeywordChange()
+        }
+    }, [keyword, isSituationModalOpen])
 
     // useEffect(() => {
     //     console.log(JSON.stringify(allSituations, null, 2))
@@ -49,8 +56,16 @@ export default function HomeSearchBar() {
 
     return (
         <div>
-            <SituationsSearchBar allSituations={allSituations} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleResultClick} />
-            <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} />
+            <SituationsSearchBar
+                allSituations={allSituations}
+                keyword={keyword}
+                setKeyword={setKeyword}
+                handleResultClick={handleResultClick}
+                isLoadingSearchResult={isLoadingSearchResult} />
+            <CreateSituationModal
+                isOpen={isSituationModalOpen}
+                setIsOpen={setIsSituationModalOpen}
+                existingSituations={allSituations} />
         </div>
     );
 }

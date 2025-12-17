@@ -9,7 +9,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
 
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { updateViews } = useStoryService();
-    const { STICKERS_BASE_URL, loadAllProfileUrls } = useMediaService();
+    const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, loadAllProfileUrls } = useMediaService();
     const sectorAndGender = [
         `${story.gender ? getTranslatedGenderText(story.gender) : ""}`,
         `${story.sector ? getTranslatedSectorText(story.sector) : ""}`]
@@ -28,7 +28,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
             <div className='flex text-sm'>{location}</div>
             <div className='flex text-xs'>{ageRange}</div>
         </div>
-        else return <div>
+        else return <div className=''>
             <div className='flex text-sm'>{sectorAndGender}</div>
             <div className='flex text-sm'>{location}</div>
             <div className='flex text-xs'>{ageRange}</div>
@@ -101,9 +101,9 @@ export default function StoryCard({ story, setStory, isPreview }) {
     };
 
     return (
-        <div className={`grid grid-col`}>
+        <div className={`grid grid-cols-1 w-full`}>
             <div className='flex justify-between'>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 shrink-0'>
                     {isPreview ?
                         <div><img className='w-24 cursor-pointer' src={selectedProfileUrl} onClick={() => setIsProfileBoxOpen(!isProfileBoxOpen)} /></div> :
                         <div><img className='w-24' src={`${STICKERS_BASE_URL}/${story.profile}`} /></div>
@@ -139,7 +139,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
                 <div className='mt-6'>
                     <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
                     <div className='flex flex-wrap gap-2'>
-                        {!isPreview && <div className='my-[5px]'>#</div>}
+                        {!isPreview && <div className='my-[5px]'><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /></div>}
                         {story.otherSituations.map((s, i) => (
                             <div key={i} className='pill-small-non-interactive'>
                                 {isPreview ? s.name : s}
@@ -153,7 +153,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
                     <div className='text-sm'>{story.adviceText}</div>
                 </div>) :
                 (story.adviceText && <div className='mt-4'>
-                    <div className='text-sm text-gray-500'>Nasihat</div>
+                    <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hand-heart-svgrepo-com.svg`} />
                     <div className='text-sm'>{story.adviceText}</div>
                 </div>)
             }

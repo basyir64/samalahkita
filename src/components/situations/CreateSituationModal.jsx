@@ -7,7 +7,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import containsPersonalInfo from '../../hooks/useDetectPersonalInfo';
 import { useMediaService } from '../../hooks/useMediaService';
 
-export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
+export default function CreateSituationModal({ isOpen, setIsOpen, setStory, existingSituations }) {
 
     const { t } = useTranslation("components");
     const [text, setText] = useState("");
@@ -34,6 +34,12 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
     async function handleSaveClick(situation) {
         if (containsPersonalInfo(situation.name)) {
             setMessage("Links and contacts are not allowed.")
+            return;
+        }
+
+        console.log(`comparing ${situation.name} with \n ${JSON.stringify(existingSituations, null, 2)}`)
+        if(existingSituations.some(s => (s.name === situation.name))) {
+            setMessage("Situation already exists.")
             return;
         }
 
@@ -75,14 +81,14 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory }) {
                         <div className={`mt-2 text-sm text-right ${textLength > maxTextLength && `text-red-700`}`}>
                             {textLength}/{maxTextLength}
                         </div>
-                        <span>{message}</span>
                     </div>
+                    <div className='mt-2'>{message}</div>
                     <div className="flex justify-between gap-4 mt-10">
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                         <button
                             disabled={textLength > maxTextLength || isLoadingSave}
                             className={`underline ${textLength > maxTextLength || isLoadingSave ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
-                            onClick={() => handleSaveClick(situation)}>Save</button>
+                            onClick={() => handleSaveClick(situation)}>{setStory ? "Add" : "Save"}</button>
                     </div>
                 </DialogPanel>
             </div>

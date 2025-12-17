@@ -12,23 +12,37 @@ export default function Feed({ situation }) {
     const { isAtEnd } = useDetectScroll();
     const [isAllLoaded, setIsAllLoaded] = useState(false);
     const [loadMoreClickCounter, setLoadMoreClickCounter] = useState(0);
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         async function getStoriesFirstPage() {
             setIsLoadingStories(true);
             const result = await loadFirstPage([where("situationId", "==", situation.id)])
+            if (!result) {
+                setMessage("There was an error loading the page. Please try again later.");
+                return;
+            }
+
+            if (result.length < 10) setIsAllLoaded(true);
             storiesRef.current = result;
             setIsLoadingStories(false);
         }
 
+        setIsAllLoaded(false);
         getStoriesFirstPage();
-    }, [situation])
+
+    }, [situation]);
 
     useEffect(() => {
         // console.log("isAtEnd: " + isAtEnd)
         async function getStoriesNextPage() {
             setIsLoadingStories(true);
             const result = await loadNextPage([where("situationId", "==", situation.id)]);
+
+            if (!result) {
+                setMessage("There was an error loading more stories. Please try again later.");
+                return;
+            }
             if (result.length === 0) {
                 setIsAllLoaded(true);
                 setIsLoadingStories(false);
@@ -49,23 +63,24 @@ export default function Feed({ situation }) {
     }
 
     return (
-        <div className='flex flex-wrap my-4'>
+        <div className='mt-6'>
             {storiesRef.current.length > 0 ?
-                <div className='flex flex-col w-full'>
+                <div className='grid'>
                     {storiesRef.current.map(s =>
                         <div key={s.id}>
                             <StoryCard story={s} />
-                            <hr className='my-6 border-t-2 border-gray-200' />
+                            <hr className='mt-10 mb-4 border-t-2 border-gray-200' />
                         </div>
                     )}
                     <span
-                        className={`text-center ${!isAllLoaded && " cursor-pointer underline"}`}
+                        className={`text-center`}
                         onClick={() => handleLoadMoreClick(isAllLoaded)}
                     >
-                        {isLoadingStories ? "Loading..." : (isAllLoaded ? "End of feed" : "Load more")}
+                        {isLoadingStories ? "Loading..." : (isAllLoaded ? "End of feed" : "Scroll to load more...")}<br/>{message}
                     </span>
                 </div> :
-                <div className='flex flex-col w-full text-center'>{isLoadingStories ? "Loading..." : "There are no stories yet."}</div>
+                <div className='flex flex-col w-full text-center'>{isLoadingStories ? "Loading..." : "There are no stories yet."}<br/>{message}</div>
+                
             }
         </div>
     );

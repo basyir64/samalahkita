@@ -128,9 +128,9 @@ export default function Chart() {
                             <div className='flex'>
                                 <div className='mt-2 text-2xl text-gray-500'>#{i + 1} </div>
                             </div>
-                            <div className='grid grid-rows-2 text-left'>
+                            <div className='grid text-left'>
                                 <div>{situation.name}</div>
-                                <div className='flex rounded-[25px] w-max px-2 border gap-2'>
+                                <div className='flex rounded-[25px] w-max px-2 border gap-4'>
                                     <div className='flex '>
                                         <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
                                         <div className='text-gray-500 ml-1'>{situation.storiesCount}</div>

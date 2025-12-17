@@ -8,7 +8,7 @@ export default function Face() {
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     const { t } = useTranslation("components");
     return (
-        <div className='my-2 grid grid-col justify-center'>
+        <div className='my-2 grid grid-col justify-center text-center'>
             <div className='flex justify-center text-3xl font-bold mt-10 mb-4'>
                 {t('title')}
             </div>
@@ -16,29 +16,30 @@ export default function Face() {
                 <HomeSearchBar />
                 {/* <span>add</span> add button inside result */}
             </div>
-            <div className='mt-10 flex flex-col text-center'>
-                <span className=''> {t('intro1')} <br /> {t('intro2')} </span>
-                <div className='flex '>
-                    <span className=''>{t('privacy')}</span>
-                    <Link><span className='ml-1 cursor-pointer underline'>{t('privacyLink')}</span></Link>
-                    <span className='ml-1'>{t('contact')}</span>
-                </div>
+            <div className='mt-10 text-center'>
+                <span className=''> 
+                    {t('intro1')} 
+                    {t('intro2')} 
+                    <Link><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></Link>
+                    </span>
+                    {t('contact')}
+                {/* <span className='ml-1'></span> */}
                 <div className='mt-6 flex justify-center gap-8'>
                     <Link className='flex items-center' to="https://www.instagram.com/samalahkita.my?igsh=dXQ0Z3ppc2wzMjE3&utm_source=qr">
                         <img className='mt-1 w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/instagram-svgrepo-com.svg`} />
                         <span className='ml-1'>@samalahkita.my</span>
-                    </Link> 
-                    <Link className='flex items-center'>
+                    </Link>
+                    {/* <Link className='flex items-center'>
                         <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/email-svgrepo-com.svg`} />
                         <span className='ml-1'>basyirzainuddin@gmail.com</span>
-                    </Link>
+                    </Link> */}
                     <Link className='flex items-center' to={"https://github.com/basyir64/samalahkita"}>
                         <img className='w-[24px]' src={`${SYSTEM_ICON_BASE_URL}/github-svgrepo-com.svg`} />
                         <span className='ml-1'>GitHub</span>
                     </Link>
                 </div>
-                <span className='mt-2'>Thank You For Being Here, Anonymous!</span>
             </div>
+            <span className='mt-2'>Thank You For Being Here, Anonymous!</span>
         </div>
     )
 }

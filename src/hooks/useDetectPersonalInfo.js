@@ -7,7 +7,7 @@ export default function containsPersonalInfo(text) {
 
   // Phone: too many digits
   const digits = text.replace(/\D/g, "");
-  if (digits.length >= 8) return true;
+  if (digits.length >= 3) return true;
 
   return false;
 }

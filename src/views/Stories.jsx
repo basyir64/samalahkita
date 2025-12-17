@@ -52,16 +52,16 @@ export default function Stories() {
     }
 
     return (
-        <div>
+        <div className='grid'>
             {isSituationsLoading ?
                 <div className='text-center'>Loading...</div> :
-                <div>
+                <div className='mx-auto px-6 max-w-3xl'>
                     <div className={`sticky ${isScrollingUp ? "top-14" : "top-2"} z-40 py-4 flex gap-3 justify-center`}>
-                        <div className='pill-feed-title'>
+                        <div key={situation.name} className='pill-feed-title'>
                             <Typewriter text={situation.name} />
                         </div>
                     </div>
-                    <div className='grid grid-col justify-center'>
+                    <div className=''>
                         <div className='text-center'>
                             <div className='flex justify-center'>
                                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={situationsRef} />
@@ -69,7 +69,7 @@ export default function Stories() {
                         </div>
                         <Feed situation={situation} />
                     </div>
-                    <div className={`sticky bottom-2 z-40 py-4 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-50"}`}>
+                    <div className={`sticky bottom-4 z-40 mt-8 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-30"}`}>
                         <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             Cerita Baru

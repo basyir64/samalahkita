@@ -62,22 +62,32 @@ export function useStoryService() {
     };
 
     async function loadFirstPage(constraints = []) {
-        const first = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), limit(1));
-        const snapshot = await getDocs(first);
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        try {
+            const first = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), limit(10));
+            const snapshot = await getDocs(first);
+            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
+            return data;
 
-        setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
-        return data;
+        } catch (error) {
+            console.error("Firestore error getting story first page: " + error)
+            return false;
+        }
+
     }
 
     async function loadNextPage(constraints = []) {
         if (!lastVisibleStory) return [];
-        const next = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), startAfter(lastVisibleStory), limit(1));
-        const snapshot = await getDocs(next);
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
-
-        return data;
+        try {
+            const next = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), startAfter(lastVisibleStory), limit(10));
+            const snapshot = await getDocs(next);
+            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setLastVisibleStory(snapshot.docs[snapshot.docs.length - 1]);
+            return data;
+        } catch (error) {
+            console.error("Firestore error getting story first page: " + error)
+            return false;
+        }
     }
 
     async function updateViews(story) {

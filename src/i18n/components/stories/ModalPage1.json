@@ -15,7 +15,7 @@
     "business_owner_user_input": "Business Owner",
     "freelance_user_input": "Freelance",
     "rider_user_input": "Rider And Delivery",
-    "agent_user_input": "Affiliate/Agent/Distributor/Dropship, etc."
+    "agent_user_input": "Affiliate/Agent"
   },
   "ms": {
     "gender_field": "Jantina *",
@@ -33,6 +33,6 @@
     "business_owner_user_input": "Pemilik Perniagaan",
     "freelance_user_input": "Pekerja Bebas",
     "rider_user_input": "Rider/Penghantaran",
-    "agent_user_input": "Affiliate/Agent/Pengedar/Dropship, dsb."
+    "agent_user_input": "Rakan Niaga/Agen"
   }
 }
