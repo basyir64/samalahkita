@@ -17,6 +17,7 @@ export default function Feed({ situation }) {
     useEffect(() => {
         async function getStoriesFirstPage() {
             setIsLoadingStories(true);
+            // console.log("situation: " + JSON.stringify(situation, null, 2))
             const result = await loadFirstPage([where("situationId", "==", situation.id)])
             if (!result) {
                 setMessage("There was an error loading the page. Please try again later.");

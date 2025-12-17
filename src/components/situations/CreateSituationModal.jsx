@@ -37,7 +37,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
             return;
         }
 
-        console.log(`comparing ${situation.name} with \n ${JSON.stringify(existingSituations, null, 2)}`)
+        // console.log(`comparing ${situation.name} with \n ${JSON.stringify(existingSituations, null, 2)}`)
         if(existingSituations.some(s => (s.name === situation.name))) {
             setMessage("Situation already exists.")
             return;

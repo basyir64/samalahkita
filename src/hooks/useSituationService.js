@@ -15,6 +15,7 @@ export function useSituationService() {
   // Load all situations
   async function loadAll() {
     try {
+      console.log("fetching situations from service")
       const snapshot = await getDocs(collection(db, "situations"));
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       return data;

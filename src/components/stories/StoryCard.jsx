@@ -153,7 +153,8 @@ export default function StoryCard({ story, setStory, isPreview }) {
                     <div className='text-sm'>{story.adviceText}</div>
                 </div>) :
                 (story.adviceText && <div className='mt-4'>
-                    <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hand-heart-svgrepo-com.svg`} />
+                    {/* <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hand-heart-svgrepo-com.svg`} /> */}
+                    <div className='text-sm text-gray-500'>Nasihat</div>
                     <div className='text-sm'>{story.adviceText}</div>
                 </div>)
             }

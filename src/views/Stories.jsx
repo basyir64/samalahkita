@@ -9,6 +9,7 @@ import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
 import { Link } from 'react-router';
+import { useOutletContext } from 'react-router';
 
 export default function Stories() {
     const params = useParams();
@@ -19,24 +20,27 @@ export default function Stories() {
     const { t } = useTranslation("views");
     const { isScrollingUp } = useDetectScroll();
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
-    const situationsRef = useRef([]);
+    const { allSituationsContextRef } = useOutletContext();
     const [isSituationsLoading, setIsSituationsLoading] = useState(true);
 
-    // Fetch all situations only once on this page and pass it down 
-    // to Stories -> CreateStoryModal -> ModalPage2 -> OtherSituationsMarquee via ref
     useEffect(() => {
         async function getAllSituations() {
-            console.log("fetching...");
+            console.log("fetching situations from stories...");
             const result = await loadAll();
             if (!result) return;
-            situationsRef.current = result;
+            allSituationsContextRef.current = result;
             const situationMatch = result.find(s => (s.id === situationid));
             setSituation(situationMatch);
-            // setTimeout(() => { setIsSituationsLoading(false) }, 3000)
             setIsSituationsLoading(false);
         }
 
-        getAllSituations();
+        // this is just a fallback. from local tests, it seems the context ref should always be available from anywhere in the page (fetched from Layout) even by copying and pasting the link
+        if (allSituationsContextRef.current.length === 0) getAllSituations();
+        else {
+            const situationMatch = allSituationsContextRef.current.find(s => (s.id === situationid));
+            setSituation(situationMatch);
+            setIsSituationsLoading(false);
+        }
     }, []);
 
     function handleGetRandomSituationClick(currentSituation) {
@@ -48,7 +52,7 @@ export default function Stories() {
     }
 
     function getRandomSituation() {
-        return situationsRef.current[Math.floor(Math.random() * situationsRef.current.length)];
+        return allSituationsContextRef.current[Math.floor(Math.random() * allSituationsContextRef.current.length)];
     }
 
     return (
@@ -64,7 +68,7 @@ export default function Stories() {
                     <div className=''>
                         <div className='text-center'>
                             <div className='flex justify-center'>
-                                <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={situationsRef} />
+                                <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={allSituationsContextRef} />
                             </div>
                         </div>
                         <Feed situation={situation} />
@@ -76,11 +80,11 @@ export default function Stories() {
                         </div>
                         <Link to="/">
                             <div className='pill-feed-addstory'>
-                                <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' /> 
+                                <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' />
                             </div>
                         </Link>
                         <div className='pill-feed-addstory' onClick={() => handleGetRandomSituationClick(situation)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' /> 
+                            <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' />
                         </div>
                     </div>
                 </div>
