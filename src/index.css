@@ -121,7 +121,7 @@ html {
 .pill-searchresult {
   @apply absolute top-full left-0 mt-2
     whitespace-normal break-words w-full
-    bg-white px-[5px] py-[5px] z-50
+    bg-white z-50
     rounded-[25px] transition duration-500 
     shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
     max-h-30 overflow-y-auto;
@@ -129,7 +129,7 @@ html {
 
 .pill-searchresult-item {
   @apply whitespace-normal break-words text-[#030000] px-[10px] py-[5px] hover:bg-[#f1efe3]
-  rounded-[25px] cursor-pointer;
+  cursor-pointer;
 }
 
 .my-tooltip {
@@ -145,7 +145,7 @@ html {
 }
 
 .my-checkbox {
-  @apply w-[14px] h-[18px] rounded text-sm px-2 py-1 cursor-pointer border hover:bg-[#f1efe3];
+  @apply w-[18px] h-[18px] rounded text-sm cursor-pointer border hover:bg-[#f1efe3];
 }
 
 .my-select {

@@ -21,10 +21,9 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
     }, []);
 
     return (
-        <div className="relative">
-            <div className='flex flex-wrap gap-2'>
-                <input
-                    className={`pill-searchbar ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
+        <div className="relative flex-1">
+            <input
+                    className={`pill-searchbar w-full ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
                     type="text"
                     autoFocus={isSearchBarFocused}
                     onFocus={() => setIsSearchBarFocused(true)}
@@ -33,9 +32,8 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
                     onChange={(e) => handleKeywordChange(e.target.value)}
                     placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
                 />
-            </div>
             {isSearchBarFocused && (
-                <div className={`pill-searchresult ${size === 'sm' ? 'text-sm' : ''}`}>
+                <div className={`pill-searchresult ${size === 'sm' ? 'text-sm' : 'px-[5px] py-[5px]'}`}>
                     {
                         keyword &&
                         allSituations.filter(s => (
