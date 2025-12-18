@@ -7,6 +7,8 @@ import * as htmlToImage from 'html-to-image';
 
 export default function StoryCardShare({ story, situationName }) {
 
+    // To avoid accidental situation change once story is saved and modal re-opened.
+    // const originalSituationName = useRef(situationName);
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, CONCEALER_BASE_URL } = useMediaService();
     const [eyes, setEyes] = useState(
@@ -44,7 +46,7 @@ export default function StoryCardShare({ story, situationName }) {
 
     const [selectedConcealer, setSelectedConcealer] = useState(concealers[0].name);
     const [currentSituationName, setCurrentSituationName] = useState(situationName);
-    const [currentInfoItems, setCurrentInfoItems] = useState(arrangeInfoItems(sectorAndGender, ageRange, location));
+    const [currentInfoItems, setCurrentInfoItems] = useState(<></>);
     const [currentText, setCurrentText] = useState("");
     const [currentOtherSituations, setCurrentOtherSituations] = useState([]);
     const [currentAdviceText, setCurrentAdviceText] = useState("");
@@ -63,7 +65,6 @@ export default function StoryCardShare({ story, situationName }) {
     }
 
     useEffect(() => {
-        setCurrentSituationName(situationName);
         setCurrentText(story.text);
         setCurrentOtherSituations(story.otherSituations);
         setCurrentAdviceText(story.adviceText);
@@ -75,12 +76,15 @@ export default function StoryCardShare({ story, situationName }) {
             .join(", ");
         let ageRange = story.ageRange ? story.ageRange + " tahun" : "";
         let location = story.location ? getLocationText(story.location) : "";
-        setCurrentInfoItems(arrangeInfoItems(sectorAndGender, ageRange, location))
 
         setSectorAndGender(sectorAndGender);
         setAgeRange(ageRange);
         setLocation(location);
     }, [story])
+
+    useEffect(() => {
+        setCurrentInfoItems(arrangeInfoItems(sectorAndGender, ageRange, location));
+    }, [sectorAndGender, ageRange, location])
 
     const [storyItemsConcealOptions, setStoryItemsConcealOptions] = useState([
         { isHidden: false, iconName: "double-quotes-svgrepo-com.svg", name: "isSituationHidden" },
@@ -95,7 +99,7 @@ export default function StoryCardShare({ story, situationName }) {
         // SITUATION
         if (eyes.isSituationHidden) {
             let concealedSituationName = [];
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 12; i++) {
                 concealedSituationName.push(<img className='w-[24px]' src={`${CONCEALER_BASE_URL}/${selectedConcealer}`} />)
             }
             setCurrentSituationName(<div className='flex flex-wrap'>{...concealedSituationName}</div>)
@@ -214,9 +218,12 @@ export default function StoryCardShare({ story, situationName }) {
                 <div className='max-h-[40vh] overflow-y-auto px-1'>
                     <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
                         <div className={`pill-card-story`}>
-                            <div className='flex justify-between'>
+                            <div className='flex justify-between mb-2'>
                                 <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
-                                <div className='text-gray-400  text-sm'>samalahkita</div>
+                                <div className='text-center'>
+                                    <div className='text-gray-400  text-sm'>samalahkita</div>
+                                    <div className='text-gray-400 text-[10px]'>-Diari Sejagat-</div>
+                                </div>
                             </div>
                             <div className='mb-4'>
                                 {currentSituationName}

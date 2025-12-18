@@ -5,7 +5,7 @@ export default function ModalPage4({ isCurrent, situationName, story, setStory})
     
     return (
         <div className={`${isCurrent ? "block" : "hidden"} grid grid-col`}>
-            <StoryCardShare story={story} setStory={setStory} situationName={situationName} isPreview={true} />
+            <StoryCardShare story={story} setStory={setStory} situationName={situationName} />
         </div>
     );
 }
