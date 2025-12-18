@@ -134,30 +134,32 @@ export default function StoryCard({ story, setStory, isPreview }) {
                 </div>
 
             }
-            <div className='my-4'>{story.text}</div>
-            {story.otherSituations?.length > 0 &&
-                <div className='mt-6'>
-                    <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
-                    <div className='flex flex-wrap gap-2'>
-                        {!isPreview && <div className='my-[5px]'><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /></div>}
-                        {story.otherSituations.map((s, i) => (
-                            <div key={i} className='pill-small-non-interactive'>
-                                {isPreview ? s.name : s}
-                            </div>
-                        ))}
-                    </div>
-                </div>}
-            {isPreview ?
-                (story.hasAdvice && <div className='mt-4'>
-                    <div className='text-sm text-gray-500'>Nasihat</div>
-                    <div className='text-sm'>{story.adviceText}</div>
-                </div>) :
-                (story.adviceText && <div className='mt-4'>
-                    {/* <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hand-heart-svgrepo-com.svg`} /> */}
-                    <div className='text-sm text-gray-500'>Nasihat</div>
-                    <div className='text-sm'>{story.adviceText}</div>
-                </div>)
-            }
+            <div className={isPreview ? "max-h-[40vh] overflow-y-auto px-1" : ""}>
+                <div className='my-4'>{story.text}</div>
+                {story.otherSituations?.length > 0 &&
+                    <div className='mt-6'>
+                        <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
+                        <div className='flex flex-wrap gap-2'>
+                            {!isPreview && <div className='my-[5px]'><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /></div>}
+                            {story.otherSituations.map((s, i) => (
+                                <div key={i} className='pill-small-non-interactive'>
+                                    {isPreview ? s.name : s}
+                                </div>
+                            ))}
+                        </div>
+                    </div>}
+                {isPreview ?
+                    (story.hasAdvice && <div className='mt-4'>
+                        <div className='text-sm text-gray-500'>Nasihat</div>
+                        <div className='text-sm'>{story.adviceText}</div>
+                    </div>) :
+                    (story.adviceText && <div className='mt-4'>
+                        {/* <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hand-heart-svgrepo-com.svg`} /> */}
+                        <div className='text-sm text-gray-500'>Nasihat</div>
+                        <div className='text-sm'>{story.adviceText}</div>
+                    </div>)
+                }
+            </div>
         </div>
     );
 }

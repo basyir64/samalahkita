@@ -37,7 +37,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
             return;
         }
 
-        // console.log(`comparing ${situation.name} with \n ${JSON.stringify(existingSituations, null, 2)}`)
+        // Check if exists in situations context ref
         if(existingSituations.some(s => (s.name === situation.name))) {
             setMessage("Situation already exists.")
             return;
@@ -69,7 +69,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                     <DialogTitle className="">Tambah Situasi Baru
                     </DialogTitle>
                     <Description className="text-sm mb-4 text-gray-500">Add your text below</Description>
-                    <div className='flex gap-2'>
+                    <div className=''>
                         {/* <img className="w-[20px]" src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /> */}
                         <input
                             type="text"
@@ -78,11 +78,13 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                             value={text}
                             spellCheck={false}
                             onChange={(e) => handleTextChange(e.target.value)} />
-                        <div className={`mt-2 text-sm text-right ${textLength > maxTextLength && `text-red-700`}`}>
-                            {textLength}/{maxTextLength}
+                        <div className='mt-2 flex justify-between gap-2'>
+                            <div className='text-sm'>{message}</div>
+                            <div className={`text-sm ${textLength > maxTextLength && `text-red-700`}`}>
+                                {textLength}/{maxTextLength}
+                            </div>
                         </div>
                     </div>
-                    <div className='mt-2'>{message}</div>
                     <div className="flex justify-between gap-4 mt-10">
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                         <button

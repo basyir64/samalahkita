@@ -6,6 +6,7 @@ import ModalPage1 from './ModalPage1';
 import { useTranslation } from 'react-i18next';
 import ModalPage3 from './ModalPage3';
 import { useStoryService } from '../../hooks/useStoryService';
+import { useSituationService } from '../../hooks/useSituationService';
 import { useUserOptions } from '../../hooks/useUserOptions';
 import { serverTimestamp } from 'firebase/firestore';
 import { useMediaService } from '../../hooks/useMediaService';
@@ -60,7 +61,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
             profile: `watery_eye_cat.webp`,
             createdAt: null,
         });
-    const maxTextLength = 200;
+    const maxTextLength = 300;
     const maxAdviceTextLength = 100;
     const maxOtherSituationsSize = 3;
 
@@ -107,16 +108,32 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         });
     }, [story])
 
+    const [isSaveAttempted, setIsSaveAttempted] = useState(false);
+
     async function handleSaveClick(storySave) {
         setIsSaveLoading(true);
+        setIsSaveAttempted(true);
         const result = await save(storySave);
         if (result) {
             setIsSaveSuccess(true);
+            setCurrentPage(4);
             setMessage("Saved");
         } else {
-            setMessage("Error");
+            setMessage("Couldn't save. We are fixing this, please try again later.");
         }
         setIsSaveLoading(false);
+        saveNewSituations(storySave);
+    }
+
+    const { saveMultiple } = useSituationService();
+
+    async function saveNewSituations(storySave) {
+        let newSituationNames = [];
+        storySave.otherSituations?.forEach(situationName => {
+            const exists = situationsRef.current.some(s => (s.name === situationName));
+            if (!exists) newSituationNames.push(situationName);
+        });
+        if (newSituationNames.length > 0) await saveMultiple(newSituationNames);
     }
 
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
@@ -125,7 +142,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         <div>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
-                <div className="fixed inset-0 flex items-center justify-center p-4">
+                <div className="fixed inset-0 flex items-center justify-center p-2">
                     <DialogPanel className="pill-modal">
                         <DialogTitle className="">
                             <div className='flex justify-between'>
@@ -139,7 +156,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                         : <div>
                                             <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
                                             {situation.name}
-                                            <Description className="text-sm text-gray-500 mb-4">
+                                            <Description className="text-sm text-gray-500 mb-1">
                                                 {instructions[pages.find(page => page.id === currentPage).instruction]}
                                             </Description>
                                         </div>
@@ -167,23 +184,37 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                             situationsRef={situationsRef} />
                         <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
                         <ModalPage4 isCurrent={currentPage === 4} situationName={situation.name} story={story} setStory={setStory} />
-                        <div className='text-right mt-10 mb-2'>{message}</div>
-                        <div className="flex justify-between gap-4">
+                        <div className="flex justify-between gap-4 mt-2">
                             <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                             <div className='flex gap-4'>
-                                {currentPage !== 1 && <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
+                                {(currentPage === 1 || currentPage === 4) ? null : <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
                                 {currentPage === 3 ?
-                                    <button
-                                        disabled={isSaveLoading}
-                                        className={`underline ${isSaveLoading ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
-                                        onClick={() => isSaveSuccess ? setCurrentPage(4) : handleSaveClick(storySave)}>
-                                        {isSaveLoading ? "Loading..." : (isSaveSuccess ? "Share" : "Save")}
-                                    </button> :
-                                    <button
-                                        disabled={isNextDisabled(currentPage)}
-                                        className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext()}>
-                                        {t('next_button')}
-                                    </button>}
+                                    (isSaveAttempted ?
+                                        (!isSaveSuccess &&
+                                            <div className='text-sm text-right'>
+                                                {message}<br />
+                                                <button
+                                                    disabled={isSaveLoading}
+                                                    className={`underline ${isSaveLoading ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                                                    onClick={() => handleSaveClick(storySave)}>
+                                                    Try again</button></div>)
+                                        : <button
+                                            disabled={isSaveLoading}
+                                            className={`underline ${isSaveLoading ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                                            onClick={() => handleSaveClick(storySave)}>
+                                            {isSaveLoading ? "Loading..." : "Save"}
+                                        </button>)
+                                    : (currentPage === 4 ?
+                                        (message && <div className='flex justify-end mt-2 mb-2 gap-1'>
+                                            {isSaveSuccess && <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />}
+                                            {message}
+                                        </div>)
+                                        : <button
+                                            disabled={isNextDisabled(currentPage)}
+                                            className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext()}>
+                                            {t('next_button')}
+                                        </button>)
+                                }
                             </div>
                         </div>
                     </DialogPanel>

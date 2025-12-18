@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../../index.css';
 import { Textarea } from '@headlessui/react';
 import OtherSituationsMarquee from '../marquee/OtherSituationsMarquee';
@@ -60,10 +60,30 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
         })
     }
 
+    // Story and advice TextArea grows/shrinks with content
+    const textAreaRef = useRef(null);
+    useEffect(() => {
+        if (!textAreaRef.current) return;
+        textAreaRef.current.style.height = "auto";
+        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }, [text]);
+
+    const adviceTextAreaRef = useRef(null);
+    useEffect(() => {
+        if (!adviceTextAreaRef.current) return;
+        adviceTextAreaRef.current.style.height = "auto";
+        adviceTextAreaRef.current.style.height = `${adviceTextAreaRef.current.scrollHeight}px`;
+    }, [adviceText]);
+
     return (
-        <div className={`${isCurrent ? "block" : "hidden"} grid grid-col`}>
+        <div className={`${isCurrent ? "block" : "hidden"} grid grid-col max-h-[50vh] overflow-y-auto px-1 py-1`}>
             <div className='grid grid-col'>
-                <Textarea autoFocus={isCurrent} rows={3} spellCheck={false} className="border rounded-[5px] px-1" value={text}
+                <Textarea
+                    ref={textAreaRef}
+                    autoFocus={isCurrent}
+                    rows={2}
+                    spellCheck={false}
+                    className="min-h-10 resize-none overflow-hidden border px-1" value={text}
                     onChange={(e) => {
                         handleTextChange(e.target.value)
                     }} />
@@ -72,7 +92,7 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                 </div>
             </div>
             <div className='grid grid-col'>
-                <div className='flex mt-6 gap-2'>
+                <div className='flex mt-4 gap-2'>
                     <span className="text-sm text-gray-500">
                         {isOtherSituationsTooltipOpen ? t('other_situations_instruction_tooltip') : t('other_situations_instruction')}
                     </span>
@@ -87,13 +107,18 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                 <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-700`}`}>
                     {story.otherSituations.length}/{maxOtherSituationsSize}
                 </div>
-                <div className='flex gap-2 mt-4'>
+                <div className='flex gap-2 mt-2'>
                     <MyCheckbox text={isAdviceTooltipOpen ? t('advice_checkbox_tooltip') : t('advice_checkbox')} onClick={handleHasAdviceChecboxClick} value={hasAdvice} />
                     <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} />
                 </div>
                 {hasAdvice &&
                     <div className='grid grid-col'>
-                        <Textarea rows={2} spellCheck={false} className="mt-4 border rounded-[5px] px-1" value={adviceText}
+                        <Textarea
+                            ref={adviceTextAreaRef}
+                            rows={1}
+                            spellCheck={false}
+                            className="min-h-10 resize-none overflow-hidden mt-4 border px-1"
+                            value={adviceText}
                             onChange={(e) => {
                                 handleAdviceTextChange(e.target.value)
                             }} />

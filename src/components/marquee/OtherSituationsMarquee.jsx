@@ -98,7 +98,7 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory, 
         <div className="flex items-center gap-2 mt-6">
           <img className="w-[20px] shrink-0" src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`}/>
             <SituationsSearchBar size="sm" allSituations={situationsRef.current} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleSearchResultClick} />
-          <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} setStory={setStory} existingSituations={situationsRef.current}/>
+          <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} setStory={setStory} existingSituations={[...situationsRef.current, ...story.otherSituations ]}/>
         </div>
       </div>
     </div>

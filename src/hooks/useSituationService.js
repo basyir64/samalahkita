@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, doc, where, getDoc, getCountFromServer } from "firebase/firestore";
+import { useState } from "react";
+import { collection, getDocs, query, addDoc, doc, getDoc, getCountFromServer, writeBatch, serverTimestamp } from "firebase/firestore";
 import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
@@ -15,7 +15,7 @@ export function useSituationService() {
   // Load all situations
   async function loadAll() {
     try {
-      console.log("fetching situations from service")
+      // console.log("fetching situations from service")
       const snapshot = await getDocs(collection(db, "situations"));
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       return data;
@@ -71,6 +71,27 @@ export function useSituationService() {
     }
   }
 
+  async function saveMultiple(situationNames) {
+    try {
+      const batch = writeBatch(db);
+      situationNames.forEach(name => {
+        // console.log("saving " + name);
+        const ref = doc(collection(db, "situations"));
+        batch.set(ref, {
+          name: name,
+          nameLength: name.length,
+          createdAt: serverTimestamp(), 
+          storiesCount: 0, 
+          totalViews: 0
+        });
+      });
+      await batch.commit();
+
+    } catch (error) {
+      console.error("Error batch saving situations: " + error);
+    }
+  }
+
   return {
     allSituations,
     loading,
@@ -78,7 +99,8 @@ export function useSituationService() {
     loadByQuery,
     loadById,
     save,
-    countAllSituations
+    countAllSituations,
+    saveMultiple
   };
 }
 
