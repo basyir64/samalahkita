@@ -7,8 +7,6 @@ import * as htmlToImage from 'html-to-image';
 
 export default function StoryCardShare({ story, situationName }) {
 
-    // To avoid accidental situation change once story is saved and modal re-opened.
-    // const originalSituationName = useRef(situationName);
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, CONCEALER_BASE_URL } = useMediaService();
     const [eyes, setEyes] = useState(
@@ -188,7 +186,7 @@ export default function StoryCardShare({ story, situationName }) {
                 <div className='mb-2 flex flex-wrap gap-2'>
                     <div className='text-gray-500 text-sm mt-1'>Ganti:</div>
                     {storyItemsConcealOptions.map((storyItem, i) => {
-                        if (storyItem.name === "isOtherHidden" && story.otherSituations.length < 1) {
+                        if (storyItem.name === "isOtherHidden" && !story.hasOtherSituations) {
                             return;
                         } else if (storyItem.name === "isAdviceHidden" && !story.hasAdvice) {
                             return;
@@ -237,10 +235,11 @@ export default function StoryCardShare({ story, situationName }) {
                                 </div>
                             </div>
                             <div className='grid grid-cols-1 my-4'>{currentText}</div>
-                            {currentOtherSituations?.length > 0 ?
+                            {story.hasOtherSituations && (currentOtherSituations?.length > 0 ?
                                 <div className=''>
                                     <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>
                                     <div className='flex flex-wrap gap-2'>
+                                        {/* real value */}
                                         {currentOtherSituations.map((s, i) => (
                                             <div key={i} className='pill-small-non-interactive'>
                                                 {s.name}
@@ -249,11 +248,12 @@ export default function StoryCardShare({ story, situationName }) {
                                     </div>
                                 </div> :
                                 <div>
-                                    {story.otherSituations.length > 0 && <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>}
+                                    {story.hasOtherSituations && <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>}
                                     <div className='flex flex-wrap gap-2'>
-                                        {currentOtherSituations}
+                                        {/* the concealer (emoji) */}
+                                        {currentOtherSituations} 
                                     </div>
-                                </div>
+                                </div>)
                             }
                             {story.hasAdvice &&
                                 <div className='mt-4'>

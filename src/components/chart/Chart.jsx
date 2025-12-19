@@ -120,7 +120,7 @@ export default function Chart() {
                 </div>
             }
             <div className='mt-12'>
-                <div className='text-gray-500 tracking-[0.1em] mb-2'>Carta Situasi </div>
+                <div className='tracking-[0.1em] mb-2'>Carta Situasi </div>
                 {isRankingLoading ?
                     <div>Loading...</div> :
                     ranking.map((situation, i) => (
@@ -146,9 +146,9 @@ export default function Chart() {
             </div>
 
             <div className='mt-12'>
-                <div className='text-gray-500 tracking-[0.1em]'> Lebih Dari 10 'Sticker' Cerminan Emosi.</div>
-                <div className='text-gray-500 tracking-[0.1em]'> Saya perlukan bantuan anda!!! DM IG @samalahkita.my untuk derma, dan
-                    <br />  'sticker' + nama anda akan dipaparkan di bawah sebagai tanda terima kasih {"<3"} </div>
+                <div className='tracking-[0.1em]'> Lebih Dari 10 'Sticker' Cerminan Emosi.</div>
+                <div className='text-gray-500 tracking-[0.1em]'> Bantuan diperlukan!!! DM IG @samalahkita.my untuk derma, dan
+                    <br />  koleksi + nama anda akan dipaparkan di bawah sebagai tanda terima kasih {"<3"} </div>
                 <div className='text-gray-500 tracking-[0.1em]'>(Mood: Sedih, Keliru, Risau, Kecewa, Sunyi, Pasrah, atau Bosan)</div>
                 <div className='flex justify-center'>
                     <div className='relative mt-8 mb-60 w-40'>
@@ -158,7 +158,7 @@ export default function Chart() {
                                 const order =
                                     (i - activeIndex + profileUrls.length) % profileUrls.length;
 
-                                const offsetX = order * 15;
+                                const offsetX = order * 10;
                                 const zIndex = profileUrls.length - order;
                                 const scale = order === 0 ? 1.2 : 1 - order * 0.05; // front bigger
                                 return (

@@ -9,14 +9,15 @@ import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
 import { Link } from 'react-router';
-import { useOutletContext } from 'react-router';
+import { useSearchParams, useOutletContext } from 'react-router';
 
 export default function Stories() {
     const params = useParams();
     const situationid = params.situationid;
+    const [searchParams] = useSearchParams();
     const { loadAll } = useSituationService();
     const [situation, setSituation] = useState({})
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(searchParams.get('modal') === 'true');
     const { t } = useTranslation("views");
     const { isScrollingUp } = useDetectScroll();
     const { SYSTEM_ICON_BASE_URL } = useMediaService();

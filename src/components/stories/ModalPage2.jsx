@@ -75,6 +75,16 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
         adviceTextAreaRef.current.style.height = `${adviceTextAreaRef.current.scrollHeight}px`;
     }, [adviceText]);
 
+    const [hasOtherSituations, setHasOtherSituations] = useState(story?.hasOtherSituations || false);
+
+    function handleHasOtherSituationsChecboxClick(hasOtherSituations) {
+        setHasOtherSituations(!hasOtherSituations);
+        setStory(prev => ({
+            ...prev,
+            hasOtherSituations: !hasOtherSituations
+        }));
+    }
+
     return (
         <div className={`${isCurrent ? "block" : "hidden"} grid grid-col max-h-[50vh] overflow-y-auto px-1 py-1`}>
             <div className='grid grid-col'>
@@ -83,7 +93,7 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                     autoFocus={isCurrent}
                     rows={2}
                     spellCheck={false}
-                    className="min-h-10 resize-none overflow-hidden border px-1" value={text}
+                    className="min-h-10 resize-none overflow-hidden border p-2" value={text}
                     onChange={(e) => {
                         handleTextChange(e.target.value)
                     }} />
@@ -91,25 +101,31 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                     {currentLength}/{maxTextLength}
                 </div>
             </div>
-            <div className='grid grid-col'>
-                <div className='flex mt-4 gap-2'>
-                    <span className="text-sm text-gray-500">
-                        {isOtherSituationsTooltipOpen ? t('other_situations_instruction_tooltip') : t('other_situations_instruction')}
-                    </span>
-                    <MyTooltip isOpen={isOtherSituationsTooltipOpen} setIsOpen={setIsOtherSituationsTooltipOpen} />
+            <div className='grid'>
+                <div className='flex gap-2 mt-2'>
+                    <MyCheckbox text={"I have other problems/situations"} onClick={() => handleHasOtherSituationsChecboxClick(hasOtherSituations)} value={hasOtherSituations} />
+                    {/* <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} /> */}
                 </div>
-                <div className='my-2'>
-                    {story.otherSituations.map((s, i) => (
-                        <div key={i} className='pill-small bg-[#f1efe3]' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
-                    ))}
-                </div>
-                <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
-                <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-700`}`}>
-                    {story.otherSituations.length}/{maxOtherSituationsSize}
-                </div>
+                {hasOtherSituations && <div>
+                    <div className='flex mt-4 gap-2'>
+                        <span className="text-sm text-gray-500">
+                            {isOtherSituationsTooltipOpen ? t('other_situations_instruction_tooltip') : t('other_situations_instruction')}
+                        </span>
+                        <MyTooltip isOpen={isOtherSituationsTooltipOpen} setIsOpen={setIsOtherSituationsTooltipOpen} />
+                    </div>
+                    <div className='my-2'>
+                        {story.otherSituations.map((s, i) => (
+                            <div key={i} className='pill-small bg-[#f1efe3]' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
+                        ))}
+                    </div>
+                    <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
+                    <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-700`}`}>
+                        {story.otherSituations.length}/{maxOtherSituationsSize}
+                    </div>
+                </div>}
                 <div className='flex gap-2 mt-2'>
                     <MyCheckbox text={isAdviceTooltipOpen ? t('advice_checkbox_tooltip') : t('advice_checkbox')} onClick={handleHasAdviceChecboxClick} value={hasAdvice} />
-                    <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} />
+                    {/* <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} /> */}
                 </div>
                 {hasAdvice &&
                     <div className='grid grid-col'>

@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import '../../index.css';
-import { useSituationService } from '../../hooks/useSituationService';
 import CreateSituationModal from '../situations/CreateSituationModal';
 import { useTranslation } from 'react-i18next';
 import SituationsSearchBar from '../search-bar/SituationsSearchBar';
@@ -9,12 +8,10 @@ import { useNavigate, useOutletContext } from 'react-router';
 export default function HomeSearchBar() {
     // will scale later, after beta test
     const { t } = useTranslation("components");
-    const { loadAll } = useSituationService();
     const [keyword, setKeyword] = useState("");
     const [isSituationModalOpen, setIsSituationModalOpen] = useState(false);
     // const [situation, setSituation] = useState({ name: "", nameLength: 0, type: 1 });
     const [isLoadingSearchResult, setIsLoadingSearchResult] = useState(false);
-    const [isAllLoaded, setIsAllLoaded] = useState(false);
     const { allSituationsContextRef } = useOutletContext();
     const navigate = useNavigate();
 

@@ -1,5 +1,5 @@
 {
-  "en": {
+  "eng": {
     "gender_field": "Gender *",
     "age_field": "Age",
     "location_field": "Location (State)",
@@ -14,10 +14,10 @@
     "unemployed_user_input": "Unemployed",
     "business_owner_user_input": "Business Owner",
     "freelance_user_input": "Freelance",
-    "rider_user_input": "Rider And Delivery",
+    "rider_user_input": "Rider/Delivery",
     "agent_user_input": "Affiliate/Agent"
   },
-  "ms": {
+  "bm": {
     "gender_field": "Jantina *",
     "age_field": "Umur",
     "location_field": "Lokasi (Negeri)",
@@ -32,7 +32,7 @@
     "unemployed_user_input": "Penganggur",
     "business_owner_user_input": "Pemilik Perniagaan",
     "freelance_user_input": "Pekerja Bebas",
-    "rider_user_input": "Rider/Penghantaran",
+    "rider_user_input": "Rider/P.hantaran",
     "agent_user_input": "Rakan Niaga/Agen"
   }
 }

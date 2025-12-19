@@ -10,13 +10,13 @@ import ModalPage1 from './i18n/components/stories/ModalPage1.json'
 import ModalPage2 from './i18n/components/stories/ModalPage2.json'
 import ModalPage3 from './i18n/components/stories/ModalPage3.json'
 
-const resources = { en: { views: {}, components: {} }, ms: { views: {}, components: {} } };
+const resources = { eng: { views: {}, components: {} }, bm: { views: {}, components: {} } };
 [GeneralButtonsAndLinks, Stories, Navbar, Face, CreateStoryModal, ModalPage1, ModalPage2, ModalPage3].forEach((file) => {
-  Object.keys(file.en).forEach((key) => {
-    resources.en.views[key] = file.en[key];
-    resources.ms.views[key] = file.ms[key];
-    resources.en.components[key] = file.en[key];
-    resources.ms.components[key] = file.ms[key];
+  Object.keys(file.eng).forEach((key) => {
+    resources.eng.views[key] = file.eng[key];
+    resources.bm.views[key] = file.bm[key];
+    resources.eng.components[key] = file.eng[key];
+    resources.bm.components[key] = file.bm[key];
   });
 });
 
@@ -26,7 +26,7 @@ i18n
     defaultNS: 'views',
     ns: ['components', 'views'],
     resources,
-    lng: "en", 
+    lng: "eng", 
     interpolation: {
       escapeValue: false // react already safes from xss
     }

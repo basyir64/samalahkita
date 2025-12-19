@@ -14,7 +14,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
         `${story.gender ? getTranslatedGenderText(story.gender) : ""}`,
         `${story.sector ? getTranslatedSectorText(story.sector) : ""}`]
         .filter(s => s !== "")
-        .join(", ");
+        .join("\n ");
     const ageRange = story.ageRange ? story.ageRange + " tahun" : "";
     const location = story.location ? getLocationText(story.location) : "";
 
@@ -136,7 +136,7 @@ export default function StoryCard({ story, setStory, isPreview }) {
             }
             <div className={isPreview ? "max-h-[40vh] overflow-y-auto px-1" : ""}>
                 <div className='my-4'>{story.text}</div>
-                {story.otherSituations?.length > 0 &&
+                {story.hasOtherSituations &&
                     <div className='mt-6'>
                         <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
                         <div className='flex flex-wrap gap-2'>

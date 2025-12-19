@@ -12,12 +12,15 @@ import { serverTimestamp } from 'firebase/firestore';
 import { useMediaService } from '../../hooks/useMediaService';
 import ModalPage4 from './ModalPage4';
 import MyTooltip from '../custom-inputs/MyTooltip';
+import { useNavigate } from 'react-router';
+import NewStoryConfirmModal from './NewStoryConfirmModal';
 
 export default function CreateStoryModal({ isOpen, setIsOpen, situation, situationsRef }) {
 
     const { genders } = useUserOptions();
     const { t } = useTranslation("components");
     const [isInstructionTooltipOpen, setIsInstructionTooltipOpen] = useState(false);
+    const navigate = useNavigate();
 
     const instructions = [
         <>
@@ -38,20 +41,21 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);
-    const [pages, setPages] = useState(
-        [
+    const pages = [
             { id: 1, instruction: 0 },
             { id: 2, instruction: 1 },
             { id: 3, instruction: 2 },
             { id: 4, instruction: 3 },
-        ]);
+        ];
     const [story, setStory] = useState(
         {
+            situationId: situation.id,
             text: "",
             textLength: 0,
             hasAdvice: false,
             adviceText: "",
             adviceTextLength: 0,
+            hasOtherSituations: false,
             otherSituations: [],
             ageRange: "",
             gender: genders[0].value,
@@ -72,7 +76,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         } else if (currentPage === 2) {
             if (!story.textLength || story.textLength > maxTextLength ||
                 (story.hasAdvice && (story.adviceTextLength > maxAdviceTextLength || !story.adviceText)) ||
-                story.otherSituations.length > maxOtherSituationsSize)
+                (story.hasOtherSituations && (story.otherSituations.length > maxOtherSituationsSize || !story.otherSituations.length)))
                 return true;
         }
         return false;
@@ -138,9 +142,21 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
 
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
 
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+    function handleNewStoryConfirmed() {
+        navigate("?modal=true")
+        window.location.reload();
+    }
+
+    function handleModalOnClose() {
+        setIsOpen(false);
+        navigate("?")
+    }
+
     return (
         <div>
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+            <Dialog open={isOpen} onClose={() => handleModalOnClose()} className="relative z-50">
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
                 <div className="fixed inset-0 flex items-center justify-center p-2">
                     <DialogPanel className="pill-modal">
@@ -163,15 +179,6 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                 }
                             </div>
                         </DialogTitle>
-
-                        {/* <div>
-                            {situation.name}
-                            <Description className="text-sm mb-4 text-gray-500">
-                                {instructions[pages.find(page => page.id === currentPage).instruction]}
-                            </Description>
-                        </div> */}
-
-                        {/* {JSON.stringify(story, null, 2)} */}
                         <ModalPage1 isCurrent={currentPage === 1} story={story} setStory={setStory} />
                         <ModalPage2
                             isCurrent={currentPage === 2}
@@ -183,7 +190,12 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                             maxOtherSituationsSize={maxOtherSituationsSize}
                             situationsRef={situationsRef} />
                         <ModalPage3 isCurrent={currentPage === 3} story={story} setStory={setStory} />
-                        <ModalPage4 isCurrent={currentPage === 4} situationName={situation.name} story={story} setStory={setStory} />
+                        <ModalPage4
+                            isCurrent={currentPage === 4}
+                            situationName={situationsRef.current.find(s => (s.id === story.situationId)).name}
+                            story={story}
+                            setStory={setStory}
+                        />
                         <div className="flex justify-between gap-4 mt-2">
                             <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                             <div className='flex gap-4'>
@@ -205,10 +217,16 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                             {isSaveLoading ? "Loading..." : "Save"}
                                         </button>)
                                     : (currentPage === 4 ?
-                                        (message && <div className='flex justify-end mt-2 mb-2 gap-1'>
-                                            {isSaveSuccess && <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />}
-                                            {message}
-                                        </div>)
+                                        (message &&
+                                            <div className='flex justify-end mt-2 mb-2 gap-1'>
+                                                {isSaveSuccess && <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />}
+                                                {message}
+                                                <button
+                                                    onClick={() => setIsConfirmModalOpen(true)}
+                                                    className={`underline ml-4 cursor-pointer text-right`}
+                                                >New</button>
+                                                <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirmed}/>
+                                            </div>)
                                         : <button
                                             disabled={isNextDisabled(currentPage)}
                                             className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext()}>

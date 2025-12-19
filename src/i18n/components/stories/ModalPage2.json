@@ -1,11 +1,11 @@
 {
-    "en": {
+    "eng": {
         "other_situations_instruction": "Pick additional situations if related. Otherwise, leave blank.",
         "other_situations_instruction_tooltip":"tooltip text",
         "advice_checkbox": "I have advice for others",
         "advice_checkbox_tooltip": "advice tooltip"
     },
-    "ms": {
+    "bm": {
         "other_situations_instruction": "Pilih situasi tambahan jika berkaitan. Tinggalkan jika tiada.",
         "other_situations_instruction_tooltip":"Pilih situasi tambahan dibawah untuk latar belakang atau sejarah berkaitan yang menyumbang kepada luahan di atas, atau emosi anda secara menyeluruh.",
         "advice_checkbox": "Saya ada nasihat untuk orang lain",
