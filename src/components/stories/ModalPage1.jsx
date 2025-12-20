@@ -60,7 +60,7 @@ export default function ModalPage1({ isCurrent, story, setStory }) {
     // }, [story])
 
     return (
-        <div className={`${isCurrent ? "block" : "hidden"} grid grid-col`}>
+        <div className={`${isCurrent ? "block" : "hidden"} grid grid-col mt-2`}>
             <div className='flex flex-col gap-1 mb-4'>
                 <div>{t('gender_field')}</div>
                 <RadioGroup value={selectedGender} onChange={handleGenderChange} className={"flex flex-wrap gap-2"}>

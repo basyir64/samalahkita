@@ -5,7 +5,7 @@ export default function Pill({ size, id, name, isSelected, onClick }) {
     return size === "small" ? (
         <span
             onClick={onClick}
-            className={`pill-small ${isSelected ? "bg-[#f1efe3]" : "bg-white"}`}
+            className={`pill-small ${isSelected ? "bg-[#f1efe3] dark:bg-gray-800" : "bg-white dark:bg-black"}`}
         >
             {name}
         </span>

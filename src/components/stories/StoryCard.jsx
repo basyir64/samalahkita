@@ -10,11 +10,8 @@ export default function StoryCard({ story, setStory, isPreview }) {
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { updateViews } = useStoryService();
     const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, loadAllProfileUrls } = useMediaService();
-    const sectorAndGender = [
-        `${story.gender ? getTranslatedGenderText(story.gender) : ""}`,
-        `${story.sector ? getTranslatedSectorText(story.sector) : ""}`]
-        .filter(s => s !== "")
-        .join("\n ");
+    const gender = getTranslatedGenderText(story.gender);
+    const sector = `${story.sector ? getTranslatedSectorText(story.sector) : ""}`;
     const ageRange = story.ageRange ? story.ageRange + " tahun" : "";
     const location = story.location ? getLocationText(story.location) : "";
 
@@ -22,14 +19,20 @@ export default function StoryCard({ story, setStory, isPreview }) {
     const [profileUrls, setProfileUrls] = useState([]);
     const [selectedProfileUrl, setSelectedProfileUrl] = useState(story.profile ? `${STICKERS_BASE_URL}/${story.profile}` : `${STICKERS_BASE_URL}/watery_eye_cat.webp`);
 
-    function arrangeHeaderItems(sectorAndGender, ageRange, location) {
-        if (!sectorAndGender && !location) return <div className='flex text-xs'>{ageRange}</div>
-        else if (!sectorAndGender) return <div>
+    function arrangeHeaderItems(gender, sector, ageRange, location) {
+        if (!sector && !location && !ageRange) return <div className='flex text-sm'>{gender}</div>
+        else if (!sector && !location) return <div>
+            <div className='flex text-sm'>{gender}</div>
+            <div className='flex text-xs'>{ageRange}</div>
+        </div>
+        else if (!sector) return <div>
+            <div className='flex text-sm'>{gender}</div>
             <div className='flex text-sm'>{location}</div>
             <div className='flex text-xs'>{ageRange}</div>
         </div>
         else return <div className=''>
-            <div className='flex text-sm'>{sectorAndGender}</div>
+            <div className='flex text-sm'>{gender}</div>
+            <div className='flex text-sm'>{sector}</div>
             <div className='flex text-sm'>{location}</div>
             <div className='flex text-xs'>{ageRange}</div>
         </div>
@@ -101,14 +104,14 @@ export default function StoryCard({ story, setStory, isPreview }) {
     };
 
     return (
-        <div className={`grid grid-cols-1 w-full`}>
+        <div className={`grid grid-cols-1 w-full mt-2 dark:bg-black dark:text-white`}>
             <div className='flex justify-between'>
                 <div className='flex gap-2 shrink-0'>
                     {isPreview ?
                         <div><img className='w-24 cursor-pointer' src={selectedProfileUrl} onClick={() => setIsProfileBoxOpen(!isProfileBoxOpen)} /></div> :
                         <div><img className='w-24' src={`${STICKERS_BASE_URL}/${story.profile}`} /></div>
                     }
-                    {arrangeHeaderItems(sectorAndGender, ageRange, location)}
+                    {arrangeHeaderItems(gender, sector, ageRange, location)}
                 </div>
                 {!isPreview &&
                     <div className='flex flex-col text-right'>
@@ -136,18 +139,30 @@ export default function StoryCard({ story, setStory, isPreview }) {
             }
             <div className={isPreview ? "max-h-[40vh] overflow-y-auto px-1" : ""}>
                 <div className='my-4'>{story.text}</div>
-                {story.hasOtherSituations &&
+                {isPreview ?
+                    story.hasOtherSituations &&
                     <div className='mt-6'>
                         <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
                         <div className='flex flex-wrap gap-2'>
-                            {!isPreview && <div className='my-[5px]'><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /></div>}
+                            {/* <div className='my-[5px]'><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /></div> */}
                             {story.otherSituations.map((s, i) => (
                                 <div key={i} className='pill-small-non-interactive'>
-                                    {isPreview ? s.name : s}
+                                    {s.name}
                                 </div>
                             ))}
                         </div>
-                    </div>}
+                    </div>
+                    : (story.otherSituations && <div className='mt-6'>
+                        <div className='text-sm text-gray-500'>Situasi lain</div>
+                        <div className='flex flex-wrap gap-2'>
+                            {story.otherSituations.map((s, i) => (
+                                <div key={i} className='pill-small-non-interactive'>
+                                    {s}
+                                </div>
+                            ))}
+                        </div>
+                    </div>)
+                }
                 {isPreview ?
                     (story.hasAdvice && <div className='mt-4'>
                         <div className='text-sm text-gray-500'>Nasihat</div>

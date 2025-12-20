@@ -64,13 +64,13 @@ export default function Feed({ situation }) {
     }
 
     return (
-        <div className='mt-6'>
+        <div className='mt-6 dark:text-white'>
             {storiesRef.current.length > 0 ?
                 <div className='grid'>
                     {storiesRef.current.map(s =>
                         <div key={s.id}>
                             <StoryCard story={s} />
-                            <hr className='mt-10 mb-4 border-t-2 border-gray-200' />
+                            <hr className='mt-10 mb-4 border-t-2 border-gray-200 dark:border-gray-800' />
                         </div>
                     )}
                     <span

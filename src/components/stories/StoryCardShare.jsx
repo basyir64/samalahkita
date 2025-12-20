@@ -38,7 +38,8 @@ export default function StoryCardShare({ story, situationName }) {
     }
 
     // INFO ITEMS
-    const [sectorAndGender, setSectorAndGender] = useState(<></>);
+    const [gender, setGender] = useState(<></>);
+    const [sector, setSector] = useState(<></>);
     const [ageRange, setAgeRange] = useState(<></>);
     const [location, setLocation] = useState(<></>);
 
@@ -49,14 +50,20 @@ export default function StoryCardShare({ story, situationName }) {
     const [currentOtherSituations, setCurrentOtherSituations] = useState([]);
     const [currentAdviceText, setCurrentAdviceText] = useState("");
 
-    function arrangeInfoItems(sectorAndGender, ageRange, location) {
-        if (!sectorAndGender && !location) return <div className='flex text-xs'>{ageRange}</div>
-        else if (!sectorAndGender) return <div>
+    function arrangeInfoItems(gender, sector, ageRange, location) {
+        if (!sector && !location && !ageRange) return <div className='flex text-sm'>{gender}</div>
+        else if (!sector && !location ) return <div>
+            <div className='flex text-sm'>{gender}</div>
+            <div className='flex text-xs'>{ageRange}</div>
+        </div>
+        else if (!sector) return <div>
+            <div className='flex text-sm'>{gender}</div>
             <div className='flex text-sm'>{location}</div>
             <div className='flex text-xs'>{ageRange}</div>
         </div>
-        else return <div>
-            <div className='flex text-sm'>{sectorAndGender}</div>
+        else return <div className=''>
+            <div className='flex text-sm'>{gender}</div>
+            <div className='flex text-sm'>{sector}</div>
             <div className='flex text-sm'>{location}</div>
             <div className='flex text-xs'>{ageRange}</div>
         </div>
@@ -67,22 +74,20 @@ export default function StoryCardShare({ story, situationName }) {
         setCurrentOtherSituations(story.otherSituations);
         setCurrentAdviceText(story.adviceText);
 
-        let sectorAndGender = [
-            `${story.gender ? getTranslatedGenderText(story.gender) : ""}`,
-            `${story.sector ? getTranslatedSectorText(story.sector) : ""}`]
-            .filter(s => s !== "")
-            .join(", ");
-        let ageRange = story.ageRange ? story.ageRange + " tahun" : "";
-        let location = story.location ? getLocationText(story.location) : "";
+        const gender = getTranslatedGenderText(story.gender);
+        const sector = `${story.sector ? getTranslatedSectorText(story.sector) : ""}`;
+        const ageRange = story.ageRange ? story.ageRange + " tahun" : "";
+        const location = story.location ? getLocationText(story.location) : "";
 
-        setSectorAndGender(sectorAndGender);
+        setGender(gender)
+        setSector(sector);
         setAgeRange(ageRange);
         setLocation(location);
     }, [story])
 
     useEffect(() => {
-        setCurrentInfoItems(arrangeInfoItems(sectorAndGender, ageRange, location));
-    }, [sectorAndGender, ageRange, location])
+        setCurrentInfoItems(arrangeInfoItems(gender, sector, ageRange, location));
+    }, [gender, sector, ageRange, location])
 
     const [storyItemsConcealOptions, setStoryItemsConcealOptions] = useState([
         { isHidden: false, iconName: "double-quotes-svgrepo-com.svg", name: "isSituationHidden" },
@@ -116,7 +121,7 @@ export default function StoryCardShare({ story, situationName }) {
                 <div className='flex h-max'>{...concealedText}</div>
             </div>);
         } else {
-            setCurrentInfoItems(arrangeInfoItems(sectorAndGender, ageRange, location));
+            setCurrentInfoItems(arrangeInfoItems(gender, sector, ageRange, location));
         }
 
         // TEXT
@@ -182,7 +187,7 @@ export default function StoryCardShare({ story, situationName }) {
     return (
 
         <div className='flex items-stretch gap-2'>
-            <div>
+            <div className='dark:bg-black dark:text-white'>
                 <div className='mb-2 flex flex-wrap gap-2'>
                     <div className='text-gray-500 text-sm mt-1'>Ganti:</div>
                     {storyItemsConcealOptions.map((storyItem, i) => {
@@ -213,7 +218,7 @@ export default function StoryCardShare({ story, situationName }) {
                             </Field>)}
                     </RadioGroup>
                 </div>
-                <div className='max-h-[40vh] overflow-y-auto px-1'>
+                <div className='max-h-[40vh] overflow-y-auto px-1 dark:bg-black'>
                     <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
                         <div className={`pill-card-story`}>
                             <div className='flex justify-between mb-2'>
@@ -251,7 +256,7 @@ export default function StoryCardShare({ story, situationName }) {
                                     {story.hasOtherSituations && <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>}
                                     <div className='flex flex-wrap gap-2'>
                                         {/* the concealer (emoji) */}
-                                        {currentOtherSituations} 
+                                        {currentOtherSituations}
                                     </div>
                                 </div>)
                             }

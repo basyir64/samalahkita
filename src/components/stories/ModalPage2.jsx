@@ -85,18 +85,24 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
         }));
     }
 
+    useEffect(() => {
+        if (isCurrent) textAreaRef?.current.focus();
+    }, [isCurrent])
+
     return (
         <div className={`${isCurrent ? "block" : "hidden"} grid grid-col max-h-[50vh] overflow-y-auto px-1 py-1`}>
             <div className='grid grid-col'>
                 <Textarea
                     ref={textAreaRef}
-                    autoFocus={isCurrent}
+                    autoFocus={true}
                     rows={2}
                     spellCheck={false}
-                    className="min-h-10 resize-none overflow-hidden border p-2" value={text}
+                    className="min-h-10 resize-none overflow-hidden border p-2"
+                    value={text}
                     onChange={(e) => {
                         handleTextChange(e.target.value)
                     }} />
+
                 <div className={`mt-2 text-sm text-right ${currentLength > maxTextLength && `text-red-700`}`}>
                     {currentLength}/{maxTextLength}
                 </div>
@@ -115,7 +121,7 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                     </div>
                     <div className='my-2'>
                         {story.otherSituations.map((s, i) => (
-                            <div key={i} className='pill-small bg-[#f1efe3]' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
+                            <div key={i} className='pill-small bg-[#f1efe3] dark:bg-gray-800' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
                         ))}
                     </div>
                     <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
