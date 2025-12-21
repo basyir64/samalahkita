@@ -6,16 +6,19 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import Layout from './views/Layout';
 import App from './views/App'
 import Stories from './views/Stories';
+import { ThemeProvider } from './theme-context';
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<App />} />
-          <Route path="/stories/situation/:situationid" element={<Stories />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<App />} />
+            <Route path="/stories/situation/:situationid" element={<Stories />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>
 );

@@ -93,6 +93,38 @@ export default function Chart() {
 
     return (
         <div className='mt-12 grid justify-center text-center'>
+            <div className='mt-4 dark:text-white'>
+                <div className='tracking-[0.1em]'> Lebih Dari 10 'Sticker' Cerminan Emosi.</div>
+                <div className='text-gray-500 tracking-[0.1em]'> Bantuan diperlukan!!! DM IG @samalahkita.my untuk derma, dan
+                    <br />  koleksi + nama anda akan dipaparkan di bawah sebagai tanda terima kasih {"<3"} </div>
+                <div className='text-gray-500 tracking-[0.1em]'>(Mood: Sedih, Keliru, Risau, Kecewa, Sunyi, Pasrah, atau Bosan)</div>
+                <div className='flex justify-center'>
+                    <div className='relative mt-8 mb-50 w-40'>
+                        {
+                            profileUrls.length > 0 &&
+                            profileUrls.map((url, i) => {
+                                const order =
+                                    (i - activeIndex + profileUrls.length) % profileUrls.length;
+
+                                const offsetX = order * 10;
+                                const zIndex = profileUrls.length - order;
+                                const scale = order === 0 ? 1.2 : 1 - order * 0.05; // front bigger
+                                return (
+                                    <img
+                                        key={i}
+                                        className={`w-30 absolute inset-0 transition-all duration-500 ease-in-out bg-cover bg-center h-max`}
+                                        style={{
+                                            transform: `translateX(${offsetX}px) scale(${scale})`,
+                                            zIndex,
+
+                                        }}
+                                        src={url}
+                                    />)
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
             <div className='text-gray-500 tracking-[0.1em]'>Setakat {formattedTime}, {formattedDate} </div>
             {isCountAllLoading ?
                 <div className='my-2 dark:text-white'>Loading...</div> :
@@ -146,39 +178,6 @@ export default function Chart() {
                             </div>
                         </Link>
                     ))}
-            </div>
-
-            <div className='mt-12 dark:text-white'>
-                <div className='tracking-[0.1em]'> Lebih Dari 10 'Sticker' Cerminan Emosi.</div>
-                <div className='text-gray-500 tracking-[0.1em]'> Bantuan diperlukan!!! DM IG @samalahkita.my untuk derma, dan
-                    <br />  koleksi + nama anda akan dipaparkan di bawah sebagai tanda terima kasih {"<3"} </div>
-                <div className='text-gray-500 tracking-[0.1em]'>(Mood: Sedih, Keliru, Risau, Kecewa, Sunyi, Pasrah, atau Bosan)</div>
-                <div className='flex justify-center'>
-                    <div className='relative mt-8 mb-60 w-40'>
-                        {
-                            profileUrls.length > 0 &&
-                            profileUrls.map((url, i) => {
-                                const order =
-                                    (i - activeIndex + profileUrls.length) % profileUrls.length;
-
-                                const offsetX = order * 10;
-                                const zIndex = profileUrls.length - order;
-                                const scale = order === 0 ? 1.2 : 1 - order * 0.05; // front bigger
-                                return (
-                                    <img
-                                        key={i}
-                                        className={`w-30 absolute inset-0 transition-all duration-500 ease-in-out bg-cover bg-center h-max`}
-                                        style={{
-                                            transform: `translateX(${offsetX}px) scale(${scale})`,
-                                            zIndex,
-
-                                        }}
-                                        src={url}
-                                    />)
-                            })
-                        }
-                    </div>
-                </div>
             </div>
         </div>
     );

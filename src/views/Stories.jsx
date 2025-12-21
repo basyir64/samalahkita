@@ -44,16 +44,9 @@ export default function Stories() {
         }
     }, []);
 
-    function handleGetRandomSituationClick(currentSituation) {
-        let randomSituation = getRandomSituation();
-        while (randomSituation.id === currentSituation.id) {
-            randomSituation = getRandomSituation();
-        }
-        setSituation(randomSituation);
-    }
-
-    function getRandomSituation() {
-        return allSituationsContextRef.current[Math.floor(Math.random() * allSituationsContextRef.current.length)];
+    function handleFeedModeClick(currentSituation) {
+        // random stories feed mode : one situation feed mode
+        setSituation(currentSituation ? null : allSituationsContextRef.current.find(s => (s.id === situationid)));
     }
 
     return (
@@ -61,30 +54,30 @@ export default function Stories() {
             {isSituationsLoading ?
                 <div className='text-center'>Loading...</div> :
                 <div className='mx-auto px-6 max-w-3xl'>
-                    <div className={`sticky ${isScrollingUp ? "top-14" : "top-2"} z-40 py-4 flex gap-3 justify-center`}>
+                    {situation && <div className={`sticky ${isScrollingUp ? "top-14" : "top-2"} z-40 py-4 flex gap-3 justify-center`}>
                         <div key={situation.name} className='pill-feed-title'>
                             <Typewriter text={situation.name} />
                         </div>
-                    </div>
+                    </div>}
                     <div className=''>
-                        <div className='text-center'>
+                        {situation && <div className='text-center'>
                             <div className='flex justify-center'>
                                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={allSituationsContextRef} />
                             </div>
-                        </div>
-                        <Feed situation={situation} />
+                        </div>}
+                        <Feed situation={situation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
                     </div>
                     <div className={`sticky bottom-4 z-40 mt-8 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-30"}`}>
-                        <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
+                        {situation && <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             Cerita Baru
-                        </div>
+                        </div>}
                         <Link to="/">
                             <div className='pill-feed-addstory'>
                                 <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' />
                             </div>
                         </Link>
-                        <div className='pill-feed-addstory' onClick={() => handleGetRandomSituationClick(situation)}>
+                        <div className='pill-feed-addstory' onClick={() => handleFeedModeClick(situation)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' />
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import StoryCard from './StoryCard';
 import { where } from 'firebase/firestore';
 import { useDetectScroll } from '../../hooks/useDetectScroll';
 
-export default function Feed({ situation }) {
+export default function Feed({ situation, allSituationsContextRef, handleFeedModeClick }) {
     const { loadFirstPage, loadNextPage } = useStoryService();
     const storiesRef = useRef([]);
     const [isLoadingStories, setIsLoadingStories] = useState(false);
@@ -18,7 +18,7 @@ export default function Feed({ situation }) {
         async function getStoriesFirstPage() {
             setIsLoadingStories(true);
             // console.log("situation: " + JSON.stringify(situation, null, 2))
-            const result = await loadFirstPage([where("situationId", "==", situation.id)])
+            const result = await loadFirstPage(situation ? [where("situationId", "==", situation.id)] : [])
             if (!result) {
                 setMessage("There was an error loading the page. Please try again later.");
                 return;
@@ -38,7 +38,7 @@ export default function Feed({ situation }) {
         // console.log("isAtEnd: " + isAtEnd)
         async function getStoriesNextPage() {
             setIsLoadingStories(true);
-            const result = await loadNextPage([where("situationId", "==", situation.id)]);
+            const result = await loadNextPage(situation ? [where("situationId", "==", situation.id)] : []);
 
             if (!result) {
                 setMessage("There was an error loading more stories. Please try again later.");
@@ -67,9 +67,9 @@ export default function Feed({ situation }) {
         <div className='mt-6 dark:text-white'>
             {storiesRef.current.length > 0 ?
                 <div className='grid'>
-                    {storiesRef.current.map(s =>
-                        <div key={s.id}>
-                            <StoryCard story={s} />
+                    {storiesRef.current.map((s, i) =>
+                        <div key={i + s.id}>
+                            <StoryCard story={s} situation={allSituationsContextRef?.current.find(sit => (sit.id === s.situationId))} />
                             <hr className='mt-10 mb-4 border-t-2 border-gray-200 dark:border-gray-800' />
                         </div>
                     )}

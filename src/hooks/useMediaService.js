@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useTheme } from "../theme-context";
+import { useEffect, useState } from 'react';
 
 export function useMediaService() {
     const BASE_URL = "https://raw.githubusercontent.com/basyir64/samalahkita-media/main";
@@ -10,7 +11,8 @@ export function useMediaService() {
 
     const PROFILES_BASE_URL = `${BASE_URL}/profiles`;
 
-    const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system`;
+    const { isDark } = useTheme();
+    const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system${isDark ? '/white-fill' : ''}`;
 
     function loadStickerUrlByFilename(name) {
         return `${STICKERS_BASE_URL}/stickers/admin/${name}`;

@@ -63,6 +63,7 @@ export function useStoryService() {
 
     async function loadFirstPage(constraints = []) {
         try {
+            console.log("fetching...")
             const first = query(collection(db, "stories"), ...constraints, orderBy("createdAt", "desc"), limit(10));
             const snapshot = await getDocs(first);
             const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));

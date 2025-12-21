@@ -198,7 +198,7 @@ export default function StoryCardShare({ story, situationName }) {
                         }
                         return (<div
                             key={i}
-                            className={`my-multi-select ${storyItem.isHidden ? "bg-[#f1efe3]" : ""}`}
+                            className={`my-multi-select ${storyItem.isHidden ? "bg-[#f1efe3] dark:bg-gray-800" : ""}`}
                             onClick={() => handleEyeClick(storyItem.name, !storyItem.isHidden)}>
                             <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/${storyItem.iconName}`} />
                         </div>)
@@ -246,7 +246,7 @@ export default function StoryCardShare({ story, situationName }) {
                                     <div className='flex flex-wrap gap-2'>
                                         {/* real value */}
                                         {currentOtherSituations.map((s, i) => (
-                                            <div key={i} className='pill-small-non-interactive'>
+                                            <div key={i} className='text-xs tracking-[0.1em]'>
                                                 {s.name}
                                             </div>
                                         ))}

@@ -4,8 +4,10 @@ import { useMediaService } from '../../hooks/useMediaService';
 import { useStoryService } from '../../hooks/useStoryService';
 import useDateFormatter from '../../hooks/useDateFormatter';
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router';
+import Typewriter from '../custom-inputs/Typewriter';
 
-export default function StoryCard({ story, setStory, isPreview }) {
+export default function StoryCard({ story, setStory, isPreview, situation }) {
 
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { updateViews } = useStoryService();
@@ -103,6 +105,15 @@ export default function StoryCard({ story, setStory, isPreview }) {
         scrollRef.current.scrollLeft += e.deltaY;
     };
 
+    // random situation feed mode only
+    const navigate = useNavigate();
+    function handleSwitchSituation(situationId) {
+        navigate(`/stories/situation/${situationId}`);
+        window.location.reload();
+    }
+
+    const [otherSituationsOpen, setOtherSituationsOpen] = useState(false);
+
     return (
         <div className={`grid grid-cols-1 w-full mt-2 dark:bg-black dark:text-white`}>
             <div className='flex justify-between'>
@@ -120,7 +131,6 @@ export default function StoryCard({ story, setStory, isPreview }) {
                         <div className='text-gray-500 text-xs'>{story.views + (story.views > 1 ? " views" : " view")}</div>
                     </div>}
             </div>
-            {/* {story.createdAt.toDate()} */}
             {isPreview &&
                 <div className='relative'>
                     {isProfileBoxOpen && <div className='mt-2'>
@@ -138,40 +148,51 @@ export default function StoryCard({ story, setStory, isPreview }) {
 
             }
             <div className={isPreview ? "max-h-[40vh] overflow-y-auto px-1" : ""}>
-                <div className='my-4'>{story.text}</div>
+                {situation &&
+                    <div className='flex gap-2 text-gray-500 text-sm mt-2 animate-slide cursor-pointer' onClick={() => handleSwitchSituation(situation.id)}>
+                        <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
+                        <div className='pill-small-non-interactive'><Typewriter text={situation.name} /></div>
+                    </div>
+                }
+                <div className='my-4 whitespace-normal break-words'>{story.text}</div>
                 {isPreview ?
                     story.hasOtherSituations &&
                     <div className='mt-6'>
                         <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
                         <div className='flex flex-wrap gap-2'>
-                            {/* <div className='my-[5px]'><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hashtag-svgrepo-com.svg`} /></div> */}
                             {story.otherSituations.map((s, i) => (
-                                <div key={i} className='pill-small-non-interactive'>
+                                <div key={i} className='text-xs tracking-[0.1em]'>
                                     {s.name}
                                 </div>
                             ))}
                         </div>
                     </div>
-                    : (story.otherSituations && <div className='mt-6'>
-                        <div className='text-sm text-gray-500'>Situasi lain</div>
-                        <div className='flex flex-wrap gap-2'>
+                    : (story.otherSituations && <div onClick={() => setOtherSituationsOpen(!otherSituationsOpen)} className='mt-6 cursor-pointer'>
+                        <div className='flex'>
+                            <div className='text-sm text-gray-500'>Situasi lain</div>
+                            {otherSituationsOpen ?
+                                <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/arrow-down-svgrepo-com.svg`} />
+                                : <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/arrow-right-svgrepo-com.svg`} />
+                            }
+                        </div>
+                        {otherSituationsOpen && <div className=''>
                             {story.otherSituations.map((s, i) => (
-                                <div key={i} className='pill-small-non-interactive'>
+                                <div key={i} className='text-xs tracking-[0.1em]'>
                                     {s}
                                 </div>
                             ))}
-                        </div>
+                        </div>}
                     </div>)
                 }
                 {isPreview ?
                     (story.hasAdvice && <div className='mt-4'>
                         <div className='text-sm text-gray-500'>Nasihat</div>
-                        <div className='text-sm'>{story.adviceText}</div>
+                        <div className='text-sm whitespace-normal break-words'>{story.adviceText}</div>
                     </div>) :
                     (story.adviceText && <div className='mt-4'>
                         {/* <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/hand-heart-svgrepo-com.svg`} /> */}
                         <div className='text-sm text-gray-500'>Nasihat</div>
-                        <div className='text-sm'>{story.adviceText}</div>
+                        <div className='text-sm whitespace-normal break-words'>{story.adviceText}</div>
                     </div>)
                 }
             </div>
