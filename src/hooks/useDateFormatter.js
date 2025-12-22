@@ -17,9 +17,10 @@ export default function useDateFormatter(fsDate) {
     const hours = jsDate.getHours().toString().padStart(2, '0');
     const minutes = jsDate.getMinutes().toString().padStart(2, '0');
     // const seconds = jsDate.getSeconds().toString().padStart(2, '0');
+    const period = hours >= 12 ? "pm" : "am";
 
     return {
         formattedDate: `${dd}/${mm}/${yyyy}`,
-        formattedTime: `${hours}:${minutes}`,
+        formattedTime: `${hours % 12 || 12}:${minutes} ${period}`,
     };
 }

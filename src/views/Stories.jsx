@@ -70,7 +70,7 @@ export default function Stories() {
                     <div className={`sticky bottom-4 z-40 mt-8 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-30"}`}>
                         {situation && <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
-                            Cerita Baru
+                            {t("new_story_button")}
                         </div>}
                         <Link to="/">
                             <div className='pill-feed-addstory'>

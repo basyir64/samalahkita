@@ -6,12 +6,14 @@ import Stories from './i18n/views/Stories.json'
 import Navbar from './i18n/components/navbar/Navbar.json'
 import Face from './i18n/components/face/Face.json';
 import CreateStoryModal from './i18n/components/stories/CreateStoryModal.json'
+import CreateSituationModal from "./i18n/components/situations/CreateSituationModal.json";
 import ModalPage1 from './i18n/components/stories/ModalPage1.json'
 import ModalPage2 from './i18n/components/stories/ModalPage2.json'
 import ModalPage3 from './i18n/components/stories/ModalPage3.json'
+import Chart from "./i18n/components/chart/Chart.json";
 
 const resources = { eng: { views: {}, components: {} }, bm: { views: {}, components: {} } };
-[GeneralButtonsAndLinks, Stories, Navbar, Face, CreateStoryModal, ModalPage1, ModalPage2, ModalPage3].forEach((file) => {
+[GeneralButtonsAndLinks, Stories, Navbar, Face, CreateStoryModal, CreateSituationModal, ModalPage1, ModalPage2, ModalPage3, Chart].forEach((file) => {
   Object.keys(file.eng).forEach((key) => {
     resources.eng.views[key] = file.eng[key];
     resources.bm.views[key] = file.bm[key];

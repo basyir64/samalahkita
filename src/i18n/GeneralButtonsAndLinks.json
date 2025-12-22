@@ -1,12 +1,28 @@
 {
   "eng": {
+    "add_button": "Add",
     "close_button": "Close",
     "back_button": "Back",
-    "next_button": "Next"
+    "next_button": "Next",
+    "post_button": "Post",
+    "posted_ind": "Posted",
+    "new_button": "New",
+    "try_again_button": "Try again",
+    "post_failed_ind": "Couldn't post. We are fixing this, please try again later.",
+    "download_button": "Download",
+    "new_story_button": "New Story"
   },
   "bm": {
+    "add_button": "Tambah",
     "close_button": "Tutup",
     "back_button": "Kembali",
-    "next_button": "Seterusnya"
+    "next_button": "Seterusnya",
+    "post_button": "Hantar",
+    "posted_ind": "Dihantar",
+    "new_button": "Baru",
+    "try_again_button": "Cuba lagi",
+    "post_failed_ind": "Gagal dihantar. Kami sedang memperbaiki, sila cuba sebentar lagi.",
+    "download_button": "Muat Turun",
+    "new_story_button": "Cerita Baru"
   }
 }

@@ -5,7 +5,7 @@ import SituationsSearchBar from "../search-bar/SituationsSearchBar";
 import CreateSituationModal from "../situations/CreateSituationModal";
 import { useMediaService } from '../../hooks/useMediaService';
 
-export default function OtherSituationsMarquee({ isOpen, size, story, setStory, situationsRef }) {
+export default function OtherSituationsMarquee({ size, story, setStory, situationsRef }) {
   const [selectedSituations, setSelectedSituations] = useState([]);
   const rows = [{ id: 1 }, { id: 2 }];
   const shuffledRowsRef = useRef([]);
@@ -16,8 +16,10 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory, 
 
   useEffect(() => {
     if (situationsRef.current.length > 0) {
-      shuffledRowsRef.current = rows.map(() =>
-        shuffle(situationsRef.current.map(s => s.id))
+      shuffledRowsRef.current = rows.map(() => {
+        let allSituationIdsButMain = situationsRef.current.filter(s => (s.id !== story.situationId)).map(s => s.id);
+        return shuffle(allSituationIdsButMain)
+      }
       );
       setIsShufflingRows(false);
     }
@@ -96,9 +98,9 @@ export default function OtherSituationsMarquee({ isOpen, size, story, setStory, 
             </div>
           ))}
         <div className="flex items-center gap-2 mt-6">
-          <img className="w-[20px] shrink-0" src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`}/>
-            <SituationsSearchBar size="sm" allSituations={situationsRef.current} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleSearchResultClick} />
-          <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} setStory={setStory} existingSituations={[...situationsRef.current, ...story.otherSituations ]}/>
+          <img className="w-[20px] shrink-0" src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`} />
+          <SituationsSearchBar size="sm" allSituations={situationsRef.current.filter(s => (s.id !== story.situationId))} keyword={keyword} setKeyword={setKeyword} handleResultClick={handleSearchResultClick} />
+          <CreateSituationModal isOpen={isSituationModalOpen} setIsOpen={setIsSituationModalOpen} setStory={setStory} existingSituations={[...situationsRef.current, ...story.otherSituations]} />
         </div>
       </div>
     </div>

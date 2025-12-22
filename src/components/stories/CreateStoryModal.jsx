@@ -21,10 +21,11 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
     const { t } = useTranslation("components");
     const [isInstructionTooltipOpen, setIsInstructionTooltipOpen] = useState(false);
     const navigate = useNavigate();
+    
 
     const instructions = [
         <>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-500 mr-1">
                 {isInstructionTooltipOpen ? t('user_info_instruction_tooltip') : t('user_info_instruction')}
             </span>
             <MyTooltip isOpen={isInstructionTooltipOpen} setIsOpen={setIsInstructionTooltipOpen} />
@@ -37,7 +38,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
             {t('send_confirm_instruction')}
         </>,
         <>
-            Muat turun dan kongsi cerita anda di media sosial. Pilih perincian yang anda mahu sembunyikan di bawah.
+            {t('story_share_instruction')}
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);
@@ -121,9 +122,9 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         if (result) {
             setIsSaveSuccess(true);
             setCurrentPage(4);
-            setMessage("Saved");
+            setMessage(t('posted_ind'));
         } else {
-            setMessage("Couldn't save. We are fixing this, please try again later.");
+            setMessage(t('post_failed_ind'));
         }
         setIsSaveLoading(false);
         saveNewSituations(storySave);
@@ -209,12 +210,12 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                                     disabled={isSaveLoading}
                                                     className={`underline ${isSaveLoading ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
                                                     onClick={() => handleSaveClick(storySave)}>
-                                                    Try again</button></div>)
+                                                    {t('try_again_button')}</button></div>)
                                         : <button
                                             disabled={isSaveLoading}
                                             className={`underline ${isSaveLoading ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
                                             onClick={() => handleSaveClick(storySave)}>
-                                            {isSaveLoading ? "Loading..." : "Save"}
+                                            {isSaveLoading ? "Loading..." : t('post_button')}
                                         </button>)
                                     : (currentPage === 4 ?
                                         (message &&
@@ -224,7 +225,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                                 <button
                                                     onClick={() => setIsConfirmModalOpen(true)}
                                                     className={`underline ml-4 cursor-pointer text-right`}
-                                                >New</button>
+                                                >{t('new_button')}</button>
                                                 <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirmed}/>
                                             </div>)
                                         : <button

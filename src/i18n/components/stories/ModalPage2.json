@@ -1,14 +1,14 @@
 {
     "eng": {
-        "other_situations_instruction": "Pick additional situations if related. Otherwise, leave blank.",
-        "other_situations_instruction_tooltip":"tooltip text",
-        "advice_checkbox": "I have advice for others",
-        "advice_checkbox_tooltip": "advice tooltip"
+        "other_situation_checkbox": "I have related problems/situations",
+        "other_situations_instruction":"Choose any for your background or history that contributes to your main concern above, or your emotions overall.",
+        "advice_checkbox": "I have advice",
+        "advice_instruction": "Something you wish you had known. Or, any tips that might help other people in this situation."
     },
     "bm": {
-        "other_situations_instruction": "Pilih situasi tambahan jika berkaitan. Tinggalkan jika tiada.",
-        "other_situations_instruction_tooltip":"Pilih situasi tambahan dibawah untuk latar belakang atau sejarah berkaitan yang menyumbang kepada luahan di atas, atau emosi anda secara menyeluruh.",
-        "advice_checkbox": "Saya ada nasihat untuk orang lain",
-        "advice_checkbox_tooltip": "tooltip nasihat"
+        "other_situation_checkbox": "Saya ada masalah/situasi berkaitan",
+        "other_situations_instruction":"Pilih untuk latar belakang atau sejarah lain yang menyumbang kepada luahan di atas, atau emosi anda secara menyeluruh.",
+        "advice_checkbox": "Saya ada nasihat",
+        "advice_instruction": "Alangkah baiknya kalau tahu awal-awal. Atau, berikan apa jua tips untuk orang lain dalam situasi yang sama."
     }
 }

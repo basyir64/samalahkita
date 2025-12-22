@@ -4,7 +4,7 @@ import { Textarea } from '@headlessui/react';
 import OtherSituationsMarquee from '../marquee/OtherSituationsMarquee';
 import { useTranslation } from 'react-i18next';
 import MyCheckbox from '../custom-inputs/MyCheckbox';
-import MyTooltip from '../custom-inputs/MyTooltip';
+import containsPersonalInfo from '../../hooks/useDetectPersonalInfo';
 
 export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxTextLength, maxAdviceTextLength, maxOtherSituationsSize, situationsRef }) {
 
@@ -18,17 +18,23 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
     const [hasAdvice, setHasAdvice] = useState(story?.hasAdvice || false);
     const [adviceText, setAdviceText] = useState(story?.adviceText || "");
     const [currentAdviceLength, setCurrentAdviceLength] = useState(story?.adviceTextLength || 0);
-    const [isOtherSituationsTooltipOpen, setIsOtherSituationsTooltipOpen] = useState(false);
-    const [isAdviceTooltipOpen, setIsAdviceTooltipOpen] = useState(false)
+    const [storyTextValidationMessage, setStoryTextValidationMessage] = useState("");
+    const [adviceTextValidationMessage, setAdviceTextValidationMessage] = useState("");
 
     function handleTextChange(text) {
-        setText(text);
-        setCurrentLength(text.length);
-        setStory(prev => ({
-            ...prev,
-            text: text,
-            textLength: text.length
-        }));
+        if (containsPersonalInfo(text)) {
+            setStoryTextValidationMessage(t('no_links_ind'));
+            return;
+        } else {
+            setStoryTextValidationMessage("");
+            setText(text);
+            setCurrentLength(text.length);
+            setStory(prev => ({
+                ...prev,
+                text: text,
+                textLength: text.length
+            }));
+        }
     }
 
     function handleHasAdviceChecboxClick(hasAdvice) {
@@ -40,13 +46,19 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
     }
 
     function handleAdviceTextChange(adviceText) {
-        setAdviceText(adviceText);
-        setCurrentAdviceLength(adviceText.length);
-        setStory(prev => ({
-            ...prev,
-            adviceText: adviceText,
-            adviceTextLength: adviceText.length
-        }));
+        if (containsPersonalInfo(adviceText)) {
+            setAdviceTextValidationMessage(t('no_links_ind'));
+            return;
+        } else {
+            setAdviceTextValidationMessage("");
+            setAdviceText(adviceText);
+            setCurrentAdviceLength(adviceText.length);
+            setStory(prev => ({
+                ...prev,
+                adviceText: adviceText,
+                adviceTextLength: adviceText.length
+            }));
+        }
     }
 
     function handleSelectedSituationClick(selectedSituationId) {
@@ -103,38 +115,39 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                         handleTextChange(e.target.value)
                     }} />
 
-                <div className={`mt-2 text-sm text-right ${currentLength > maxTextLength && `text-red-700`}`}>
-                    {currentLength}/{maxTextLength}
+                <div className={`mt-2 text-sm flex justify-between`}>
+                    <div className='text-red-700'>{storyTextValidationMessage}</div>
+                    <div className={`${currentLength > maxTextLength && `text-red-700`}`}>{currentLength}/{maxTextLength}</div>
                 </div>
             </div>
             <div className='grid'>
                 <div className='flex gap-2 mt-2'>
-                    <MyCheckbox text={"I have other problems/situations"} onClick={() => handleHasOtherSituationsChecboxClick(hasOtherSituations)} value={hasOtherSituations} />
+                    <MyCheckbox text={t("other_situation_checkbox")} onClick={() => handleHasOtherSituationsChecboxClick(hasOtherSituations)} value={hasOtherSituations} />
                     {/* <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} /> */}
                 </div>
                 {hasOtherSituations && <div>
-                    <div className='flex mt-4 gap-2'>
+                    <div className='flex mt-1 gap-2'>
                         <span className="text-sm text-gray-500">
-                            {isOtherSituationsTooltipOpen ? t('other_situations_instruction_tooltip') : t('other_situations_instruction')}
+                            {t('other_situations_instruction')}
                         </span>
-                        <MyTooltip isOpen={isOtherSituationsTooltipOpen} setIsOpen={setIsOtherSituationsTooltipOpen} />
+                        {/* <MyTooltip isOpen={isOtherSituationsTooltipOpen} setIsOpen={setIsOtherSituationsTooltipOpen} /> */}
                     </div>
                     <div className='my-2'>
                         {story.otherSituations.map((s, i) => (
                             <div key={i} className='pill-small bg-[#f1efe3] dark:bg-gray-800' onClick={() => handleSelectedSituationClick(s.id)}>{s.name}</div>
                         ))}
                     </div>
-                    <OtherSituationsMarquee isOpen={isOpen} isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
+                    <OtherSituationsMarquee isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
                     <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-700`}`}>
                         {story.otherSituations.length}/{maxOtherSituationsSize}
                     </div>
                 </div>}
                 <div className='flex gap-2 mt-2'>
-                    <MyCheckbox text={isAdviceTooltipOpen ? t('advice_checkbox_tooltip') : t('advice_checkbox')} onClick={handleHasAdviceChecboxClick} value={hasAdvice} />
-                    {/* <MyTooltip isOpen={isAdviceTooltipOpen} setIsOpen={setIsAdviceTooltipOpen} className={"mt-[8px]"} /> */}
+                    <MyCheckbox text={t('advice_checkbox')} onClick={handleHasAdviceChecboxClick} value={hasAdvice} />
                 </div>
                 {hasAdvice &&
                     <div className='grid grid-col'>
+                        <div className='text-sm text-gray-500 mt-1'>{t("advice_instruction")}</div>
                         <Textarea
                             ref={adviceTextAreaRef}
                             rows={1}
@@ -144,8 +157,9 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                             onChange={(e) => {
                                 handleAdviceTextChange(e.target.value)
                             }} />
-                        <div className={`mt-2 text-sm text-right ${currentAdviceLength > maxAdviceTextLength && `text-red-700`}`}>
-                            {currentAdviceLength}/{maxAdviceTextLength}
+                        <div className={`mt-2 text-sm flex justify-between`}>
+                            <div className='text-red-700'>{adviceTextValidationMessage}</div>
+                            <div className={`${currentAdviceLength > maxAdviceTextLength && `text-red-700`}`}>{currentAdviceLength}/{maxAdviceTextLength}</div>
                         </div>
                     </div>
                 }

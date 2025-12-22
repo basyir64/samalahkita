@@ -30,7 +30,7 @@ export default function Navbar() {
                 </div>
                 <div className='flex gap-1 cursor-pointer dark:text-white' onClick={toggle}>
                     <img className='w-[17px]' src={`${SYSTEM_ICON_BASE_URL}/dark-svgrepo-com.svg`}/>
-                    <span className='flex items-center text-sm'>{isDark ? 'siang' : 'malam'}</span>
+                    <span className='flex items-center text-sm'>{isDark ? t('lightTheme') : t('darkTheme')}</span>
                 </div>
             </span>
         </nav>

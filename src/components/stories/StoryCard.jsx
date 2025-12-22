@@ -159,7 +159,7 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
                     story.hasOtherSituations &&
                     <div className='mt-6'>
                         <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
-                        <div className='flex flex-wrap gap-2'>
+                        <div className=''>
                             {story.otherSituations.map((s, i) => (
                                 <div key={i} className='text-xs tracking-[0.1em]'>
                                     {s.name}

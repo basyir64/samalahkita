@@ -1,0 +1,20 @@
+{
+    "eng" : {
+        "new_situation_title": "Add New Situation",
+        "already_exists_ind": "Situation already exists.",
+        "no_links_ind": "Links and contacts are not allowed.",
+        "rule_title":"A situation should: ",
+        "rule1": "1. Not be a question.",
+        "rule2": "2. A concise problem statement that addresses your emotional discomfort.",
+        "rule3": "3. Adheres the Terms of Use."
+    },
+    "bm": {
+        "new_situation_title": "Tambah Situasi Baru",
+        "already_exists_ind": "Situasi sudah ada.",
+        "no_links_ind": "Pautan dan maklumat peribadi tidak dibenarkan.",
+        "rule_title":"Situasi mestilah: ",
+        "rule1": "1. Bukan soalan.",
+        "rule2": "2. Tajuk luahan atau masalah dalam satu pernyataan ringkas.",
+        "rule3": "3. Patuh Terma Penggunaan."
+    }
+}

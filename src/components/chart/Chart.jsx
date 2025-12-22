@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { orderBy, limit } from 'firebase/firestore';
 import { useMediaService } from '../../hooks/useMediaService';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export default function Chart() {
     const now = new Date();
@@ -18,6 +19,7 @@ export default function Chart() {
     const [counts, setCounts] = useState({ situation: "-", story: "-", views: "-" });
     const [ranking, setRanking] = useState([]);
     const [profileUrls, setProfileUrls] = useState([]);
+    const {t} = useTranslation();
 
     useEffect(() => {
         async function getAllSituationCount() {
@@ -94,10 +96,9 @@ export default function Chart() {
     return (
         <div className='mt-12 grid justify-center text-center'>
             <div className='mt-4 dark:text-white'>
-                <div className='tracking-[0.1em]'> Lebih Dari 10 'Sticker' Cerminan Emosi.</div>
-                <div className='text-gray-500 tracking-[0.1em]'> Bantuan diperlukan!!! DM IG @samalahkita.my untuk derma, dan
-                    <br />  koleksi + nama anda akan dipaparkan di bawah sebagai tanda terima kasih {"<3"} </div>
-                <div className='text-gray-500 tracking-[0.1em]'>(Mood: Sedih, Keliru, Risau, Kecewa, Sunyi, Pasrah, atau Bosan)</div>
+                <div className='tracking-[0.1em]'> {t("sticker_title")}</div>
+                <div className='text-gray-500 tracking-[0.1em]'> {t("sticker_subtitle")} </div>
+                <div className='text-gray-500 tracking-[0.1em]'>{t("sticker_mood")}</div>
                 <div className='flex justify-center'>
                     <div className='relative mt-8 mb-50 w-40'>
                         {
@@ -125,7 +126,7 @@ export default function Chart() {
                     </div>
                 </div>
             </div>
-            <div className='text-gray-500 tracking-[0.1em]'>Setakat {formattedTime}, {formattedDate} </div>
+            <div className='text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
             {isCountAllLoading ?
                 <div className='my-2 dark:text-white'>Loading...</div> :
                 <div className='flex justify-center mt-2 gap-8 dark:text-white'>
@@ -133,27 +134,27 @@ export default function Chart() {
                         <div className='text-4xl'>{counts.situation}</div>
                         <div className='flex rounded-[25px] w-max px-2 border'>
                             <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
-                            <div className='text-sm'>Situasi</div>
+                            <div className='text-sm'>{t("situation_title")}</div>
                         </div>
                     </div>
                     <div className=''>
                         <div className='text-4xl'>{counts.story}</div>
                         <div className='flex rounded-[25px] w-max px-2 border'>
                             <img className='w-[18px] mb-[1px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
-                            <div className='text-sm'>Cerita</div>
+                            <div className='text-sm'>{t("story_title")}</div>
                         </div>
                     </div>
                     <div className=''>
                         <div className='text-4xl'>{counts.views}</div>
                         <div className='flex rounded-[25px] w-max px-2 border'>
                             <img className='w-[18px] mb-[1px] ml-1' src={`${SYSTEM_ICON_BASE_URL}/eye-svgrepo-com.svg`} />
-                            <div className='text-sm'>Bacaan</div>
+                            <div className='text-sm'>{t("views_title")}</div>
                         </div>
                     </div>
                 </div>
             }
             <div className='mt-12 dark:text-white'>
-                <div className='tracking-[0.1em] mb-2'>Carta Situasi </div>
+                <div className='tracking-[0.1em] mb-2'>{t("situations_chart_title")}</div>
                 {isRankingLoading ?
                     <div>Loading...</div> :
                     ranking.map((situation, i) => (
@@ -163,15 +164,15 @@ export default function Chart() {
                                     <div className='mt-2 text-2xl text-gray-500'>#{i + 1} </div>
                                 </div>
                                 <div className='grid text-left'>
-                                    <div>{situation.name}</div>
-                                    <div className='flex rounded-[25px] w-max px-2 border gap-4'>
-                                        <div className='flex '>
-                                            <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
-                                            <div className='text-gray-500 ml-1'>{situation.storiesCount}</div>
+                                    <div className='tracking-[0.1em]'>{situation.name}</div>
+                                    <div className='flex w-max gap-4'>
+                                        <div className='flex'>
+                                            <img className='w-[16px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
+                                            <div className='ml-1 text-gray-500'>{situation.storiesCount}</div>
                                         </div>
                                         <div className='flex'>
-                                            <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/eye-svgrepo-com.svg`} />
-                                            <div className='text-gray-500 ml-1'>{situation.totalViews}</div>
+                                            <img className='w-[16px]' src={`${SYSTEM_ICON_BASE_URL}/eye-svgrepo-com.svg`} />
+                                            <div className='ml-1 text-gray-500'>{situation.totalViews}</div>
                                         </div>
                                     </div>
                                 </div>

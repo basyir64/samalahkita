@@ -1,12 +1,14 @@
 import '../../index.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserOptions } from '../../hooks/useUserOptions';
+import { useTranslation } from 'react-i18next';
 
 export default function SituationsSearchBar({ size, allSituations, keyword, setKeyword, handleResultClick, isLoadingSearchResult }) {
 
     const { homeSearchPlaceholders } = useUserOptions();
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
     const [placeholderIndex, setPlaceholderIndex] = useState(0);
+    const {t} = useTranslation();
 
     async function handleKeywordChange(keyword) {
         setKeyword(keyword);
@@ -55,7 +57,7 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
                     <div className='pill-searchresult-item underline text-left' onPointerDown={(e) => {
                         e.preventDefault(); // prevents blur from hiding search result
                         handleResultClick(null);
-                    }}>Add new</div>
+                    }}>{t("new_button")}</div>
                 </div>
             )}
         </div>

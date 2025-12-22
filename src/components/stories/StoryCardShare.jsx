@@ -1,12 +1,14 @@
 import '../../index.css';
 import { useUserOptions } from '../../hooks/useUserOptions';
 import { useMediaService } from '../../hooks/useMediaService';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Radio, RadioGroup, Field } from '@headlessui/react';
 import * as htmlToImage from 'html-to-image';
+import { useTranslation } from 'react-i18next';
 
 export default function StoryCardShare({ story, situationName }) {
 
+    const {t} = useTranslation();
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, CONCEALER_BASE_URL } = useMediaService();
     const [eyes, setEyes] = useState(
@@ -243,7 +245,7 @@ export default function StoryCardShare({ story, situationName }) {
                             {story.hasOtherSituations && (currentOtherSituations?.length > 0 ?
                                 <div className=''>
                                     <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>
-                                    <div className='flex flex-wrap gap-2'>
+                                    <div className=''>
                                         {/* real value */}
                                         {currentOtherSituations.map((s, i) => (
                                             <div key={i} className='text-xs tracking-[0.1em]'>
@@ -271,7 +273,7 @@ export default function StoryCardShare({ story, situationName }) {
                 </div>
                 <div className='flex justify-center mt-2 cursor-pointer gap-1' onClick={() => handleDownloadClick()}>
                     <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/download-svgrepo-com.svg`} />
-                    Download
+                    {t("download_button")}
                 </div>
             </div>
         </div>

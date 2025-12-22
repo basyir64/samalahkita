@@ -1,8 +1,12 @@
 {
   "eng": {
-    "title": "maintitle"
+    "title": "maintitle",
+    "lightTheme": "light",
+    "darkTheme": "dark"
   },
   "bm": {
-    "title": "samalahkita"
+    "title": "samalahkita",
+    "lightTheme": "cerah",
+    "darkTheme": "gelap"
   }
 }
