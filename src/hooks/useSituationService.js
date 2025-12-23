@@ -49,12 +49,14 @@ export function useSituationService() {
   }
 
   async function save(situation) {
+    let ref;
     try {
-      await addDoc(collection(db, "situations"), situation);
-      return true;
+      ref = await addDoc(collection(db, "situations"), situation);
     } catch (error) {
       console.error("Error saving situation: " + error);
       return false;
+    } finally {
+      return ref.id;
     }
   }
 
@@ -80,8 +82,8 @@ export function useSituationService() {
         batch.set(ref, {
           name: name,
           nameLength: name.length,
-          createdAt: serverTimestamp(), 
-          storiesCount: 0, 
+          createdAt: serverTimestamp(),
+          storiesCount: 0,
           totalViews: 0
         });
       });

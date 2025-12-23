@@ -1,0 +1,43 @@
+{
+    "eng": {
+        "privacy_title": "Privacy Notice",
+        "privacy_subtitle": "This website is an anonymous problem-sharing and venting platform. No user accounts or registrations are required.",
+        "privacy_item1_heading":"1. Anonymity",
+        "privacy_item1_point1": "We do not collect names, email addresses, phone numbers, login credentials, or social media links.",
+        "privacy_item1_point2": "Users remain anonymous at all times.",
+        "privacy_item1_point3": "Inputs that resemble phone numbers, email addresses, or links are automatically blocked.",
+        "privacy_item2_heading": "2. Information You May Provide",
+        "privacy_item2_subheading1": "When submitting a story, you may voluntarily provide limited, non-identifying information for display and statistical purposes:",
+        "privacy_item2_point1": "Gender (required)",
+        "privacy_item2_point2": "Age range (optional)",
+        "privacy_item2_point3": "Location (state) (optional)",
+        "privacy_item2_point4": "Occupation category (optional)",
+        "privacy_item2_subheading2": "This information is used only to:",
+        "privacy_item2_point5": "Display vague author context on posts",
+        "privacy_item2_point6": "Generate public demographic statistics and charts",
+        "privacy_item2_subheading3": "No attempt is made to identify individuals.",
+        "privacy_item3_heading": "3. Automatically Stored Data",
+        "privacy_item3_point1": "Post views: The app stores post IDs in your browser’s local storage to ensure one view per user per post.",
+        "privacy_item3_point2": "Managing your posts: We also use your browser's storage to remember which posts you authored. This allows you to delete your posts later without needing an account. Note: If you clear your browser data or switch devices, you will lose the ability to manage or delete those posts.",
+        "privacy_item3_point3": "Theme preference: Light/dark mode preference is stored in local storage for usability.",
+        "privacy_item3_subheading": "Local storage data stays on your device and is not linked to your identity.",
+        "privacy_item4_heading": "4. Timestamps & Displayed Metrics",
+        "privacy_item4_point1": "Each post shows the local date and time when it was submitted to the server.",
+        "privacy_item4_point2": "A view count is displayed, representing the number of unique clients that have fetched the post (technically measured).",
+        "privacy_item5_heading": "5. Backend & Data Storage",
+        "privacy_item5_point1": "Data is stored in Google Firebase Firestore.",
+        "privacy_item5_point2": "Stored fields include story text, selected demographics, timestamps, view counts, and internal identifiers.",
+        "privacy_item5_point3": "Firestore document IDs are system-generated and do not identify users.",
+        "privacy_item6_heading": "6. Data Sharing",
+        "privacy_item6_point1": "No personal data is sold, rented, or shared with third parties.",
+        "privacy_item6_point2": "Data is only used to operate and display the service.",
+        "privacy_item7_heading": "7. Cookies",
+        "privacy_item7_point1": "This site does not use cookies.",
+        "privacy_item7_point2": "Browser local storage is used solely for view tracking, posts ownership and theme preference.",
+        "privacy_item8_heading": "8. Changes",
+        "privacy_item8_subheading": "This privacy notice may be updated occasionally to reflect app changes. Continued use of the site indicates acceptance of the latest version."
+    },
+    "bm": {
+        "privacy_title": "Notis Privasi"
+    }
+}

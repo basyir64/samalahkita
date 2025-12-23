@@ -17,8 +17,8 @@ export default function OtherSituationsMarquee({ size, story, setStory, situatio
   useEffect(() => {
     if (situationsRef.current.length > 0) {
       shuffledRowsRef.current = rows.map(() => {
-        let allSituationIdsButMain = situationsRef.current.filter(s => (s.id !== story.situationId)).map(s => s.id);
-        return shuffle(allSituationIdsButMain)
+        let allSituationIdsButMainAndOnDisplay = situationsRef.current.filter(s => (s.id !== story.situationId && s.onDisplay)).map(s => s.id);
+        return shuffle(allSituationIdsButMainAndOnDisplay)
       }
       );
       setIsShufflingRows(false);

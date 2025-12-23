@@ -5,11 +5,12 @@ import { useOutletContext } from "react-router";
 export default function HomeMarquee({ size }) {
     const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
     const { allSituationsContextRef } = useOutletContext();
+    const allSituationsOnDisplay = allSituationsContextRef.current.filter(situation => (situation.onDisplay));
 
     return (
         <div>
             {rows.map(row => {
-                const shuffledIds = shuffle(allSituationsContextRef.current.map(situation => situation.id));
+                const shuffledIds = shuffle(allSituationsOnDisplay.map(situation => situation.id));
                 return <div key={row.id} className="relative flex overflow-hidden">
                     <div className="whitespace-nowrap animate-scroll">
                         {

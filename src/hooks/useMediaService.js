@@ -1,37 +1,34 @@
 import { useTheme } from "../theme-context";
-import { useEffect, useState } from 'react';
 
 export function useMediaService() {
-    const BASE_URL = "https://raw.githubusercontent.com/basyir64/samalahkita-media/main";
-    const API_URL = "https://api.github.com/repos/basyir64/samalahkita-media/contents";
+    const BASE_URL = "https://cdn.jsdelivr.net/gh/basyir64/samalahkita-media@main";
+    const API_URL = "https://data.jsdelivr.com/v1/packages/gh/basyir64/samalahkita-media@main";
 
     const STICKERS_BASE_URL = `${BASE_URL}/stickers/admin`;
-    const STICKERS_API_URL = `${API_URL}/stickers/admin`;
     const CONCEALER_BASE_URL = `${BASE_URL}/conceal`;
 
-    const PROFILES_BASE_URL = `${BASE_URL}/profiles`;
 
     const { isDark } = useTheme();
     const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system${isDark ? '/white-fill' : ''}`;
 
-    function loadStickerUrlByFilename(name) {
-        return `${STICKERS_BASE_URL}/stickers/admin/${name}`;
-    }
-
-    async function loadAllStickerUrls() {
-        const result = await fetch(`${STICKERS_API_URL}`);
-        const files = await result.json();
-        return files
-            .filter(f => /\.(png|jpg|jpeg|webp)$/i.test(f.name))
-            .map(f => f.download_url);
-    }
-
     async function loadAllProfileUrls() {
-        const result = await fetch(`${STICKERS_API_URL}`);
-        const files = await result.json();
-        return files
-            .filter(f => /\.(png|jpg|jpeg|webp)$/i.test(f.name))
-            .map(f => f.download_url);
+        const folderPath = "stickers/admin";
+        const response = await fetch(`${API_URL}`);
+        const data = await response.json();
+
+        // 1. Navigate to the specific subfolder
+        const pathParts = folderPath.split('/');
+        let currentLevel = data.files;
+
+        for (const part of pathParts) {
+            const found = currentLevel.find(f => f.name === part && f.type === "directory");
+            currentLevel = found ? found.files : [];
+        }
+
+        // 2. Map the files into usable CDN URLs
+        return currentLevel
+            .filter(file => file.type === "file")
+            .map(file => `${STICKERS_BASE_URL}/${file.name}`);
     }
 
     async function resourceExistsAndHealthy(url) {
@@ -45,10 +42,8 @@ export function useMediaService() {
 
     return {
         STICKERS_BASE_URL,
-        PROFILES_BASE_URL,
         SYSTEM_ICON_BASE_URL,
         CONCEALER_BASE_URL,
-        loadAllStickerUrls,
         loadAllProfileUrls,
         resourceExistsAndHealthy
     }

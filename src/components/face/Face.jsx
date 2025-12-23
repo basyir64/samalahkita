@@ -13,25 +13,28 @@ export default function Face() {
             <div className='flex justify-center text-3xl font-bold mt-10 mb-2 dark:text-white'>
                 {t('title')}
             </div>
-            <div className='tracking-[0.1em] text-gray-500 text-sm'>{t('intro1')}</div>
+            <div className='tracking-[0.1em] text-gray-500 text-sm'>{t('intro1')} {t('intro2')}</div>
             <div className='flex justify-center gap-4 mt-4'>
                 <HomeSearchBar />
             </div>
-            <div className='mt-10 text-center'>
-                <span className=''> 
-                    {t('intro2')} 
-                    <Link><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></Link>
+            <div className='mt-6 text-center'>
+                <div className='grid grid-cols-1 justify-center'>
+                    <span className=''>
+                        <Link to="/privacy-notice"><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></Link>
                     </span>
-                    {t('contact')}
-                <div className='mt-6 flex justify-center gap-8'>
+                    <span className=''>
+                        <Link to="/privacy-notice"><span className='mr-1 cursor-pointer underline'>{t('disclaimer')}</span></Link>
+                    </span>
+                </div>
+                <div className='mt-4 flex justify-center gap-4'>
                     <Link className='flex items-center' to="https://www.instagram.com/samalahkita.my?igsh=dXQ0Z3ppc2wzMjE3&utm_source=qr">
-                        <img className='mt-1 w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/instagram-svgrepo-com.svg`} />
+                        <img className='mt-1 w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/instagram-svgrepo-com.svg`} />
                         <span className='ml-1 dark:text-white'>@samalahkita.my</span>
                     </Link>
-                    <Link className='flex items-center' to={"https://github.com/basyir64/samalahkita"}>
+                    {/* <Link className='flex items-center' to={"https://github.com/basyir64/samalahkita"}>
                         <img className='w-[24px]' src={`${SYSTEM_ICON_BASE_URL}/github-svgrepo-com.svg`} />
                         <span className='ml-1 dark:text-white'>GitHub</span>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
             {/* <span className='mt-2'>Thank You For Being Here, Anonymous!</span> */}

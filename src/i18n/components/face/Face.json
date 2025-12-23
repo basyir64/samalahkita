@@ -2,17 +2,17 @@
   "eng": {
     "title": "maintitle",
     "intro1": "An online diary, 100% anonymous and without registration. ",
-    "intro2": "Discover experiences and tips from all walks of life as a Malaysian, or choose a situation to share your story. Please read the ",
-    "privacy": "Privacy Policy and Terms of Use,",
-    "privacyLink": "here, ",
+    "intro2": "Discover experiences and tips from all walks of life as a Malaysian, or choose a situation to share your story.",
+    "privacy": "Privacy Notice",
+    "disclaimer": "Terms of Use",
     "contact": "and use the links below if you have a question or suggestions."
   },
   "bm": {
     "title": "samalahkita",
-    "intro1": "Diari sejagat atas talian, 100% tanpa nama dan pendaftaran.",
+    "intro1": "Diari sejagat atas talian, 100% tanpa nama dan pendaftaran. ",
     "intro2": "Cari luahan dan tips dari pelbagai liku kehidupan, atau pilih satu situasi untuk kongsikan cerita anda. ",
-    "privacy": "Sila baca Polisi Privasi dan Terma Penggunaan di sini,",
-    "privacyLink": "di sini,",
+    "privacy": "Notis Privasi",
+    "disclaimer": "Terma Penggunaan",
     "contact": " dan tekan link di bawah untuk soalan atau cadangan."
   }
 }

@@ -1,0 +1,12 @@
+{
+    "eng": {
+        "end_ind": "End of feed",
+        "scroll_for_more_ind": "Scroll to load more...",
+        "no_stories_ind": "There are no stories yet. Be the first one!"
+    },
+    "bm": {
+        "end_ind": "Tamat",
+        "scroll_for_more_ind": "Skrol untuk memuat cerita...",
+        "no_stories_ind": "Belum ada cerita. Jadi yang pertama!"
+    }
+}

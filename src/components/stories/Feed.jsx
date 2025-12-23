@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import StoryCard from './StoryCard';
 import { where } from 'firebase/firestore';
 import { useDetectScroll } from '../../hooks/useDetectScroll';
+import { useTranslation } from 'react-i18next';
 
-export default function Feed({ situation, allSituationsContextRef, handleFeedModeClick }) {
+export default function Feed({ situation, allSituationsContextRef }) {
     const { loadFirstPage, loadNextPage } = useStoryService();
     const storiesRef = useRef([]);
     const [isLoadingStories, setIsLoadingStories] = useState(false);
@@ -13,6 +14,7 @@ export default function Feed({ situation, allSituationsContextRef, handleFeedMod
     const [isAllLoaded, setIsAllLoaded] = useState(false);
     const [loadMoreClickCounter, setLoadMoreClickCounter] = useState(0);
     const [message, setMessage] = useState("");
+    const {t} = useTranslation();
 
     useEffect(() => {
         async function getStoriesFirstPage() {
@@ -77,10 +79,10 @@ export default function Feed({ situation, allSituationsContextRef, handleFeedMod
                         className={`text-center`}
                         onClick={() => handleLoadMoreClick(isAllLoaded)}
                     >
-                        {isLoadingStories ? "Loading..." : (isAllLoaded ? "End of feed" : "Scroll to load more...")}<br/>{message}
+                        {isLoadingStories ? "Loading..." : (isAllLoaded ? t("end_ind") : t("scroll_for_more_ind"))}<br/>{message}
                     </span>
                 </div> :
-                <div className='flex flex-col w-full text-center'>{isLoadingStories ? "Loading..." : "There are no stories yet."}<br/>{message}</div>
+                <div className='flex flex-col w-full text-center'>{isLoadingStories ? "Loading..." : t("no_stories_ind")}<br/>{message}</div>
                 
             }
         </div>
