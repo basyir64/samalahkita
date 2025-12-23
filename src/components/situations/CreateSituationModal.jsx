@@ -1,6 +1,6 @@
 import '../../index.css';
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSituationService } from '../../hooks/useSituationService';
 import { serverTimestamp } from 'firebase/firestore';
@@ -22,6 +22,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     const navigate = useNavigate();
     const [hasPersonalInfo, setHasPersonalInfo] = useState(false);
+    const situationInputRef = useRef(null);
 
     function handleTextChange(text) {
         if (containsPersonalInfo(text)) {
@@ -65,7 +66,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                 setIsLoadingSave(false);
                 return;
             }
-            setSituation(prev => ({...prev, id: docId}))
+            setSituation(prev => ({ ...prev, id: docId }))
             setIsLoadingSave(false);
             setIsSaveSuccess(true);
         }
@@ -75,6 +76,10 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
         navigate(`stories/situation/${situation.id}?modal=true`);
         window.location.reload();
     }
+
+    useEffect(() => { 
+        if (isOpen && situationInputRef?.current) situationInputRef.current.focus();
+    }, [isOpen])
 
     return (
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-60">
@@ -99,8 +104,9 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                         : <div>
                             <div className=''>
                                 <input
-                                    type="text"
+                                    ref={situationInputRef}
                                     autoFocus={true}
+                                    type="text"
                                     className='border rounded-[5px] w-full p-2'
                                     value={text}
                                     spellCheck={false}
@@ -122,15 +128,15 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                     <div className="flex justify-between gap-4 mt-10">
                         <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
                         <div className='flex gap-2'>
-                            {isSaveSuccess ? 
-                            <button className='underline cursor-pointer' onClick={() => handleNewStoryClick(situation)}>
-                                {t("new_story_button")}
-                            </button>
-                            :<button
-                                disabled={!textLength || textLength > maxTextLength || isLoadingSave || hasPersonalInfo}
-                                className={`underline ${!textLength || textLength > maxTextLength || isLoadingSave || hasPersonalInfo ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
-                                onClick={() => handleSaveClick(situation)}>{t("add_button")}
-                            </button>}
+                            {isSaveSuccess ?
+                                <button className='underline cursor-pointer' onClick={() => handleNewStoryClick(situation)}>
+                                    {t("new_story_button")}
+                                </button>
+                                : <button
+                                    disabled={!textLength || textLength > maxTextLength || isLoadingSave || hasPersonalInfo}
+                                    className={`underline ${!textLength || textLength > maxTextLength || isLoadingSave || hasPersonalInfo ? `cursor-not-allowed text-gray-500` : ` cursor-pointer`}`}
+                                    onClick={() => handleSaveClick(situation)}>{t("add_button")}
+                                </button>}
                         </div>
                     </div>
                 </DialogPanel>
