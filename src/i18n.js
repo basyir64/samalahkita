@@ -12,11 +12,12 @@ import ModalPage2 from './i18n/components/stories/ModalPage2.json'
 import ModalPage3 from './i18n/components/stories/ModalPage3.json'
 import Chart from "./i18n/components/chart/Chart.json";
 import Feed from "./i18n/components/stories/Feed.json";
-import PrivacyNoticeAndDisclaimer from "./i18n/views/PrivacyNoticeAndDisclaimer.json";
+import PrivacyNotice from "./i18n/views/PrivacyNotice.json";
+import Footer from "./i18n/components/footer/Footer.json";
 
 const resources = { eng: { views: {}, components: {} }, bm: { views: {}, components: {} } };
 [GeneralButtonsAndLinks, Stories, Navbar, Face, CreateStoryModal, CreateSituationModal, 
-  ModalPage1, ModalPage2, ModalPage3, Chart, Feed, PrivacyNoticeAndDisclaimer].forEach((file) => {
+  ModalPage1, ModalPage2, ModalPage3, Chart, Feed, PrivacyNotice, Footer].forEach((file) => {
   Object.keys(file.eng).forEach((key) => {
     resources.eng.views[key] = file.eng[key];
     resources.bm.views[key] = file.bm[key];

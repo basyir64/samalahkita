@@ -94,7 +94,7 @@ export default function Chart() {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
-        <div className='mt-12 grid justify-center text-center'>
+        <div className='mt-6 grid justify-center text-center'>
             <div className='mt-4 dark:text-white'>
                 <div className='tracking-[0.1em]'> {t("sticker_title")}</div>
                 <div className='text-gray-500 tracking-[0.1em]'> {t("sticker_subtitle")} </div>

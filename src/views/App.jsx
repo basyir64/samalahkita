@@ -12,7 +12,6 @@ export default function App() {
                 <Face />
                 <Chart />
             </div>
-            
         </div>
     )
 }

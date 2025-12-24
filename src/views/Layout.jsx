@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Navbar from "../components/navbar/Navbar";
 import { useRef, useEffect, useState } from "react";
 import { useSituationService } from "../hooks/useSituationService";
+import Footer from "../components/footer/Footer";
 
 export default function Layout() {
   const { loadAll } = useSituationService();
@@ -34,6 +35,7 @@ export default function Layout() {
         }
         <div className="text-center">{message}</div>
       </main>
+      <Footer/>
     </div>
   );
 }
