@@ -68,7 +68,7 @@ html {
 .pill {
   @apply bg-white hover:bg-[#f1efe3] inline-flex m-[10px] tracking-[0.1em] text-[#030000] px-[20px] py-[15px]
   rounded-[25px] border border-white transition
-  duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)] dark:bg-black dark:text-white dark:shadow-white dark:border-black
+  duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)] dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black
   dark:hover:bg-gray-800;
 }
 
@@ -78,7 +78,7 @@ html {
     text-[#030000] px-[20px] py-[15px]
     rounded-[25px] bg-white
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:bg-black dark:text-white dark:shadow-white dark:border-black;
+    dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
 }
 
 .pill-feed-addstory {
@@ -86,7 +86,7 @@ html {
     text-[#030000] py-[18px] px-[20px]
     rounded-[25px] cursor-pointer hover:bg-[#f1efe3] bg-white/10 backdrop-blur-md
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:bg-black/10 dark:text-white dark:shadow-white dark:border-black dark:hover:bg-gray-800;
+    dark:bg-black/10 dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800;
 }
 
 .pill-small {
@@ -94,7 +94,7 @@ html {
     text-[#030000] px-[10px] py-[5px] cursor-pointer
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:text-white dark:shadow-white dark:border-black dark:hover:bg-gray-800;
+    dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800;
 }
 
 .pill-small-non-interactive {
@@ -102,7 +102,7 @@ html {
     text-[#030000] px-[10px] py-[5px] 
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:bg-black dark:text-white dark:shadow-white dark:border-black;
+    dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
 }
 
 .pill-stack-card {
@@ -124,7 +124,7 @@ html {
     bg-white text-[#030000] px-[20px] py-[20px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:bg-black dark:text-white dark:shadow-white dark:border-black;
+    dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
 }
 
 .pill-modal {
@@ -132,14 +132,14 @@ html {
     bg-white text-[#030000] px-[30px] py-[25px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:bg-black dark:text-white dark:shadow-white dark:border-black;
+    dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
 }
 
 .pill-searchbar {
   @apply 
     bg-white text-[#030000] focus:bg-[#f1efe3] hover:bg-[#f1efe3]
     rounded-[25px] transition focus:border-none focus:outline-none
-    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)] dark:bg-black dark:text-white dark:shadow-white dark:border-black
+    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)] dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black
     dark:focus:bg-gray-800 dark:hover:bg-gray-800;
 }
 
@@ -149,43 +149,43 @@ html {
     bg-white z-50
     rounded-[25px] transition duration-500 
     shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    max-h-30 overflow-y-auto dark:bg-black dark:text-white dark:shadow-white dark:border-black;
+    max-h-30 overflow-y-auto dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
 }
 
 .pill-searchresult-item {
   @apply whitespace-normal break-words text-[#030000] px-[10px] py-[5px] hover:bg-[#f1efe3]
-  rounded-[25px] cursor-pointer text-left dark:bg-black dark:text-white dark:shadow-white dark:border-black
+  rounded-[25px] cursor-pointer text-left dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black
   dark:hover:bg-gray-800;
 }
 
 .my-tooltip {
   @apply text-xs h-[16px] px-[6px] border border-gray-400 rounded cursor-pointer hover:bg-[#f1efe3]
-  dark:bg-black dark:text-white dark:shadow-white dark:hover:bg-gray-800;
+  dark:bg-black dark:text-gray-300 dark:shadow-white dark:hover:bg-gray-800;
 }
 
 .my-radio {
   @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3] data-checked:bg-[#f1efe3] dark:border-white
-  dark:bg-black dark:text-white dark:shadow-white dark:border-black dark:data-checked:bg-gray-800 dark:hover:bg-gray-800;
+  dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black dark:data-checked:bg-gray-800 dark:hover:bg-gray-800;
 }
 
 .my-multi-select {
   @apply rounded text-sm px-2 py-1 cursor-pointer border hover:bg-[#f1efe3]
-  dark:text-white dark:shadow-white dark:hover:bg-gray-800;
+  dark:text-gray-300 dark:shadow-white dark:hover:bg-gray-800;
 }
 
 .my-checkbox {
   @apply w-[18px] h-[18px] rounded text-sm cursor-pointer border hover:bg-[#f1efe3]
-  dark:bg-black dark:text-white dark:shadow-white;
+  dark:bg-black dark:text-gray-300 dark:shadow-white;
 }
 
 .my-select {
   @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white
-  dark:bg-black dark:text-white dark:shadow-white;
+  dark:bg-black dark:text-gray-300 dark:shadow-white;
 }
 
 .my-option {
   @apply rounded text-sm px-2 py-1 cursor-pointer border bg-white hover:bg-[#f1efe3]
-  dark:bg-black dark:text-white dark:shadow-white;
+  dark:bg-black dark:text-gray-300 dark:shadow-white;
 }
 
 

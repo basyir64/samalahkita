@@ -115,7 +115,7 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
     const [otherSituationsOpen, setOtherSituationsOpen] = useState(false);
 
     return (
-        <div className={`grid grid-cols-1 w-full mt-2 dark:bg-black dark:text-white`}>
+        <div className={`grid grid-cols-1 w-full mt-2 dark:bg-black dark:text-gray-300`}>
             <div className='flex justify-between'>
                 <div className='flex gap-2 shrink-0'>
                     {isPreview ?
@@ -128,7 +128,10 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
                     <div className='flex flex-col text-right'>
                         <div className='text-gray-500 text-sm'>{formattedDate}</div>
                         <div className='text-gray-500 text-sm'>{formattedTime}</div>
-                        <div className='text-gray-500 text-xs'>{story.views + (story.views > 1 ? " views" : " view")}</div>
+                        <div className='flex gap-1 justify-end'>
+                            <img className='w-[12px]' src={`${SYSTEM_ICON_BASE_URL}/eye2-svgrepo-com.svg`} />
+                            <div className='text-gray-500 text-xs'>{story.views}</div>
+                        </div>
                     </div>}
             </div>
             {isPreview &&

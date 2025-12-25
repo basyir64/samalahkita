@@ -1,0 +1,56 @@
+{
+  "eng": {
+    "disclaimer_title": "Disclaimer & Terms of Use",
+    "disclaimer_subtitle": "Please read these terms carefully before using this site.",
+
+    "disclaimer_item1_heading": "1. Purpose of the Platform",
+    "disclaimer_item1_subheading": "General use and scope",
+    "disclaimer_item1_point1": "This website is a personal, non-commercial, hobby project operated by a single developer.",
+    "disclaimer_item1_point2": "It provides an anonymous space for users aged 13 and above to share situations, stories, and advice.",
+    "disclaimer_item1_point3": "This platform does not replace professional medical, psychological, legal, or mental health services.",
+
+    "disclaimer_item2_heading": "2. User-Submitted Content",
+    "disclaimer_item2_subheading": "Content standards and moderation",
+    "disclaimer_item2_point1": "All submitted content must be suitable for users aged 13 and above.",
+    "disclaimer_item2_point2": "Content involving abuse, bullying, hate speech, profanity, sexual material, spam, promotion, misinformation, or any unpleasant or unsafe language is not permitted.",
+    "disclaimer_item2_point3": "Content may be removed at any time based on the developer’s judgement or with assistance from professional or third-party services.",
+    "disclaimer_item2_point4": "There is no guarantee of immediate review, and content may be removed with or without notice.",
+
+    "disclaimer_item3_heading": "3. Situations Content",
+    "disclaimer_item3_subheading": "Permanent and editable interface content",
+    "disclaimer_item3_point1": "Situations are used as interactive interface components across the site.",
+    "disclaimer_item3_point2": "Submitted situations are permanent and not available for deletion.",
+    "disclaimer_item3_point3": "The developer reserves the right to modify situations for spelling, grammar, punctuation, formatting, or clarity when deemed reasonable.",
+    "disclaimer_item3_point4": "Such modifications do not change the original intent of the submission.",
+
+    "disclaimer_item4_heading": "4. Stories Content",
+    "disclaimer_item4_subheading": "User-managed deletion",
+    "disclaimer_item4_point1": "Each story is assigned a system-generated identifier.",
+    "disclaimer_item4_point2": "This identifier is stored in the browser’s local storage to verify authorship for deletion.",
+    "disclaimer_item4_point3": "Clearing browser data or switching devices will prevent deletion access.",
+    "disclaimer_item4_point4": "The developer is not responsible for loss of deletion capability.",
+
+    "disclaimer_item5_heading": "5. External Resources & Links",
+    "disclaimer_item5_subheading": "Guidance only, no endorsement",
+    "disclaimer_item5_point1": "External links or resources may be provided as general guidance based on personal observations.",
+    "disclaimer_item5_point2": "These resources are not endorsements, promotions, or guarantees of accuracy or safety.",
+    "disclaimer_item5_point3": "The developer is not responsible for third-party content, actions, misinformation, or losses.",
+    "disclaimer_item5_point4": "External resources may be removed at any time, including upon reasonable user request.",
+
+    "disclaimer_item6_heading": "6. No Professional Advice",
+    "disclaimer_item6_subheading": "Informational use only",
+    "disclaimer_item6_point1": "Content on this platform does not constitute professional advice of any kind.",
+    "disclaimer_item6_point2": "Users experiencing serious distress should seek qualified professional help.",
+
+    "disclaimer_item7_heading": "7. Limitation of Liability",
+    "disclaimer_item7_subheading": "Use at your own risk",
+    "disclaimer_item7_point1": "The developer is not liable for any direct or indirect loss, harm, or distress arising from use of this platform.",
+    "disclaimer_item7_point2": "No guarantees are made regarding accuracy, availability, or continuity of the service.",
+
+    "disclaimer_item8_heading": "8. Changes to These Terms",
+    "disclaimer_item8_subheading": "Updates and acceptance",
+    "disclaimer_item8_point1": "These terms may be updated from time to time.",
+    "disclaimer_item8_point2": "Continued use of the site indicates acceptance of the latest version."
+  },
+  "bm": {}
+}

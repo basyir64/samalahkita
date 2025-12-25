@@ -9,8 +9,6 @@ import { db } from "../fb_emulator_connect";
 // NODE_TLS_REJECT_UNAUTHORIZED=0 firebase emulators:start --import=./firestore-export --export-on-exit=./firestore-export --only firestore
 
 export function useSituationService() {
-  const [allSituations, setAllSituations] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   // Load all situations
   async function loadAll() {
@@ -34,29 +32,24 @@ export function useSituationService() {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       // console.log(JSON.stringify(snapshot.docs, null, 2))
 
-      return data; // optional — sometimes people want the result directly
+      return data; 
     } catch (error) {
       console.error("Error loadByQuery situations: " + error)
       return false;
     }
   };
 
-  async function loadById(id) {
-    const docRef = doc(db, "situations", id);
-    const snapshot = await getDoc(docRef);
-
-    return { id: snapshot.id, ...snapshot.data() };
-  }
-
   async function save(situation) {
     let ref;
     try {
+      // console.log(JSON.stringify(situation, null, 2))
       ref = await addDoc(collection(db, "situations"), situation);
     } catch (error) {
       console.error("Error saving situation: " + error);
       return false;
     } finally {
-      return ref.id;
+      if (ref?.id) return ref.id;
+      else return false
     }
   }
 
@@ -84,22 +77,19 @@ export function useSituationService() {
           nameLength: name.length,
           createdAt: serverTimestamp(),
           storiesCount: 0,
-          totalViews: 0
+          totalViews: 0,
+          onDisplay: false
         });
       });
       await batch.commit();
-
     } catch (error) {
       console.error("Error batch saving situations: " + error);
     }
   }
 
   return {
-    allSituations,
-    loading,
     loadAll,
     loadByQuery,
-    loadById,
     save,
     countAllSituations,
     saveMultiple

@@ -14,10 +14,11 @@ import Chart from "./i18n/components/chart/Chart.json";
 import Feed from "./i18n/components/stories/Feed.json";
 import PrivacyNotice from "./i18n/views/PrivacyNotice.json";
 import Footer from "./i18n/components/footer/Footer.json";
+import Disclaimer from "./i18n/views/Disclaimer.json";
 
 const resources = { eng: { views: {}, components: {} }, bm: { views: {}, components: {} } };
 [GeneralButtonsAndLinks, Stories, Navbar, Face, CreateStoryModal, CreateSituationModal, 
-  ModalPage1, ModalPage2, ModalPage3, Chart, Feed, PrivacyNotice, Footer].forEach((file) => {
+  ModalPage1, ModalPage2, ModalPage3, Chart, Feed, PrivacyNotice, Footer, Disclaimer].forEach((file) => {
   Object.keys(file.eng).forEach((key) => {
     resources.eng.views[key] = file.eng[key];
     resources.bm.views[key] = file.bm[key];

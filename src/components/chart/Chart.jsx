@@ -95,7 +95,7 @@ export default function Chart() {
 
     return (
         <div className='mt-6 grid justify-center text-center'>
-            <div className='mt-4 dark:text-white'>
+            <div className='mt-4 dark:text-gray-300'>
                 <div className='tracking-[0.1em]'> {t("sticker_title")}</div>
                 <div className='text-gray-500 tracking-[0.1em]'> {t("sticker_subtitle")} </div>
                 <div className='text-gray-500 tracking-[0.1em]'>{t("sticker_mood")}</div>
@@ -107,9 +107,9 @@ export default function Chart() {
                                 const order =
                                     (i - activeIndex + profileUrls.length) % profileUrls.length;
 
-                                const offsetX = order * 10;
+                                const offsetX = 0;
                                 const zIndex = profileUrls.length - order;
-                                const scale = order === 0 ? 1.2 : 1 - order * 0.05; // front bigger
+                                const scale = order === 0 ? 1.2 : 1; // front bigger
                                 return (
                                     <img
                                         key={i}
@@ -128,11 +128,11 @@ export default function Chart() {
             </div>
             <div className='text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
             {isCountAllLoading ?
-                <div className='my-2 dark:text-white'>Loading...</div> :
-                <div className='flex justify-center mt-2 gap-8 dark:text-white'>
+                <div className='my-2 dark:text-gray-300'>Loading...</div> :
+                <div className='flex justify-center mt-2 gap-8 dark:text-gray-300'>
                     <div className=''>
                         <div className='text-4xl'>{counts.situation}</div>
-                        <div className='flex rounded-[25px] w-max px-2 border'>
+                        <div className='flex rounded-[25px] w-max px-2 border gap-1'>
                             <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
                             <div className='text-sm'>{t("situation_title")}</div>
                         </div>
@@ -146,33 +146,33 @@ export default function Chart() {
                     </div>
                     <div className=''>
                         <div className='text-4xl'>{counts.views}</div>
-                        <div className='flex rounded-[25px] w-max px-2 border'>
-                            <img className='w-[18px] mb-[1px] ml-1' src={`${SYSTEM_ICON_BASE_URL}/eye-svgrepo-com.svg`} />
+                        <div className='flex rounded-[25px] w-max px-2 border gap-1'>
+                            <img className='w-[18px] mb-[1px] ml-1' src={`${SYSTEM_ICON_BASE_URL}/eye2-svgrepo-com.svg`} />
                             <div className='text-sm'>{t("views_title")}</div>
                         </div>
                     </div>
                 </div>
             }
-            <div className='mt-12 dark:text-white'>
-                <div className='tracking-[0.1em] mb-2'>{t("situations_chart_title")}</div>
+            <div className='mt-12 dark:text-gray-300'>
+                <div className='text-gray-500 tracking-[0.1em] mb-2'>{t("situations_chart_title")}</div>
                 {isRankingLoading ?
                     <div>Loading...</div> :
                     ranking.map((situation, i) => (
-                        <Link key={situation.id} to={`/stories/situation/${situation.id}`}>
+                        <Link className='' key={situation.id} to={`/stories/situation/${situation.id}`}>
                             <div className='flex gap-4 mb-4'>
-                                <div className='flex'>
-                                    <div className='mt-2 text-2xl text-gray-500'>#{i + 1} </div>
+                                <div className=''>
+                                    <div className='text-sm text-gray-500'>#{i + 1} </div>
                                 </div>
-                                <div className='grid text-left'>
-                                    <div className='tracking-[0.1em]'>{situation.name}</div>
-                                    <div className='flex w-max gap-4'>
+                                <div className='flex flex-wrap text-left gap-2'>
+                                    <div className='tracking-[0.1em] text-sm'>{situation.name}</div>
+                                    <div className='flex w-max gap-2 h-max border border-gray-500 rounded-[25px] px-2'>
                                         <div className='flex'>
-                                            <img className='w-[16px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
-                                            <div className='ml-1 text-gray-500'>{situation.storiesCount}</div>
+                                            <img className='w-[14px]' src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} />
+                                            <div className='ml-1 text-xs'>{situation.storiesCount}</div>
                                         </div>
                                         <div className='flex'>
-                                            <img className='w-[16px]' src={`${SYSTEM_ICON_BASE_URL}/eye-svgrepo-com.svg`} />
-                                            <div className='ml-1 text-gray-500'>{situation.totalViews}</div>
+                                            <img className='w-[14px]' src={`${SYSTEM_ICON_BASE_URL}/eye2-svgrepo-com.svg`} />
+                                            <div className='ml-1 text-xs'>{situation.totalViews}</div>
                                         </div>
                                     </div>
                                 </div>

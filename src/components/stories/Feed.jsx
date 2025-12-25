@@ -66,7 +66,7 @@ export default function Feed({ situation, allSituationsContextRef }) {
     }
 
     return (
-        <div className='mt-6 dark:text-white'>
+        <div className='mt-6 dark:text-gray-300'>
             {storiesRef.current.length > 0 ?
                 <div className='grid'>
                     {storiesRef.current.map((s, i) =>

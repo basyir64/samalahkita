@@ -25,8 +25,10 @@ export function useMediaService() {
             currentLevel = found ? found.files : [];
         }
 
+        // console.log(JSON.stringify(currentLevel, null, 2));
         // 2. Map the files into usable CDN URLs
         return currentLevel
+            .slice(0, 20)
             .filter(file => file.type === "file")
             .map(file => `${STICKERS_BASE_URL}/${file.name}`);
     }

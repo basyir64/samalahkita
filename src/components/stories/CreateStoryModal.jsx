@@ -138,7 +138,10 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
             const exists = situationsRef.current.some(s => (s.name === situationName));
             if (!exists) newSituationNames.push(situationName);
         });
-        if (newSituationNames.length > 0) await saveMultiple(newSituationNames);
+        if (newSituationNames.length > 0) {
+            // might need to log errors in a dedicated log file. just in case.
+            await saveMultiple(newSituationNames);
+        } 
     }
 
     const { SYSTEM_ICON_BASE_URL } = useMediaService();

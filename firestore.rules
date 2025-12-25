@@ -1,18 +1,116 @@
-rules_version='2'
-
+rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    /* ================================
+       Helpers
+       ================================ */
+
+    function isString(field, maxLen) {
+      return field is string &&
+             field.size() > 0 &&
+             field.size() <= maxLen;
+    }
+
+    // Pass the 'data' map to the functions that operate on it
+    function hasOnlyKeys(data, allowedKeys) {
+      return data.keys().hasOnly(allowedKeys);
+    }
+
+    function hasRequiredKeys(data, required) {
+      return data.keys().hasAll(required);
+    }
+
+    // Corrected to take 'data' argument, similar to hasOnlyKeys
+    function hasAllowedKeys(data, allowed) {
+      return data.keys().hasOnly(allowed);
+    }
+
+    // Pass 'requestTime' explicitly for comparison
+    function isServerTimestamp(field, requestTime) {
+
+      // restricted to firestore's useServerTimestamp. 
+      // for other clients (debugging, etc), use <=
+      return field == requestTime;
+    }
+
+    /* ================================
+       Situations (permanent interface content)
+       ================================ */
+
+    match /situations/{situationId} {
+
+      // Public read
+      allow read: if true;
+
+      // Anonymous create (strict schema)
+      allow create: if
+        // Pass request.resource.data to the helper function
+        hasRequiredKeys(request.resource.data, [
+          'createdAt',
+          'name',
+          'nameLength',
+          'onDisplay',
+          'storiesCount',
+          'totalViews'
+        ]) &&
+        isString(request.resource.data.name, 100) &&
+        isServerTimestamp(request.resource.data.createdAt, request.time);
+
+      // Optional edits (e.g. typo/clarity fixes)
+      // If you prefer zero client edits, set this to `false`
+      allow update: if true; 
+
+      // No client-side deletes
+      allow delete: if false;
+    }
+
+    /* ================================
+       Stories (anonymous, immutable)
+       ================================ */
+
+    match /stories/{storyId} {
+
+      // Public read
+      allow read: if true;
+
+      // Anonymous create
+      allow create: if
+        // Pass request.resource.data to the helper function
+        hasRequiredKeys(request.resource.data, [
+          'createdAt',
+          'gender',
+          'profile',
+          'situationId',
+          'text',
+          'views'
+        ]) &&
+        isString(request.resource.data.situationId, 64) &&
+        isString(request.resource.data.text, 300) &&
+        isServerTimestamp(request.resource.data.createdAt, request.time);
+
+      // Stories count and views
+      allow update: if true;
+
+      // No deletes (admin only)
+      allow delete: if false;
+    }
+
+    /* ================================
+       System / Config (read-only)
+       ================================ */
+
+    match /config/{doc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    /* ================================
+       Default deny
+       ================================ */
+
     match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2025, 12, 28);
+      allow read, write: if false;
     }
   }
 }

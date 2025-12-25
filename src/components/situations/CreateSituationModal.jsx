@@ -44,6 +44,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
         }
     }
 
+    // for both Add (other situations marquee) and Save (homepage)
     async function handleSaveClick(situation) {
         // Check if exists in situations context ref
         if (existingSituations.some(s => (s.name === situation.name))) {
@@ -57,6 +58,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                 otherSituations: [...prev.otherSituations, situation]
             }));
             setIsOpen(false);
+            setText("");
             return;
         } else {
             setIsLoadingSave(true);
@@ -77,9 +79,15 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
         window.location.reload();
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         if (isOpen && situationInputRef?.current) situationInputRef.current.focus();
     }, [isOpen])
+
+    function handleStartOverClick() {
+        setSituation({ createdAt: serverTimestamp(), storiesCount: 0, totalViews: 0, onDisplay: false });
+        setIsSaveSuccess(false);
+        setText("");
+    }
 
     return (
         <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-60">
@@ -96,8 +104,9 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                                     {situation.name}
                                 </div>
                             </div>
-                            <div className='flex gap-1 justify-center'>
-                                <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />
+                            <div className='flex gap-2 justify-center'>
+
+                                <img className='w-[24px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />
                                 {t("add_ok_ind")}
                             </div>
                         </div>
@@ -112,8 +121,8 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                                     spellCheck={false}
                                     onChange={(e) => handleTextChange(e.target.value)} />
                                 <div className='mt-2 flex justify-between gap-2'>
-                                    <div className='text-sm text-red-700'>{message}</div>
-                                    <div className={`text-sm ${textLength > maxTextLength && `text-red-700`}`}>
+                                    <div className='text-sm text-red-400'>{message}</div>
+                                    <div className={`text-sm ${textLength > maxTextLength && `text-red-400`}`}>
                                         {textLength}/{maxTextLength}
                                     </div>
                                 </div>
@@ -126,7 +135,10 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                             </div>
                         </div>}
                     <div className="flex justify-between gap-4 mt-10">
-                        <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
+                        <div className='flex gap-2'>
+                            <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
+                            {isSaveSuccess && <button className='underline cursor-pointer' onClick={() => handleStartOverClick()}>{t('start_over_button')}</button>}
+                        </div>
                         <div className='flex gap-2'>
                             {isSaveSuccess ?
                                 <button className='underline cursor-pointer' onClick={() => handleNewStoryClick(situation)}>

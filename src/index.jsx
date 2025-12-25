@@ -8,6 +8,7 @@ import App from './views/App'
 import Stories from './views/Stories';
 import { ThemeProvider } from './theme-context';
 import PrivacyNotice from './views/PrivacyNotice';
+import Disclaimer from './views/Disclaimer';
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(root).render(
             <Route path="/" element={<App />} />
             <Route path="/stories/situation/:situationid" element={<Stories />} />
             <Route path="/privacy-notice" element={<PrivacyNotice />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
           </Route>
         </Routes>
       </BrowserRouter>

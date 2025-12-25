@@ -189,7 +189,7 @@ export default function StoryCardShare({ story, situationName }) {
     return (
 
         <div className='flex items-stretch gap-2'>
-            <div className='dark:bg-black dark:text-white'>
+            <div className='dark:bg-black dark:text-gray-300'>
                 <div className='mb-2 flex flex-wrap gap-2'>
                     <div className='text-gray-500 text-sm mt-1'>Ganti:</div>
                     {storyItemsConcealOptions.map((storyItem, i) => {

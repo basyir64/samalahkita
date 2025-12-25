@@ -116,8 +116,8 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                     }} />
 
                 <div className={`mt-2 text-sm flex justify-between`}>
-                    <div className='text-red-700'>{storyTextValidationMessage}</div>
-                    <div className={`${currentLength > maxTextLength && `text-red-700`}`}>{currentLength}/{maxTextLength}</div>
+                    <div className='text-red-400'>{storyTextValidationMessage}</div>
+                    <div className={`${currentLength > maxTextLength && `text-red-400`}`}>{currentLength}/{maxTextLength}</div>
                 </div>
             </div>
             <div className='grid'>
@@ -138,7 +138,7 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                         ))}
                     </div>
                     <OtherSituationsMarquee isCurrent={isCurrent} size={"small"} story={story} setStory={setStory} situationsRef={situationsRef} />
-                    <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-700`}`}>
+                    <div className={`mt-2 text-sm text-right ${story.otherSituations.length > maxOtherSituationsSize && `text-red-400`}`}>
                         {story.otherSituations.length}/{maxOtherSituationsSize}
                     </div>
                 </div>}
@@ -158,8 +158,8 @@ export default function ModalPage2({ isOpen, isCurrent, story, setStory, maxText
                                 handleAdviceTextChange(e.target.value)
                             }} />
                         <div className={`mt-2 text-sm flex justify-between`}>
-                            <div className='text-red-700'>{adviceTextValidationMessage}</div>
-                            <div className={`${currentAdviceLength > maxAdviceTextLength && `text-red-700`}`}>{currentAdviceLength}/{maxAdviceTextLength}</div>
+                            <div className='text-red-400'>{adviceTextValidationMessage}</div>
+                            <div className={`${currentAdviceLength > maxAdviceTextLength && `text-red-400`}`}>{currentAdviceLength}/{maxAdviceTextLength}</div>
                         </div>
                     </div>
                 }

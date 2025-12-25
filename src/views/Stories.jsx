@@ -26,7 +26,7 @@ export default function Stories() {
 
     useEffect(() => {
         async function getAllSituations() {
-            console.log("fetching situations from stories...");
+            // console.log("fetching situations from stories...");
             const result = await loadAll();
             if (!result) return;
             allSituationsContextRef.current = result;
@@ -59,7 +59,7 @@ export default function Stories() {
                             <Typewriter text={situation.name} />
                         </div>
                     </div>}
-                    <div className=''>
+                    <div className='mb-4'>
                         {situation && <div className='text-center'>
                             <div className='flex justify-center'>
                                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={allSituationsContextRef} />
@@ -67,7 +67,7 @@ export default function Stories() {
                         </div>}
                         <Feed situation={situation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
                     </div>
-                    <div className={`sticky bottom-4 z-40 mt-8 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-30"}`}>
+                    <div className={`sticky bottom-10 z-40 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-30"}`}>
                         {situation && <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             {t("new_story_button")}

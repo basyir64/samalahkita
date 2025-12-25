@@ -5,8 +5,8 @@ export default function PrivacyNotice() {
     const {t} = useTranslation();
 
     return (
-        <div className='mx-auto px-6 py-6 max-w-3xl dark:text-white'>
-            <div className='text-xl font-bold'>{t("privacy_title")}</div>
+        <div className='mx-auto px-6 py-6 max-w-3xl dark:text-gray-300'>
+            <div className='mb-4 text-xl font-bold'>{t("privacy_title")}</div>
             {t("privacy_subtitle")}
 
             <div className='mt-4 font-bold'>{t("privacy_item1_heading")}</div>

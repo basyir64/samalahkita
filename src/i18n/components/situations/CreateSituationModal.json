@@ -4,21 +4,23 @@
         "already_exists_ind": "Situation already exists.",
         "no_links_ind": "Links and contacts are not allowed.",
         "rule_title":"A situation should: ",
-        "rule1": "1. Not be a question.",
-        "rule2": "2. A concise problem statement that addresses your emotional discomfort.",
-        "rule3": "3. Adheres the Terms of Use.",
+        "rule1": "1. Be a concise problem statement that addresses your emotional discomfort.",
+        "rule2": "2. Not be a question.",
+        "rule3": "3. Not contain personal information like phone numbers, etc.",
         "add_ok_ind": "Situation added",
-        "add_failed_ind": "Couldn't add. We are fixing this, please try again later."
+        "add_failed_ind": "Couldn't add. We are fixing this, please try again later.",
+        "start_over_button": "Start Over"
     },
     "bm": {
         "new_situation_title": "Tambah Situasi Baru",
         "already_exists_ind": "Situasi sudah ada.",
         "no_links_ind": "Pautan dan maklumat peribadi tidak dibenarkan.",
         "rule_title":"Situasi mestilah: ",
-        "rule1": "1. Bukan soalan.",
-        "rule2": "2. Tajuk luahan atau masalah dalam satu pernyataan ringkas.",
-        "rule3": "3. Patuh Terma Penggunaan.",
+        "rule1": "1. Tajuk luahan atau masalah dalam satu pernyataan ringkas.",
+        "rule2": "2. Bukan soalan",
+        "rule3": "3. Tidak mengandungi maklumat peribadi seperti nombor telefon, dsb.",
         "add_ok_ind": "Situasi ditambah",
-        "add_failed_ind": "Gagal menambah. Kami sedang membaiki, sila cuba sebentar lagi."
+        "add_failed_ind": "Gagal menambah. Kami sedang membaiki, sila cuba sebentar lagi.",
+        "start_over_button": "Semula"
     }
 }
