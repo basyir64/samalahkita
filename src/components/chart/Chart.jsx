@@ -97,8 +97,8 @@ export default function Chart() {
         <div className='mt-6 grid justify-center text-center'>
             <div className='mt-4 dark:text-gray-300'>
                 <div className='tracking-[0.1em]'> {t("sticker_title")}</div>
-                <div className='text-gray-500 tracking-[0.1em]'> {t("sticker_subtitle")} </div>
-                <div className='text-gray-500 tracking-[0.1em]'>{t("sticker_mood")}</div>
+                <div className='text-gray-500 tracking-[0.1em] text-sm'> {t("sticker_subtitle")} </div>
+                <div className='text-gray-500 tracking-[0.1em] text-sm'>{t("sticker_mood")}</div>
                 <div className='flex justify-center'>
                     <div className='relative mt-8 mb-50 w-30'>
                         {

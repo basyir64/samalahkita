@@ -34,12 +34,12 @@ export default function Footer() {
                     </Link>
                 </div>
                 <div className='flex justify-start gap-2 mt-4 text-sm'>
-                    <a href="/privacy-notice"><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></a>
-                    <a href="/disclaimer"><span className='mr-1 cursor-pointer underline'>{t('disclaimer')}</span></a>
+                    <Link to={`/privacy-notice`}><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></Link>
+                    <Link to={`/disclaimer`}><span className='mr-1 cursor-pointer underline'>{t('disclaimer')}</span></Link>
                 </div>
                 <div>
                     <div className='flex justify-start text-sm mt-2'>
-                        v0.1
+                        v0.1.0-beta.1
                     </div>
                     <div className='text-sm'>
                         <div className='underline cursor-pointer'>{t("history")}</div>
@@ -49,7 +49,7 @@ export default function Footer() {
                     {t("media_disclaimer")}
                 </div>
                 <div className='mt-2 text-xs'>
-                    samalahkita <br/> 2025
+                    samalahkita <br/> 2026
                 </div>
             </div>
         </div>

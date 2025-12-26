@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useTheme } from '../../theme-context';
 import { useMediaService } from '../../hooks/useMediaService';
+import { Link } from 'react-router';
 export default function Navbar({ isFaceTitleVisible }) {
 
     const { t, i18n } = useTranslation("components");
@@ -20,11 +21,11 @@ export default function Navbar({ isFaceTitleVisible }) {
     return (
         <nav className={`px-6 py-4 flex justify-between sticky top-0 z-50 bg-white/10 dark:bg-black/10 backdrop-blur-md transition-transform duration-300 translate-y-0`}>
             <span className={`text-3xl font-bold dark:text-gray-300 transition-opacity duration-500 
-            ${isFaceTitleVisible ? "opacity-0" : "opacity-100"}`}>{t('title')}</span>
+            ${"opacity-100"}`}>{t('title')}</span>
             <span className='flex gap-4 mt-1 ml-4'>
-                {!isFaceTitleVisible && <a className='flex cursor-pointer dark:text-gray-300' href="/">
+                {!isFaceTitleVisible && <Link className='flex cursor-pointer dark:text-gray-300' to="">
                     <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} />
-                </a>}
+                </Link>}
                 <div className='flex gap-1 cursor-pointer dark:text-gray-300' onClick={() => handleChangeLangClick(currentNextLang)} >
                     <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/lang-svgrepo-com.svg`} />
                     {/* <span className='flex items-center text-sm'>{currentNextLang}</span> */}

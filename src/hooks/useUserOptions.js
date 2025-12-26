@@ -7,6 +7,16 @@ export function useUserOptions() {
         { id: 1, text: "13-17", value: "13-17" },
         { id: 2, text: "18-25", value: "18-25" },
         { id: 3, text: "26-30", value: "26-30" },
+        { id: 4, text: "31-35", value: "31-35" },
+        { id: 6, text: "36-40", value: "36-40" },
+        { id: 7, text: "41-45", value: "41-45" },
+        { id: 8, text: "46-50", value: "46-50" },
+        { id: 9, text: "51-55", value: "51-55" },
+        { id: 10, text: "56-60", value: "56-60" },
+        { id: 11, text: "61-65", value: "61-65" },
+        { id: 12, text: "66-70", value: "66-70" },
+        { id: 13, text: "71-75", value: "71-75" },
+        { id: 14, text: "75-80", value: "75-80" },
     ];
 
     const genders = [

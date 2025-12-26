@@ -66,8 +66,8 @@ html {
 }
 
 .pill {
-  @apply bg-white hover:bg-[#f1efe3] inline-flex m-[10px] tracking-[0.1em] text-[#030000] px-[20px] py-[15px]
-  rounded-[25px] border border-white transition
+  @apply bg-white hover:bg-[#f1efe3] inline-flex m-[7px] md:m-[10px] tracking-[0.1em] text-[#030000] px-[10px] py-[5px] md:px-[20px] md:py-[15px]
+  rounded-[25px] border border-white transition text-sm md:text-base
   duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)] dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black
   dark:hover:bg-gray-800;
 }

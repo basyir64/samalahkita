@@ -9,14 +9,16 @@ import Stories from './views/Stories';
 import { ThemeProvider } from './theme-context';
 import PrivacyNotice from './views/PrivacyNotice';
 import Disclaimer from './views/Disclaimer';
+import ScrollToTop from './views/ScrollToTop';
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
     <ThemeProvider>
-      <BrowserRouter basename='/samalahkita/'>
+      <BrowserRouter basename='/samalahkita'>
+      <ScrollToTop />
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<App />} />
+            <Route path="" element={<App />} />
             <Route path="/stories/situation/:situationid" element={<Stories />} />
             <Route path="/privacy-notice" element={<PrivacyNotice />} />
             <Route path="/disclaimer" element={<Disclaimer />} />

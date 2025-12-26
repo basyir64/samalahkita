@@ -1,8 +1,10 @@
 {
   "eng": {
-    "": "Confirm review"
+    "disclaimer_ack": "By posting, you've read and agreed to the  ",
+    "anonymous_reminder": "Your session is 100% anonymous. Nothing that identifies you as the author has and will ever be recorded without consent."
   },
   "bm": {
-    "": "Cerita anda sedia untuk dihantar."
+    "disclaimer_ack": "Dengan menghantar, anda telah membaca dan bersetuju dengan ",
+    "anonymous_reminder": "Sesi anda adalah 100% tanpa nama. Tiada maklumat identiti anda telah atau akan diambil tanpa kebenaran selama-lamanya."
   }
 }
