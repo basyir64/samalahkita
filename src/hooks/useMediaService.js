@@ -23,7 +23,7 @@ export function useMediaService() {
             currentLevel = found ? found.files : [];
         }
 
-        console.log(JSON.stringify(currentLevel, null, 2));
+        // console.log(JSON.stringify(currentLevel, null, 2));
         // 2. Map the files into usable CDN URLs
         return currentLevel
             .slice(0, 30)

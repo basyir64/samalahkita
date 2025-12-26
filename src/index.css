@@ -9,7 +9,7 @@
   --font-weight: 400;
 
   /* Marquee */
-  --time: 35s;
+  --time: 100s;
   --animate-scroll: scroll var(--time) linear infinite;
   @keyframes scroll {
     0% {
