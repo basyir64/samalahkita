@@ -33,7 +33,7 @@ i18n
     defaultNS: 'views',
     ns: ['components', 'views'],
     resources,
-    lng: "eng", 
+    lng: "bm", 
     interpolation: {
       escapeValue: false // react already safes from xss
     }

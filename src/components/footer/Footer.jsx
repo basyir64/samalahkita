@@ -7,7 +7,7 @@ export default function Footer() {
     const { t } = useTranslation();
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     return (
-        <div className='mt-32'>
+        <div className='mt-10'>
             <hr className='border-t-2 border-black dark:border-gray-300' />
             <div className='p-8 dark:text-gray-300 mx-auto max-w-5xl'>
                 <div className='flex text-left text-sm text-gray-500 mb-4'>
@@ -34,8 +34,8 @@ export default function Footer() {
                     </Link>
                 </div>
                 <div className='flex justify-start gap-2 mt-4 text-sm'>
-                    <Link to="/privacy-notice"><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></Link>
-                    <Link to="/disclaimer"><span className='mr-1 cursor-pointer underline'>{t('disclaimer')}</span></Link>
+                    <a href="/privacy-notice"><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></a>
+                    <a href="/disclaimer"><span className='mr-1 cursor-pointer underline'>{t('disclaimer')}</span></a>
                 </div>
                 <div>
                     <div className='flex justify-start text-sm mt-2'>
@@ -47,6 +47,9 @@ export default function Footer() {
                 </div>
                 <div className='mt-4 text-xs'>
                     {t("media_disclaimer")}
+                </div>
+                <div className='mt-2 text-xs'>
+                    samalahkita <br/> 2025
                 </div>
             </div>
         </div>

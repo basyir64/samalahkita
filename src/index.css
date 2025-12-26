@@ -84,7 +84,7 @@ html {
 .pill-feed-addstory {
     @apply inline-flex 
     text-[#030000] py-[18px] px-[20px]
-    rounded-[25px] cursor-pointer hover:bg-[#f1efe3] bg-white/10 backdrop-blur-md
+    rounded-[25px] hover:bg-[#f1efe3] bg-white/10 backdrop-blur-md
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
     dark:bg-black/10 dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800;
 }

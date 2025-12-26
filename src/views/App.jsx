@@ -2,6 +2,7 @@ import '../index.css'
 import HomeMarquee from '../components/marquee/HomeMarquee';
 import Face from "../components/face/Face";
 import Chart from "../components/chart/Chart";
+import Footer from '../components/footer/Footer';
 
 export default function App() {
 
@@ -12,6 +13,7 @@ export default function App() {
                 <Face />
                 <Chart />
             </div>
+            <Footer/>
         </div>
     )
 }

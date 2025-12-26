@@ -145,7 +145,6 @@ export function useStoryService() {
         loadFirstPage,
         loadNextPage,
         loadByQuery,
-        // loadById,
         save,
         updateViews,
         countAllStories,

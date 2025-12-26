@@ -1,14 +1,12 @@
 import { useTheme } from "../theme-context";
 
 export function useMediaService() {
+    const { isDark } = useTheme();
     const BASE_URL = "https://cdn.jsdelivr.net/gh/basyir64/samalahkita-media@main";
     const API_URL = "https://data.jsdelivr.com/v1/packages/gh/basyir64/samalahkita-media@main";
 
     const STICKERS_BASE_URL = `${BASE_URL}/stickers/admin`;
     const CONCEALER_BASE_URL = `${BASE_URL}/conceal`;
-
-
-    const { isDark } = useTheme();
     const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system${isDark ? '/white-fill' : ''}`;
 
     async function loadAllProfileUrls() {
@@ -25,10 +23,10 @@ export function useMediaService() {
             currentLevel = found ? found.files : [];
         }
 
-        // console.log(JSON.stringify(currentLevel, null, 2));
+        console.log(JSON.stringify(currentLevel, null, 2));
         // 2. Map the files into usable CDN URLs
         return currentLevel
-            .slice(0, 20)
+            .slice(0, 30)
             .filter(file => file.type === "file")
             .map(file => `${STICKERS_BASE_URL}/${file.name}`);
     }

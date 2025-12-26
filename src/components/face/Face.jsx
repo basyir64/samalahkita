@@ -4,11 +4,19 @@ import { useMediaService } from '../../hooks/useMediaService';
 import HomeSearchBar from '../custom-inputs/HomeSearchBar';
 import { Link } from 'react-router';
 import { useInView } from '../../hooks/useInView';
+import { useOutletContext } from 'react-router';
+import { useEffect } from 'react';
 
 export default function Face() {
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     const { t } = useTranslation("components");
-    const { ref } = useInView({ threshold: 0.25 });
+    const { ref, inView } = useInView({ threshold: 0.25 });
+    const { setIsFaceTitleVisible } = useOutletContext();
+
+    useEffect(() => {
+        if (inView) setIsFaceTitleVisible(true);
+        else setIsFaceTitleVisible(false);
+    }, [inView]);
 
     return (
         <div className='my-2 grid grid-col justify-center text-center dark:text-gray-300'>

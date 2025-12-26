@@ -61,12 +61,12 @@ export function useUserOptions() {
         { id: 9, text: "#susahlah"},
         { id: 10, text: "#isiHati"},
         { id: 11, text: "#pendam"},
-        { id: 12, text: "#derita?"},
+        { id: 12, text: "#pahitmanis"},
         { id: 13, text: "#termenung"},
         { id: 14, text: "#rindu"},
         { id: 15, text: "#tips"},
         { id: 16, text: "#nasihat"},
-        { id: 17, text: "#terfikir"},
+        { id: 17, text: "#keluhan"},
 
     ];
 

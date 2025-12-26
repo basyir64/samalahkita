@@ -100,7 +100,7 @@ export default function Chart() {
                 <div className='text-gray-500 tracking-[0.1em]'> {t("sticker_subtitle")} </div>
                 <div className='text-gray-500 tracking-[0.1em]'>{t("sticker_mood")}</div>
                 <div className='flex justify-center'>
-                    <div className='relative mt-8 mb-50 w-40'>
+                    <div className='relative mt-8 mb-50 w-30'>
                         {
                             profileUrls.length > 0 &&
                             profileUrls.map((url, i) => {
@@ -113,7 +113,7 @@ export default function Chart() {
                                 return (
                                     <img
                                         key={i}
-                                        className={`w-30 absolute inset-0 transition-all duration-500 ease-in-out bg-cover bg-center h-max`}
+                                        className={`max-w-30 max-h-30 absolute inset-0 transition-all duration-500 ease-in-out bg-cover bg-center`}
                                         style={{
                                             transform: `translateX(${offsetX}px) scale(${scale})`,
                                             zIndex,

@@ -7,6 +7,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import containsPersonalInfo from '../../hooks/useDetectPersonalInfo';
 import { useMediaService } from '../../hooks/useMediaService';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
 export default function CreateSituationModal({ isOpen, setIsOpen, setStory, existingSituations }) {
 
@@ -127,11 +128,12 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                                     </div>
                                 </div>
                             </div>
-                            <div className='mt-2'>
+                            <div className='mt-2 text-sm'>
                                 <div className='text-gray-500'>{t("rule_title")}</div>
-                                {t("rule1")}<br />
+                                {t("rule1")} <br />
                                 {t("rule2")} <br />
-                                {t("rule3")}
+                                {t("rule3")} {<Link target='_blank' className='cursor-pointer underline' to={"/disclaimer"}>{t("disclaimer")}</Link>} & 
+                                {<Link target='_blank' className='cursor-pointer underline' to={"/privacy-notice"}> {t("privacy")}.</Link>}
                             </div>
                         </div>}
                     <div className="flex justify-between gap-4 mt-10">

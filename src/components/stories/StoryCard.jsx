@@ -6,6 +6,7 @@ import useDateFormatter from '../../hooks/useDateFormatter';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import Typewriter from '../custom-inputs/Typewriter';
+import { useTranslation } from 'react-i18next';
 
 export default function StoryCard({ story, setStory, isPreview, situation }) {
 
@@ -16,6 +17,7 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
     const sector = `${story.sector ? getTranslatedSectorText(story.sector) : ""}`;
     const ageRange = story.ageRange ? story.ageRange + " tahun" : "";
     const location = story.location ? getLocationText(story.location) : "";
+    const { t } = useTranslation();
 
     const [isProfileBoxOpen, setIsProfileBoxOpen] = useState(false);
     const [profileUrls, setProfileUrls] = useState([]);
@@ -137,7 +139,7 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
             {isPreview &&
                 <div className='relative'>
                     {isProfileBoxOpen && <div className='mt-2'>
-                        <span className='text-sm text-gray-500'>Pilih ikon profile. Tekan semula untuk tutup.</span>
+                        <span className='text-sm text-gray-500'>{t("icon_panel_ind")}</span>
                         <div
                             ref={scrollRef}
                             onWheel={(e) => handleWheel(e)}

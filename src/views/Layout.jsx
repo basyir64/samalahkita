@@ -9,6 +9,7 @@ export default function Layout() {
   const allSituationsContextRef = useRef([]);
   const [isSituationsContextLoading, setIsSituationsContextLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [isFaceTitleVisible, setIsFaceTitleVisible] = useState(false);
 
   useEffect(() => {
     async function getAllSituations() {
@@ -23,19 +24,20 @@ export default function Layout() {
     }
 
     getAllSituations();
-  }, [])
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar isFaceTitleVisible={isFaceTitleVisible} />
       <main className="flex-1">
         {
           isSituationsContextLoading ?
             <div className="text-center">Loading...</div> :
-            <Outlet context={{ allSituationsContextRef }} />
+            <Outlet context={{ allSituationsContextRef, setIsFaceTitleVisible }} />
         }
         <div className="text-center">{message}</div>
       </main>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

@@ -23,6 +23,7 @@ export default function Stories() {
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     const { allSituationsContextRef } = useOutletContext();
     const [isSituationsLoading, setIsSituationsLoading] = useState(true);
+    const { setIsFaceTitleVisible } = useOutletContext();
 
     useEffect(() => {
         async function getAllSituations() {
@@ -42,11 +43,18 @@ export default function Stories() {
             setSituation(situationMatch);
             setIsSituationsLoading(false);
         }
+
+        setIsFaceTitleVisible(false);
     }, []);
 
     function handleFeedModeClick(currentSituation) {
+        if (!isScrollingUp) return;
         // random stories feed mode : one situation feed mode
         setSituation(currentSituation ? null : allSituationsContextRef.current.find(s => (s.id === situationid)));
+    }
+
+    function handleSearchClick() {
+        if (!isScrollingUp) return;
     }
 
     return (
@@ -54,7 +62,7 @@ export default function Stories() {
             {isSituationsLoading ?
                 <div className='text-center'>Loading...</div> :
                 <div className='mx-auto px-6 max-w-3xl'>
-                    {situation && <div className={`sticky ${isScrollingUp ? "top-14" : "top-2"} z-40 py-4 flex gap-3 justify-center`}>
+                    {situation && <div className={`sticky top-14 z-40 py-4 flex gap-3 justify-center`}>
                         <div key={situation.name} className='pill-feed-title'>
                             <Typewriter text={situation.name} />
                         </div>
@@ -67,17 +75,15 @@ export default function Stories() {
                         </div>}
                         <Feed situation={situation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
                     </div>
-                    <div className={`sticky bottom-10 z-40 flex gap-3 justify-center transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "translate-y-30"}`}>
-                        {situation && <div className='pill-feed-addstory gap-2' onClick={() => setIsOpen(true)}>
+                    <div className={`sticky bottom-4 z-40 flex gap-3 justify-center transition-opacity duration-300 ${isScrollingUp ? "opacity-100" : "opacity-0"}`}>
+                        {situation && <div className={`pill-feed-addstory gap-2 ${isScrollingUp && "cursor-pointer"}`} onClick={() => isScrollingUp && setIsOpen(true)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             {t("new_story_button")}
                         </div>}
-                        <Link to="/">
-                            <div className='pill-feed-addstory'>
-                                <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' />
-                            </div>
-                        </Link>
-                        <div className='pill-feed-addstory' onClick={() => handleFeedModeClick(situation)}>
+                        {/* <div className={`pill-feed-addstory ${isScrollingUp && "cursor-pointer"}`} onClick={() => handleSearchClick(situation)}>
+                            <img src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`} className='w-[24px]' />
+                        </div> */}
+                        <div className={`pill-feed-addstory ${isScrollingUp && "cursor-pointer"}`} onClick={() => handleFeedModeClick(situation)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' />
                         </div>
                     </div>

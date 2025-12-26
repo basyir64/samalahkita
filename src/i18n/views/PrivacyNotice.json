@@ -38,6 +38,49 @@
         "privacy_item8_subheading": "This privacy notice may be updated occasionally to reflect app changes. Continued use of the site indicates acceptance of the latest version."
     },
     "bm": {
-        "privacy_title": "Notis Privasi"
-    }
+    "privacy_title": "Notis Privasi",
+    "privacy_subtitle": "Laman web ini ialah platform tanpa nama untuk berkongsi masalah dan meluahkan perasaan. Tiada akaun atau pendaftaran pengguna diperlukan.",
+
+    "privacy_item1_heading": "1. Tanpa Nama",
+    "privacy_item1_point1": "Pembangun tidak mengumpul nama, alamat e-mel, nombor telefon, kelayakan log masuk atau pautan media sosial.",
+    "privacy_item1_point2": "Pengguna kekal tanpa nama pada setiap masa.",
+    "privacy_item1_point3": "Input yang menyerupai nombor telefon, alamat e-mel atau pautan akan disekat secara automatik.",
+
+    "privacy_item2_heading": "2. Maklumat Yang Mungkin Anda Berikan",
+    "privacy_item2_subheading1": "Semasa menghantar cerita, anda boleh secara sukarela memberikan maklumat terhad dan tidak mengenal pasti untuk tujuan paparan dan statistik:",
+    "privacy_item2_point1": "Jantina (wajib)",
+    "privacy_item2_point2": "Julat umur (pilihan)",
+    "privacy_item2_point3": "Lokasi (negeri) (pilihan)",
+    "privacy_item2_point4": "Kategori pekerjaan (pilihan)",
+    "privacy_item2_subheading2": "Maklumat ini digunakan hanya untuk:",
+    "privacy_item2_point5": "Memaparkan konteks umum penulis pada kiriman",
+    "privacy_item2_point6": "Menjana statistik dan carta demografi awam",
+    "privacy_item2_subheading3": "Tiada usaha dibuat untuk mengenal pasti individu.",
+
+    "privacy_item3_heading": "3. Data Yang Disimpan Secara Automatik",
+    "privacy_item3_point1": "Paparan kiriman: Aplikasi menyimpan ID kiriman dalam storan setempat pelayar anda untuk memastikan satu paparan bagi setiap pengguna untuk setiap kiriman.",
+    "privacy_item3_point2": "Pengurusan kiriman anda: Pembangun juga menggunakan storan pelayar anda untuk mengingati kiriman yang anda hasilkan. Ini membolehkan anda memadam kiriman tersebut kemudian tanpa memerlukan akaun. Nota: Jika anda mengosongkan data pelayar atau menukar peranti, anda akan kehilangan keupayaan untuk mengurus atau memadam kiriman tersebut.",
+    "privacy_item3_point3": "Keutamaan tema: Keutamaan mod cerah/gelap disimpan dalam storan setempat untuk tujuan kebolehgunaan.",
+    "privacy_item3_subheading": "Data storan setempat kekal pada peranti anda dan tidak dipautkan kepada identiti anda.",
+
+    "privacy_item4_heading": "4. Cap Masa & Metrik Dipaparkan",
+    "privacy_item4_point1": "Setiap kiriman memaparkan tarikh dan masa tempatan apabila ia dihantar ke pelayan.",
+    "privacy_item4_point2": "Bilangan paparan dipaparkan, mewakili jumlah klien unik yang telah memuatkan kiriman tersebut (diukur secara teknikal).",
+
+    "privacy_item5_heading": "5. Backend & Penyimpanan Data",
+    "privacy_item5_point1": "Data disimpan dalam Google Firebase Firestore.",
+    "privacy_item5_point2": "Medan yang disimpan termasuk teks cerita, demografi yang dipilih, cap masa, bilangan paparan dan pengecam dalaman.",
+    "privacy_item5_point3": "ID dokumen Firestore dijana oleh sistem dan tidak mengenal pasti pengguna.",
+
+    "privacy_item6_heading": "6. Perkongsian Data",
+    "privacy_item6_point1": "Tiada data peribadi dijual, disewa atau dikongsi dengan pihak ketiga.",
+    "privacy_item6_point2": "Data hanya digunakan untuk mengendalikan dan memaparkan perkhidmatan.",
+
+    "privacy_item7_heading": "7. Kuki",
+    "privacy_item7_point1": "Laman ini tidak menggunakan kuki.",
+    "privacy_item7_point2": "Storan setempat pelayar digunakan semata-mata untuk penjejakan paparan, pemilikan kiriman dan keutamaan tema.",
+
+    "privacy_item8_heading": "8. Perubahan",
+    "privacy_item8_subheading": "Notis privasi ini boleh dikemas kini dari semasa ke semasa bagi mencerminkan perubahan aplikasi. Penggunaan berterusan laman ini menandakan penerimaan terhadap versi terkini."
+  }
 }

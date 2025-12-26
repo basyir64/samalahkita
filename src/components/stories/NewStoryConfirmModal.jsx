@@ -12,18 +12,18 @@ export default function NewStoryConfirmModal({ isOpen, setIsOpen, handleConfirm 
             <div className="fixed inset-0 bg-black/10 backdrop-blur-md" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel className="pill-modal">
-                    <DialogTitle className="text-lg">Are you sure? You can't download current story after this.
+                    <DialogTitle className="text-lg">{t("new_story_confirm")}
                     </DialogTitle>
                     <div className="flex justify-end gap-4 mt-10">
                         <button
                             className={`underline cursor-pointer`}
                             onClick={() => setIsOpen(false)}>
-                                No
+                                {t("cancel")}
                         </button>
                         <button
                             className={`underline cursor-pointer`}
                             onClick={() => handleConfirm()}>
-                                Yes
+                                {t("confirm")}
                         </button>
                     </div>
                 </DialogPanel>
