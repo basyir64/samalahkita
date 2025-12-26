@@ -13,7 +13,7 @@ import Disclaimer from './views/Disclaimer';
 ReactDOM.createRoot(root).render(
   <StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename='/samalahkita/'>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<App />} />
