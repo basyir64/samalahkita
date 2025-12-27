@@ -10,9 +10,9 @@ export default function Footer() {
         <div className='mt-10'>
             <hr className='border-t-2 border-black dark:border-gray-300' />
             <div className='p-8 dark:text-gray-300 mx-auto max-w-5xl'>
-                <div className='flex text-left text-sm text-gray-500 mb-4'>
+                {/* <div className='flex text-left text-sm text-gray-500 mb-4'>
                     {t("wish")}
-                </div>
+                </div> */}
                 <div className='flex text-left text-sm gap-4'>
                     <img className='max-w-20 max-h-20 mt-1' src={`${SYSTEM_ICON_BASE_URL}/me2.jpeg`} />
                     {t("project_bg")}

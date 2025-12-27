@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script>
+      // GitHub Pages SPA redirect
+      var base = '/samalahkita';
+      var path = window.location.pathname;
+
+      // Remove base from path if present
+      if (path.startsWith(base)) {
+        path = path.slice(base.length);
+      }
+
+      // Preserve query & hash
+      var redirect =
+        base +
+        '/?redirect=' +
+        encodeURIComponent(path + window.location.search + window.location.hash);
+
+      window.location.replace(redirect);
+    </script>
+  </head>
+  <body></body>
+</html>
