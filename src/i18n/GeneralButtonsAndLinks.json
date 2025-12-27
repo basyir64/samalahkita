@@ -14,7 +14,8 @@
     "new_story_confirm": "Are you sure? You can't download current story after this.",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "icon_panel_ind": "Pick an icon. Tap again to close." 
+    "icon_panel_ind": "Pick an icon. Tap again to close.",
+    "bug_report": "Report A Bug (Anonymous)"
   },
   "bm": {
     "add_button": "Tambah",
@@ -31,6 +32,7 @@
     "new_story_confirm": "Adakah anda pasti? Cerita semasa tak boleh dimuat turun selepas ini.",
     "cancel": "Batal",
     "confirm": "Teruskan",
-    "icon_panel_ind": "Pilih ikon profile. Tekan semula untuk tutup." 
+    "icon_panel_ind": "Pilih ikon profile. Tekan semula untuk tutup.",
+    "bug_report": "Laporkan 'Bug' (Tanpa Nama)"
   }
 }

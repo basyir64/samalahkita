@@ -7,8 +7,9 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import Typewriter from '../custom-inputs/Typewriter';
 import { useTranslation } from 'react-i18next';
+import { useOutletContext } from 'react-router';
 
-export default function StoryCard({ story, setStory, isPreview, situation }) {
+export default function StoryCard({ story, setStory, isPreview, situation, setSituation }) {
 
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { updateViews } = useStoryService();
@@ -107,11 +108,12 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
         scrollRef.current.scrollLeft += e.deltaY;
     };
 
+    const {allSituationsContextRef} = useOutletContext()
     // random situation feed mode only
     const navigate = useNavigate();
     function handleSwitchSituation(situationId) {
         navigate(`/stories/situation/${situationId}`);
-        window.location.reload();
+        setSituation(allSituationsContextRef.current.find(s => s.id === situationId));
     }
 
     const [otherSituationsOpen, setOtherSituationsOpen] = useState(false);
@@ -152,7 +154,7 @@ export default function StoryCard({ story, setStory, isPreview, situation }) {
                 </div>
 
             }
-            <div className={isPreview ? "max-h-[40vh] overflow-y-auto px-1" : ""}>
+            <div className={isPreview ? "max-h-[30vh] overflow-y-auto px-1" : ""}>
                 {situation &&
                     <div className='flex gap-2 text-gray-500 text-sm mt-2 animate-slide cursor-pointer' onClick={() => handleSwitchSituation(situation.id)}>
                         <img className='w-[18px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />

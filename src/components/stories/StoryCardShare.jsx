@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 import { Radio, RadioGroup, Field } from '@headlessui/react';
 import * as htmlToImage from 'html-to-image';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../theme-context';
 
 export default function StoryCardShare({ story, situationName }) {
 
-    const {t} = useTranslation();
+    const { isDark } = useTheme();
+    const { t } = useTranslation();
     const { getTranslatedGenderText, getTranslatedSectorText, getLocationText } = useUserOptions();
     const { STICKERS_BASE_URL, SYSTEM_ICON_BASE_URL, CONCEALER_BASE_URL } = useMediaService();
     const [eyes, setEyes] = useState(
@@ -54,7 +56,7 @@ export default function StoryCardShare({ story, situationName }) {
 
     function arrangeInfoItems(gender, sector, ageRange, location) {
         if (!sector && !location && !ageRange) return <div className='flex text-sm'>{gender}</div>
-        else if (!sector && !location ) return <div>
+        else if (!sector && !location) return <div>
             <div className='flex text-sm'>{gender}</div>
             <div className='flex text-xs'>{ageRange}</div>
         </div>
@@ -177,7 +179,7 @@ export default function StoryCardShare({ story, situationName }) {
 
     function handleDownloadClick() {
         htmlToImage
-            .toPng(document.getElementById('story-download'), { backgroundColor: '#ffffff', pixelRatio: 4 })
+            .toPng(document.getElementById('story-download'), { backgroundColor: `${isDark ? "#000000ff" : "#ffffff"}`, pixelRatio: 4 })
             .then(function (dataUrl) {
                 var link = document.createElement('a');
                 link.download = 'my-image-name.png';
@@ -221,7 +223,7 @@ export default function StoryCardShare({ story, situationName }) {
                     </RadioGroup>
                 </div>
                 <div className='max-h-[40vh] overflow-y-auto px-1 dark:bg-black'>
-                    <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
+                    <div id="story-download" className='grid grid-cols-1 px-2 py-2 dark:bg-black'>
                         <div className={`pill-card-story`}>
                             <div className='flex justify-between mb-2'>
                                 <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />

@@ -47,19 +47,17 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
                             )).map(s => (
                                 <div
                                     key={s.id}
-                                    onPointerDown={(e) => {
-                                        e.preventDefault();
-                                        handleResultClick(s.id)
-                                    }}
+                                    onMouseDown={(e) => e.preventDefault()}
+                                    onClick={() => handleResultClick(s.id)}
                                     className={`pill-searchresult-item ${size === 'sm' ? 'text-sm' : ''}`}>
                                     {s.name}
                                 </div>
                             )))
                     }
-                    <div className='flex pill-searchresult-item underline text-left gap-1' onPointerDown={(e) => {
-                        e.preventDefault(); // prevents blur from hiding search result
-                        handleResultClick(null);
-                    }}><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/add-svgrepo-com.svg`} />{t("new_button")}
+                    <div className='flex pill-searchresult-item underline text-left gap-1'
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => handleResultClick(null)}
+                    ><img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/add-svgrepo-com.svg`} />{t("new_button")}
                     </div>
                 </div>
             )}

@@ -149,7 +149,7 @@ html {
     bg-white z-50
     rounded-[25px] transition duration-500 
     shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    max-h-30 overflow-y-auto dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
+    max-h-55 overflow-y-auto dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
 }
 
 .pill-searchresult-item {

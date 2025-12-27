@@ -6,7 +6,7 @@ import { where } from 'firebase/firestore';
 import { useDetectScroll } from '../../hooks/useDetectScroll';
 import { useTranslation } from 'react-i18next';
 
-export default function Feed({ situation, allSituationsContextRef }) {
+export default function Feed({ situation, setSituation, allSituationsContextRef }) {
     const { loadFirstPage, loadNextPage } = useStoryService();
     const storiesRef = useRef([]);
     const [isLoadingStories, setIsLoadingStories] = useState(false);
@@ -71,7 +71,7 @@ export default function Feed({ situation, allSituationsContextRef }) {
                 <div className='grid'>
                     {storiesRef.current.map((s, i) =>
                         <div key={i + s.id}>
-                            <StoryCard story={s} situation={allSituationsContextRef?.current.find(sit => (sit.id === s.situationId))} />
+                            <StoryCard story={s} situation={allSituationsContextRef?.current.find(sit => (sit.id === s.situationId))} setSituation={setSituation} />
                             <hr className='mt-10 mb-4 border-t-2 border-gray-200 dark:border-gray-800' />
                         </div>
                     )}

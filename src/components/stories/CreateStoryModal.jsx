@@ -21,7 +21,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
     const { t } = useTranslation("components");
     const [isInstructionTooltipOpen, setIsInstructionTooltipOpen] = useState(false);
     const navigate = useNavigate();
-    
+
 
     const instructions = [
         <>
@@ -43,11 +43,11 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
     ]
     const [currentPage, setCurrentPage] = useState(1);
     const pages = [
-            { id: 1, instruction: 0 },
-            { id: 2, instruction: 1 },
-            { id: 3, instruction: 2 },
-            { id: 4, instruction: 3 },
-        ];
+        { id: 1, instruction: 0 },
+        { id: 2, instruction: 1 },
+        { id: 3, instruction: 2 },
+        { id: 4, instruction: 3 },
+    ];
     const [story, setStory] = useState(
         {
             situationId: situation.id,
@@ -141,17 +141,20 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         if (newSituationNames.length > 0) {
             // might need to log errors in a dedicated log file. just in case.
             await saveMultiple(newSituationNames);
-        } 
+        }
     }
 
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
 
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
-    function handleNewStoryConfirmed() {
-        navigate("?modal=true")
-        window.location.reload();
-    }
+    function handleNewStoryConfirm() {
+        setIsConfirmModalOpen(false);
+        setCurrentPage(1);
+        setIsSaveSuccess(false);
+        setIsSaveAttempted(false);
+        setMessage("");
+    }    
 
     function handleModalOnClose() {
         setIsOpen(false);
@@ -225,12 +228,14 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                             <div className='flex justify-end mt-2 mb-2 gap-1'>
                                                 {isSaveSuccess && <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />}
                                                 {message}
-                                                <button
+                                                {/* <button
                                                     onClick={() => setIsConfirmModalOpen(true)}
                                                     className={`underline ml-4 cursor-pointer text-right`}
                                                 >{t('new_button')}</button>
-                                                <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirmed}/>
-                                            </div>)
+                                                <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirm}/> */}
+                                            </div>
+                                            // null
+                                            )
                                         : <button
                                             disabled={isNextDisabled(currentPage)}
                                             className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext()}>

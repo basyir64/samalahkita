@@ -37,14 +37,14 @@ export default function Footer() {
                     <Link to={`/privacy-notice`}><span className='mr-1 cursor-pointer underline'>{t('privacy')}</span></Link>
                     <Link to={`/disclaimer`}><span className='mr-1 cursor-pointer underline'>{t('disclaimer')}</span></Link>
                 </div>
-                <div>
+                {/* <div>
                     <div className='flex justify-start text-sm mt-2'>
                         v0.1.0-beta.1
                     </div>
                     <div className='text-sm'>
                         <div className='underline cursor-pointer'>{t("history")}</div>
                     </div>
-                </div>
+                </div> */}
                 <div className='mt-4 text-xs'>
                     {t("media_disclaimer")}
                 </div>

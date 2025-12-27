@@ -6,14 +6,14 @@ import { useSituationService } from '../../hooks/useSituationService';
 import { serverTimestamp } from 'firebase/firestore';
 import containsPersonalInfo from '../../hooks/useDetectPersonalInfo';
 import { useMediaService } from '../../hooks/useMediaService';
-import { useNavigate } from 'react-router';
+import { useNavigate, useOutletContext } from 'react-router';
 import { Link } from 'react-router';
 
 export default function CreateSituationModal({ isOpen, setIsOpen, setStory, existingSituations }) {
 
     const { t } = useTranslation("components");
     const [text, setText] = useState("");
-    const { save } = useSituationService();
+    const { save, loadAll } = useSituationService();
     const [message, setMessage] = useState("");
     const [textLength, setTextLength] = useState(0);
     const maxTextLength = 100;
@@ -24,6 +24,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
     const navigate = useNavigate();
     const [hasPersonalInfo, setHasPersonalInfo] = useState(false);
     const situationInputRef = useRef(null);
+    const { allSituationsContextRef } = useOutletContext();
 
     function handleTextChange(text) {
         if (containsPersonalInfo(text)) {
@@ -75,9 +76,15 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
         }
     }
 
-    function handleNewStoryClick(situation) {
+    async function handleNewStoryClick(situation) {
+        // console.log("fetching situations from situation modal")
+        const result = await loadAll();
+        if (!result) {
+            setMessage("There was a problem connecting to Google Firebase. We are fixing it, please try again later.")
+            return;
+        }
+        allSituationsContextRef.current = result;
         navigate(`stories/situation/${situation.id}?modal=true`);
-        window.location.reload();
     }
 
     useEffect(() => {
@@ -132,7 +139,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                                 <div className='text-gray-500'>{t("rule_title")}</div>
                                 {t("rule1")} <br />
                                 {t("rule2")} <br />
-                                {t("rule3")} {<Link target='_blank' className='cursor-pointer underline' to={"/disclaimer"}>{t("disclaimer")}</Link>} & 
+                                {t("rule3")} {<Link target='_blank' className='cursor-pointer underline' to={"/disclaimer"}>{t("disclaimer")}</Link>} &
                                 {<Link target='_blank' className='cursor-pointer underline' to={"/privacy-notice"}> {t("privacy")}.</Link>}
                             </div>
                         </div>}

@@ -18,12 +18,12 @@ export default function NewStoryConfirmModal({ isOpen, setIsOpen, handleConfirm 
                         <button
                             className={`underline cursor-pointer`}
                             onClick={() => setIsOpen(false)}>
-                                {t("cancel")}
+                            {t("cancel")}
                         </button>
                         <button
                             className={`underline cursor-pointer`}
                             onClick={() => handleConfirm()}>
-                                {t("confirm")}
+                            {t("confirm")}
                         </button>
                     </div>
                 </DialogPanel>

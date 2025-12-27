@@ -73,7 +73,7 @@ export default function Stories() {
                                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={allSituationsContextRef} />
                             </div>
                         </div>}
-                        <Feed situation={situation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
+                        <Feed situation={situation} setSituation={setSituation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
                     </div>
                     <div className={`sticky bottom-4 z-40 flex gap-3 justify-center transition-opacity duration-300 ${isScrollingUp ? "opacity-100" : "opacity-0"}`}>
                         {situation && <div className={`pill-feed-addstory gap-2 ${isScrollingUp && "cursor-pointer"}`} onClick={() => isScrollingUp && setIsOpen(true)}>

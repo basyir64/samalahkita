@@ -13,7 +13,6 @@ export default function ModalPage1({ isCurrent, story, setStory }) {
     const [selectedAge, setSelectedAge] = useState(story?.ageRange || ageRanges[0]);
     const [selectedLocation, setSelectedLocation] = useState(story?.location || locations[0]);
     const [selectedSector, setSelectedSector] = useState(story?.sector || sectors[0]);
-    const [isTermsOfUseChecked, setIsTermsOfUseChecked] = useState(story?.isTermsOfUseChecked || false);
 
     function handleGenderChange(selectedGender) {
         setSelectedGender(selectedGender);
@@ -44,14 +43,6 @@ export default function ModalPage1({ isCurrent, story, setStory }) {
         setStory(prev => ({
             ...prev,
             sector: selectedSector
-        }))
-    }
-
-    function handleTermsOfUseCheckboxChange(isTermsOfUseChecked) {
-        setIsTermsOfUseChecked(!isTermsOfUseChecked);
-        setStory(prev => ({
-            ...prev,
-            isTermsOfUseChecked: !isTermsOfUseChecked
         }))
     }
 
