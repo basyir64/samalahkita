@@ -58,7 +58,7 @@ export default function Stories() {
             {isSituationsLoading ?
                 <div className='text-center'>Loading...</div> :
                 <div className='mx-auto px-6 max-w-3xl'>
-                    {situation && <div className={`sticky top-14 z-40 py-4 flex gap-3 justify-center`}>
+                    {situation && <div className={`sticky top-24 z-40 py-4 flex gap-3 justify-center`}>
                         <div key={situation.name} className='pill-feed-title'>
                             <Typewriter text={situation.name} />
                         </div>

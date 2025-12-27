@@ -68,6 +68,7 @@ export default function Chart() {
 
         async function getAllProfileUrls() {
             const urls = await loadAllProfileUrls();
+            // console.log(JSON.stringify(urls, null, 2))
             setProfileUrls(urls);
         }
 

@@ -44,7 +44,7 @@ export default function Feed({ situation, setSituation, allSituationsContextRef 
             // console.log("isAllLoaded: " + isAllLoaded)
             setIsLoadingStories(true);
             const result = await loadNextPage(situation ? [where("situationId", "==", situation.id)] : []);
-            console.log("next page: " + JSON.stringify(result, null, 2))
+            // console.log("next page: " + JSON.stringify(result, null, 2))
             if (!result) {
                 setMessage("There was an error loading more stories. Please try again later.");
                 return;

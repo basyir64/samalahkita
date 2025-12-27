@@ -6,7 +6,7 @@
         "rule_title":"A situation should:- ",
         "rule1": "1. be a concise problem statement that addresses your emotional discomfort;",
         "rule2": "2. not contain personal information like phone numbers, etc;",
-        "rule3": "3. and you've read and agreed to the ",
+        "rule3": "3. and not targeted to any individual/org in a negative way. ",
         "add_ok_ind": "Situation added",
         "add_failed_ind": "Couldn't add. We are fixing this, please try again later.",
         "start_over_button": "Start Over"
@@ -18,7 +18,7 @@
         "rule_title":"Situasi mestilah:- ",
         "rule1": "1. tajuk luahan atau masalah dalam satu pernyataan ringkas;",
         "rule2": "2. tidak mengandungi maklumat peribadi seperti nombor telefon, dsb;",
-        "rule3": "3. dan anda telah membaca dan bersetuju dengan ",
+        "rule3": "3. dan tidak ditujukan kepada mana-mana individu/org secara negatif. ",
         "add_ok_ind": "Situasi ditambah",
         "add_failed_ind": "Gagal menambah. Kami sedang membaiki, sila cuba sebentar lagi.",
         "start_over_button": "Semula"

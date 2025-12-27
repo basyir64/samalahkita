@@ -139,8 +139,15 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                                 <div className='text-gray-500'>{t("rule_title")}</div>
                                 {t("rule1")} <br />
                                 {t("rule2")} <br />
-                                {t("rule3")} {<Link target='_blank' className='cursor-pointer underline' to={"/disclaimer"}>{t("disclaimer")}</Link>} &
-                                {<Link target='_blank' className='cursor-pointer underline' to={"/privacy-notice"}> {t("privacy")}.</Link>}
+                                {t("rule3")}
+                            </div>
+                            <div className='flex gap-2'>
+                                <div className='flex items-center shrink-0'>
+                                    <img className='w-6' src={`${SYSTEM_ICON_BASE_URL}/shield-check-svgrepo-com.svg`} />
+                                </div>
+                                <div className='mt-4 text-xs text-gray-500 dark:text-gray-300'>
+                                    {t("disclaimer_ack")} <Link to={`/disclaimer`} className='cursor-pointer underline'>{t("disclaimer")}</Link> & <Link to={`/privacy-notice`} className='cursor-pointer underline'>{t("privacy")}</Link>. {t("anonymous_reminder")}
+                                </div>
                             </div>
                         </div>}
                     <div className="flex justify-between gap-4 mt-10">
