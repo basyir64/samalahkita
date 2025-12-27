@@ -6,6 +6,7 @@ export function useDetectScroll() {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastY, setLastY] = useState(0);
   const divRef = useRef(null);
+  const hasMounted = useRef(false);
 
   useEffect(() => {
     // Detect if scroll is at the bottom of the page
@@ -24,18 +25,23 @@ export function useDetectScroll() {
     const handleScroll = () => {
       const currentY = window.scrollY;
 
+      // Ignore first scroll (navigation / restore)
+      if (!hasMounted.current) {
+        hasMounted.current = true;
+        setLastY(currentY);
+        return;
+      }
+
       if (currentY < lastY) {
-        // scrolling UP
         setIsScrollingUp(true);
       } else {
-        // scrolling DOWN
         setIsScrollingUp(false);
       }
 
       setLastY(currentY);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastY]);
 
@@ -43,6 +49,7 @@ export function useDetectScroll() {
     isAtEnd,
     divRef,
     isAtDivEnd,
-    isScrollingUp
+    isScrollingUp,
+    setIsScrollingUp
   };
 }

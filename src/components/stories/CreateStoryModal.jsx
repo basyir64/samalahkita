@@ -149,12 +149,9 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
     function handleNewStoryConfirm() {
-        setIsConfirmModalOpen(false);
-        setCurrentPage(1);
-        setIsSaveSuccess(false);
-        setIsSaveAttempted(false);
-        setMessage("");
-    }    
+        navigate("?modal=true")
+        window.location.reload();
+    }
 
     function handleModalOnClose() {
         setIsOpen(false);
@@ -228,14 +225,14 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                             <div className='flex justify-end mt-2 mb-2 gap-1'>
                                                 {isSaveSuccess && <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />}
                                                 {message}
-                                                {/* <button
+                                                <button
                                                     onClick={() => setIsConfirmModalOpen(true)}
                                                     className={`underline ml-4 cursor-pointer text-right`}
                                                 >{t('new_button')}</button>
-                                                <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirm}/> */}
+                                                <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirm} />
                                             </div>
                                             // null
-                                            )
+                                        )
                                         : <button
                                             disabled={isNextDisabled(currentPage)}
                                             className={`underline ${isNextDisabled(currentPage) ? ` cursor-not-allowed text-gray-500` : ` cursor-pointer`}`} onClick={() => handleClickNext()}>

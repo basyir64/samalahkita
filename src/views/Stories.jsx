@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Feed from '../components/stories/Feed';
 import '../index.css';
 import { useParams } from "react-router";
@@ -8,7 +8,6 @@ import Typewriter from '../components/custom-inputs/Typewriter';
 import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
-import { Link } from 'react-router';
 import { useSearchParams, useOutletContext } from 'react-router';
 
 export default function Stories() {
@@ -19,7 +18,7 @@ export default function Stories() {
     const [situation, setSituation] = useState({})
     const [isOpen, setIsOpen] = useState(searchParams.get('modal') === 'true');
     const { t } = useTranslation("views");
-    const { isScrollingUp } = useDetectScroll();
+    const { isScrollingUp, setIsScrollingUp } = useDetectScroll();
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     const { allSituationsContextRef } = useOutletContext();
     const [isSituationsLoading, setIsSituationsLoading] = useState(true);
@@ -45,16 +44,13 @@ export default function Stories() {
         }
 
         setIsFaceTitleVisible(false);
+        setIsScrollingUp(true);
     }, []);
 
     function handleFeedModeClick(currentSituation) {
         if (!isScrollingUp) return;
         // random stories feed mode : one situation feed mode
         setSituation(currentSituation ? null : allSituationsContextRef.current.find(s => (s.id === situationid)));
-    }
-
-    function handleSearchClick() {
-        if (!isScrollingUp) return;
     }
 
     return (
@@ -80,9 +76,6 @@ export default function Stories() {
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             {t("new_story_button")}
                         </div>}
-                        {/* <div className={`pill-feed-addstory ${isScrollingUp && "cursor-pointer"}`} onClick={() => handleSearchClick(situation)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`} className='w-[24px]' />
-                        </div> */}
                         <div className={`pill-feed-addstory ${isScrollingUp && "cursor-pointer"}`} onClick={() => handleFeedModeClick(situation)}>
                             <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' />
                         </div>

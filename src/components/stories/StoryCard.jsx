@@ -119,7 +119,7 @@ export default function StoryCard({ story, setStory, isPreview, situation, setSi
     const [otherSituationsOpen, setOtherSituationsOpen] = useState(false);
 
     return (
-        <div className={`grid grid-cols-1 w-full mt-2 dark:bg-black dark:text-gray-300`}>
+        <div className={`grid grid-cols-1 w-full mt-2 dark:bg-black dark:text-gray-300 ${!isPreview && "min-w-80"}`}>
             <div className='flex justify-between'>
                 <div className='flex gap-2 shrink-0'>
                     {isPreview ?
