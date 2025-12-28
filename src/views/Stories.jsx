@@ -9,6 +9,7 @@ import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
 import { useSearchParams, useOutletContext } from 'react-router';
+import { Link } from 'react-router';
 
 export default function Stories() {
     const params = useParams();
@@ -77,6 +78,14 @@ export default function Stories() {
                             <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
                             {t("new_story_button")}
                         </div>}
+                        <Link to="/">
+                            <div
+                                className={
+                                    `pill-feed-addstory cursor-pointer`
+                                }>
+                                <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' />
+                            </div>
+                        </Link>
                         <div
                             className={
                                 `inline-flex 
