@@ -108,7 +108,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
                         <div>
                             <div className='flex gap-1 justify-center'>
                                 {/* <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} /> */}
-                                <div className='pill'>
+                                <div className='pill text-center'>
                                     {situation.name}
                                 </div>
                             </div>
