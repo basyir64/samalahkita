@@ -179,10 +179,10 @@ export default function StoryCardShare({ story, situationName }) {
 
     function handleDownloadClick() {
         htmlToImage
-            .toPng(document.getElementById('story-download'), { backgroundColor: `${isDark ? "#000000ff" : "#ffffff"}`, pixelRatio: 4 })
+            .toJpeg(document.getElementById('story-download'), { pixelRatio: 4 })
             .then(function (dataUrl) {
                 var link = document.createElement('a');
-                link.download = 'my-image-name.png';
+                link.download = 'samalahkita.jpeg';
                 link.href = dataUrl;
                 link.click();
             });
@@ -223,12 +223,12 @@ export default function StoryCardShare({ story, situationName }) {
                     </RadioGroup>
                 </div>
                 <div className='max-h-[40vh] overflow-y-auto px-1 dark:bg-black'>
-                    <div id="story-download" className='grid grid-cols-1 px-2 py-2 dark:bg-black'>
+                    <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
                         <div className={`pill-card-story`}>
                             <div className='flex justify-between mb-2'>
                                 <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
                                 <div className='text-center'>
-                                    <div className='text-gray-400  text-sm'>samalahkita</div>
+                                    <div className='text-gray-400  text-xs'>samalahkita</div>
                                     <div className='text-gray-400 text-[10px]'>-Diari Sejagat-</div>
                                 </div>
                             </div>
@@ -276,6 +276,9 @@ export default function StoryCardShare({ story, situationName }) {
                 <div className='flex justify-center mt-2 cursor-pointer gap-1' onClick={() => handleDownloadClick()}>
                     <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/download-svgrepo-com.svg`} />
                     {t("download_button")}
+                </div>
+                <div className='text-center text-xs'>
+                    {t("download_try_again")}
                 </div>
             </div>
         </div>
