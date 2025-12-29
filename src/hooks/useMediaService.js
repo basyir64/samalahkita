@@ -8,6 +8,7 @@ export function useMediaService() {
     const STICKERS_BASE_URL = `${BASE_URL}/stickers/admin`;
     const CONCEALER_BASE_URL = `${BASE_URL}/conceal`;
     const SYSTEM_ICON_BASE_URL = `${BASE_URL}/system${isDark ? '/white-fill' : ''}`;
+    const STORY_EXAMPLES_BASE_URL = `${BASE_URL}/system/story-examples`;
 
     // async function loadAllProfileUrls() {
     //     const folderPath = "stickers/admin";
@@ -59,6 +60,7 @@ export function useMediaService() {
         STICKERS_BASE_URL,
         SYSTEM_ICON_BASE_URL,
         CONCEALER_BASE_URL,
+        STORY_EXAMPLES_BASE_URL,
         loadAllProfileUrls,
         resourceExistsAndHealthy
     }

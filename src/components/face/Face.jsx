@@ -8,7 +8,7 @@ import { useOutletContext } from 'react-router';
 import { useEffect } from 'react';
 
 export default function Face() {
-    const { SYSTEM_ICON_BASE_URL } = useMediaService();
+    const { SYSTEM_ICON_BASE_URL, STORY_EXAMPLES_BASE_URL } = useMediaService();
     const { t } = useTranslation("components");
     const { ref, inView } = useInView({ threshold: 0.25 });
     const { setIsFaceTitleVisible } = useOutletContext();
@@ -44,7 +44,6 @@ export default function Face() {
                     </span>
                 </div>
             </div>
-            {/* <span className='mt-2'>Thank You For Being Here, Anonymous!</span> */}
         </div>
     )
 }

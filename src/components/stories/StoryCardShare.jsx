@@ -223,8 +223,8 @@ export default function StoryCardShare({ story, situationName }) {
                     </RadioGroup>
                 </div>
                 <div className='max-h-[40vh] overflow-y-auto px-1 dark:bg-black'>
-                    <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
-                        <div className={`pill-card-story`}>
+                    <div  className='grid grid-cols-1 px-2 py-2'>
+                        <div id="story-download" className={`pill-card-story`}>
                             <div className='flex justify-between mb-2'>
                                 <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
                                 <div className='text-center'>

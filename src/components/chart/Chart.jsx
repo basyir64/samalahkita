@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 export default function Chart() {
     const now = new Date();
     const { formattedDate, formattedTime } = useDateFormatter(now);
-    const { SYSTEM_ICON_BASE_URL, loadAllProfileUrls } = useMediaService();
+    const { SYSTEM_ICON_BASE_URL, loadAllProfileUrls, STORY_EXAMPLES_BASE_URL } = useMediaService();
     const { countAllSituations, loadByQuery } = useSituationService();
     const { countAllStories, sumAllViews } = useStoryService();
     const [isCountAllLoading, setIsAllCountLoading] = useState(true);
@@ -127,7 +127,23 @@ export default function Chart() {
                     </div>
                 </div>
             </div>
-            <div className='text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
+            <div className='tracking-[0.1em]'>
+                {t("story_example")}
+            </div>
+            <div className='mt-2 tracking-[0.1em] text-gray-500 text-sm'>
+                {t("story_example_subheading")}
+            </div>
+            <div className='mt-4 flex flex-wrap justify-center gap-6'>
+
+                <img className='pill-card-story-example' 
+                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-fr.jpeg`} />
+                <img className='pill-card-story-example' 
+                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-boss.jpeg`} />
+                <img className='pill-card-story-example' 
+                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-cr.jpeg`} />
+
+            </div>
+            <div className='mt-16 text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
             {isCountAllLoading ?
                 <div className='my-2 dark:text-gray-300'>Loading...</div> :
                 <div className='flex justify-center mt-2 gap-8 dark:text-gray-300'>

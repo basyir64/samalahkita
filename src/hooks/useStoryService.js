@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, addDoc, orderBy, startAfter, limit, updateDoc, increment, doc, getCountFromServer, getAggregateFromServer, sum, runTransaction } from "firebase/firestore";
-import { db } from "../fb_cloud_firestore";
+import { db } from "../fb_emulator_connect";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
 // intellij idea: modify run/debug configuration and add env var -> FIRESTORE_EMULATOR_HOST=127.0.0.1:8089
@@ -11,20 +11,6 @@ import { db } from "../fb_cloud_firestore";
 export function useStoryService() {
     const [loading, setLoading] = useState(false);
     const [lastVisibleStory, setLastVisibleStory] = useState({});
-
-    // Load all stories
-    async function loadAll() {
-        setLoading(true);
-
-        const snapshot = await getDocs(collection(db, "stories"));
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-        setTimeout(() => (
-            setLoading(false)
-        ), 1000);
-        return data;
-
-    };
 
     // save story
     async function save(story) {

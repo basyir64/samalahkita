@@ -22,7 +22,7 @@ export default function Navbar({ isFaceTitleVisible }) {
     return (
         <div className='sticky top-0 z-50'>
             <div className='flex justify-center bg-[#272727ff] py-2 text-[#fff703ff] text-xs gap-4'>
-                <span>First Public Test (v0.1.0-beta.7 pre-release) <Link className='cursor-pointer underline' to="https://www.instagram.com/samalahkita.my?igsh=dXQ0Z3ppc2wzMjE3&utm_source=qr">Report A Bug</Link> </span>
+                <span>First Public Test (v0.1.0-beta.8 pre-release) <Link className='cursor-pointer underline' to="https://www.instagram.com/samalahkita.my?igsh=dXQ0Z3ppc2wzMjE3&utm_source=qr">Report A Bug</Link> </span>
                 {/* <Link className='cursor-pointer underline'>{t("bug_report")}</Link> */}
             </div>
             <nav className={`px-6 py-4 flex justify-between  bg-white/10 dark:bg-black/10 backdrop-blur-md transition-transform duration-300 translate-y-0`}>
