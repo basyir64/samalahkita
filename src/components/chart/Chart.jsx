@@ -127,7 +127,7 @@ export default function Chart() {
                     </div>
                 </div>
             </div>
-            <div className='tracking-[0.1em]'>
+            <div className='tracking-[0.1em] dark:text-gray-300'>
                 {t("story_example")}
             </div>
             <div className='mt-2 tracking-[0.1em] text-gray-500 text-sm'>
