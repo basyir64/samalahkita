@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { collection, getDocs, query, addDoc, doc, getCountFromServer, writeBatch, serverTimestamp } from "firebase/firestore";
-import { db } from "../fb_emulator_connect";
+import { db } from "../fb_cloud_firestore";
 
 // MAKE SURE NPM RUN DEV IS NOT RUNNING WHEN STARTING OR STOPPING EMULATOR
 // intellij idea: modify run/debug configuration and add env var -> FIRESTORE_EMULATOR_HOST=127.0.0.1:8089
