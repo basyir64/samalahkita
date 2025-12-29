@@ -95,6 +95,7 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
         setSituation({ createdAt: serverTimestamp(), storiesCount: 0, totalViews: 0, onDisplay: false });
         setIsSaveSuccess(false);
         setText("");
+        setTextLength(0);
     }
 
     return (

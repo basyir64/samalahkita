@@ -96,54 +96,7 @@ export default function Chart() {
 
     return (
         <div className='mt-6 grid justify-center text-center'>
-            <div className='mt-4 dark:text-gray-300'>
-                <div className='tracking-[0.1em]'> {t("sticker_title")}</div>
-                <div className='text-gray-500 tracking-[0.1em] text-sm'> {t("sticker_subtitle")} </div>
-                {/* <div className='text-gray-500 tracking-[0.1em] text-sm'>{t("sticker_mood")}</div> */}
-                <div className='flex justify-center'>
-                    <div className='relative mt-8 mb-50 w-30'>
-                        {
-                            profileUrls.length > 0 &&
-                            profileUrls.map((url, i) => {
-                                const order =
-                                    (i - activeIndex + profileUrls.length) % profileUrls.length;
-
-                                const offsetX = 0;
-                                const zIndex = profileUrls.length - order;
-                                const scale = order === 0 ? 1.2 : 1; // front bigger
-                                return (
-                                    <img
-                                        key={i}
-                                        className={`max-w-30 max-h-30 absolute inset-0 transition-all duration-500 ease-in-out bg-cover bg-center`}
-                                        style={{
-                                            transform: `translateX(${offsetX}px) scale(${scale})`,
-                                            zIndex,
-
-                                        }}
-                                        src={url}
-                                    />)
-                            })
-                        }
-                    </div>
-                </div>
-            </div>
-            <div className='tracking-[0.1em] dark:text-gray-300'>
-                {t("story_example")}
-            </div>
-            <div className='mt-2 tracking-[0.1em] text-gray-500 text-sm'>
-                {t("story_example_subheading")}
-            </div>
-            <div className='mt-4 flex flex-wrap justify-center gap-6'>
-
-                <img className='pill-card-story-example' 
-                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-fr.jpeg`} />
-                <img className='pill-card-story-example' 
-                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-boss.jpeg`} />
-                <img className='pill-card-story-example' 
-                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-cr.jpeg`} />
-
-            </div>
-            <div className='mt-16 text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
+            <div className='mt-8 text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
             {isCountAllLoading ?
                 <div className='my-2 dark:text-gray-300'>Loading...</div> :
                 <div className='flex justify-center mt-2 gap-8 dark:text-gray-300'>
@@ -196,6 +149,53 @@ export default function Chart() {
                             </div>
                         </Link>
                     ))}
+            </div>
+            <div className='mt-16 dark:text-gray-300'>
+                <div className='tracking-[0.1em]'> {t("sticker_title")}</div>
+                <div className='text-gray-500 tracking-[0.1em] text-sm'> {t("sticker_subtitle")} </div>
+                {/* <div className='text-gray-500 tracking-[0.1em] text-sm'>{t("sticker_mood")}</div> */}
+                <div className='flex justify-center'>
+                    <div className='relative mt-8 mb-50 w-30'>
+                        {
+                            profileUrls.length > 0 &&
+                            profileUrls.map((url, i) => {
+                                const order =
+                                    (i - activeIndex + profileUrls.length) % profileUrls.length;
+
+                                const offsetX = 0;
+                                const zIndex = profileUrls.length - order;
+                                const scale = order === 0 ? 1.2 : 1; // front bigger
+                                return (
+                                    <img
+                                        key={i}
+                                        className={`max-w-30 max-h-30 absolute inset-0 transition-all duration-500 ease-in-out bg-cover bg-center`}
+                                        style={{
+                                            transform: `translateX(${offsetX}px) scale(${scale})`,
+                                            zIndex,
+
+                                        }}
+                                        src={url}
+                                    />)
+                            })
+                        }
+                    </div>
+                </div>
+            </div>
+            <div className='tracking-[0.1em] dark:text-gray-300'>
+                {t("story_example")}
+            </div>
+            <div className='mt-2 tracking-[0.1em] text-gray-500 text-sm'>
+                {t("story_example_subheading")}
+            </div>
+            <div className='mt-4 flex flex-wrap justify-center gap-6'>
+
+                <img className='pill-card-story-example' 
+                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-fr.jpeg`} />
+                <img className='pill-card-story-example' 
+                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-boss.jpeg`} />
+                <img className='pill-card-story-example' 
+                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-cr.jpeg`} />
+
             </div>
         </div>
     );
