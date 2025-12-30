@@ -191,9 +191,9 @@ export default function StoryCardShare({ story, situationName }) {
     return (
 
         <div className='flex items-stretch gap-2'>
-            <div className='dark:bg-black dark:text-gray-300'>
+            <div className=' '>
                 <div className='mb-2 flex flex-wrap gap-2'>
-                    <div className='text-gray-500 text-sm mt-1'>Ganti:</div>
+                    <div className='text-gray-500 text-sm mt-1'>{t("replace")}:</div>
                     {storyItemsConcealOptions.map((storyItem, i) => {
                         if (storyItem.name === "isOtherHidden" && !story.hasOtherSituations) {
                             return;
@@ -210,7 +210,7 @@ export default function StoryCardShare({ story, situationName }) {
                     )}
                 </div>
                 <div className='mt-4 mb-4 flex gap-2'>
-                    <div className='text-gray-500 text-sm mt-[2px]'>dengan:</div>
+                    <div className='text-gray-500 text-sm mt-[2px]'>{t("with")}:</div>
                     <RadioGroup value={selectedConcealer} onChange={handleConcealerChange} className={"flex flex-wrap gap-4"}>
                         {concealers.map(c =>
                             <Field key={c.id} >
@@ -222,11 +222,13 @@ export default function StoryCardShare({ story, situationName }) {
                             </Field>)}
                     </RadioGroup>
                 </div>
-                <div className='max-h-[40vh] overflow-y-auto px-1 dark:bg-black'>
-                    <div  className='grid grid-cols-1 px-2 py-2'>
-                        <div id="story-download" className={`pill-card-story`}>
+                <div className='max-h-[40vh] overflow-y-auto px-1'>
+                    <div className='grid grid-cols-1 px-2 py-2'>
+                        <div id="story-download"
+                            className={`bg-white border border-white shadow-[0px_0px_5px_rgba(0,0,0,0.3)] text-[#030000] px-[20px] py-[20px]`}>
+
                             <div className='flex justify-between mb-2'>
-                                <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
+                                <img className='w-[36px]' src={`https://cdn.jsdelivr.net/gh/basyir64/samalahkita-media@main/system/double-quotes-svgrepo-com.svg`} />
                                 <div className='text-center'>
                                     <div className='text-gray-400  text-xs'>samalahkita</div>
                                     <div className='text-gray-400 text-[10px]'>-Diari Sejagat-</div>
@@ -238,7 +240,7 @@ export default function StoryCardShare({ story, situationName }) {
                             <div className='flex justify-between'>
                                 <div className='flex gap-2'>
                                     <div className=''>
-                                        <img className='w-24' src={`${STICKERS_BASE_URL}/${story.profile}`} />
+                                        <img className='w-24' crossOrigin="anonymous" src={`${STICKERS_BASE_URL}/${story.profile}`} />
                                     </div>
                                     {currentInfoItems}
                                 </div>

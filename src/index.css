@@ -124,7 +124,7 @@ html {
     bg-white text-[#030000] px-[20px] py-[20px]
     rounded-[25px] border border-white transition
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-    dark:bg-black dark:text-gray-300 dark:shadow-white dark:border-black;
+    dark:bg-black dark:text-gray-300 dark:border-black;
 }
 
 .pill-card-story-example {

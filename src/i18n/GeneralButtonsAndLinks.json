@@ -10,14 +10,16 @@
     "try_again_button": "Try again",
     "post_failed_ind": "Couldn't post. We are fixing this, please try again later.",
     "download_button": "Download",
-    "download_try_again": "iOS: If the image is missing, try downloading again or use Android/PC/Mac. This is being fixed, apologies.",
+    "download_try_again": "iOS: If the sticker is missing, try downloading again or use Android/PC/Mac. This is being fixed, apologies.",
     "new_story_button": "New Story",
     "new_story_confirm": "Are you sure? You can't download current story after this.",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "icon_panel_ind": "Pick an icon. Tap again to close.",
     "bug_report": "Report A Bug (Anonymous)",
-    "read": "Read"
+    "read": "Read",
+    "replace": "Replace",
+    "with": "with"
   },
   "bm": {
     "add_button": "Tambah",
@@ -30,13 +32,15 @@
     "try_again_button": "Cuba lagi",
     "post_failed_ind": "Gagal dihantar. Kami sedang memperbaiki, sila cuba sebentar lagi.",
     "download_button": "Muat Turun",
-    "download_try_again": "iOS: Cuba muat turun lagi jika gambar hilang, atau gunakan Android/PC/Mac. Kami sedang memperbaiki, harap maaf",
+    "download_try_again": "iOS: Cuba muat turun lagi jika sticker hilang, atau gunakan Android/PC/Mac. Kami sedang memperbaiki, harap maaf",
     "new_story_button": "Cerita Baru",
     "new_story_confirm": "Adakah anda pasti? Cerita semasa tak boleh dimuat turun selepas ini.",
     "cancel": "Batal",
     "confirm": "Teruskan",
     "icon_panel_ind": "Pilih ikon profile. Tekan semula untuk tutup.",
     "bug_report": "Laporkan 'Bug' (Tanpa Nama)",
-    "read": "Baca"
+    "read": "Baca",
+    "replace": "Ganti",
+    "with": "dengan"
   }
 }
