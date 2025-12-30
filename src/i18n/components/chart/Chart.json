@@ -7,7 +7,9 @@
         "situations_chart_title": "Situations Chart",
         "situation_title": "Situations",
         "story_title": "Stories",
-        "views_title": "Views"
+        "views_title": "Views",
+        "story_example": "Share HD story cards for implied/subtext messaging to #them as a hint, and conceal details using built-in iOS emojis",
+        "story_example_subheading": "Fictional examples below:"
     },
     "bm": {
         "sticker_title": "'Sticker' Cerminan Emosi Untuk Setiap Cerita",
@@ -17,6 +19,8 @@
         "situations_chart_title": "Carta Situasi",
         "situation_title": "Situasi",
         "story_title": "Cerita",
-        "views_title": "Bacaan"
+        "views_title": "Bacaan",
+        "story_example": "Kongsi kad cerita HD untuk mesej tersirat kepada #dia dan sembunyikan perincian dengan emoji iOS yang disediakan",
+        "story_example_subheading": "Contoh rekaan semata-mata:"
     }
 }

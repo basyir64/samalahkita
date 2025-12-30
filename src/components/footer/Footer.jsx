@@ -19,7 +19,7 @@ export default function Footer() {
                 </div>
                 <div className='flex justify-start text-sm mt-4'>
                         {t("contact")}
-                        <span className='ml-2 cursor-pointer underline'>
+                        <span className='ml-2'>
                             <Link >basyirzainuddin@gmail.com</Link>
                         </span>
                 </div>
@@ -49,7 +49,7 @@ export default function Footer() {
                     {t("media_disclaimer")}
                 </div>
                 <div className='mt-2 text-xs'>
-                    samalahkita <br/> 2026
+                    samalahkita <br/> v1.0.0 released 30 Dec 2025 <br/> Copyright (c) 2026 Mohamad Basyir bin Zainuddin <br/> MIT License
                 </div>
             </div>
         </div>
