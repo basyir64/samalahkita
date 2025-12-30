@@ -19,7 +19,7 @@ export default function Stories() {
     const [situation, setSituation] = useState({})
     const [isOpen, setIsOpen] = useState(searchParams.get('modal') === 'true');
     const { t } = useTranslation("views");
-    const { isScrollingUp, setIsScrollingUp } = useDetectScroll();
+    const { setIsScrollingUp } = useDetectScroll();
     const { SYSTEM_ICON_BASE_URL } = useMediaService();
     const { allSituationsContextRef } = useOutletContext();
     const [isSituationsLoading, setIsSituationsLoading] = useState(true);
@@ -45,6 +45,10 @@ export default function Stories() {
             setIsSituationsLoading(false);
         }
 
+        if (searchParams.get('singleFeedMode') === 'false') {
+            setIsSingleFeedMode(false);
+            setSituation(null);
+        }
         setIsFaceTitleVisible(false);
         setIsScrollingUp(true);
     }, []);
