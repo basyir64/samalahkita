@@ -15,7 +15,7 @@ export default function Footer() {
                 </div> */}
                 <div className='flex text-left text-sm gap-4'>
                     <img className='max-w-20 max-h-20 mt-1' src={`${SYSTEM_ICON_BASE_URL}/me2.jpeg`} />
-                    Hanya seketul developer noob trying his best. Coding agents dah mula takeover software engineering jobs, so saya buat website ni for my learning and career growth purposes. Just in case. Ideas and collabs are welcome anytime!! #HobbyProject #OpenSource
+                    Hanya seketul developer kelahiran Perak trying his best. Coding agents dah mula takeover software engineering jobs, so saya buat website ni for my learning and career growth purposes. Just in case. Ideas and collabs are welcome anytime!! #HobbyProject #OpenSource
                 </div>
                 <div className='flex justify-start text-sm mt-4'>
                         {t("contact")}
