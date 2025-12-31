@@ -225,10 +225,10 @@ export default function StoryCardShare({ story, situationName }) {
                 <div className='max-h-[40vh] overflow-y-auto px-1'>
                     <div className='grid grid-cols-1 px-2 py-2'>
                         <div id="story-download"
-                            className={`bg-white border border-white shadow-[0px_0px_5px_rgba(0,0,0,0.3)] text-[#030000] px-[20px] py-[20px]`}>
+                            className={`pill-card-story`}>
 
                             <div className='flex justify-between mb-2'>
-                                <img className='w-[36px]' src={`https://cdn.jsdelivr.net/gh/basyir64/samalahkita-media@main/system/double-quotes-svgrepo-com.svg`} />
+                                <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
                                 <div className='text-center'>
                                     <div className='text-gray-400  text-xs'>samalahkita</div>
                                     <div className='text-gray-400 text-[10px]'>-Diari Sejagat-</div>
@@ -240,7 +240,7 @@ export default function StoryCardShare({ story, situationName }) {
                             <div className='flex justify-between'>
                                 <div className='flex gap-2'>
                                     <div className=''>
-                                        <img className='w-24' crossOrigin="anonymous" src={`${STICKERS_BASE_URL}/${story.profile}`} />
+                                        <img className='w-24' src={`${STICKERS_BASE_URL}/${story.profile}`} />
                                     </div>
                                     {currentInfoItems}
                                 </div>
