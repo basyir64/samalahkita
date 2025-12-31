@@ -42,7 +42,7 @@ export default function Face() {
                             dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800 cursor-pointer bg-white dark:bg-black`
                     } onClick={() => handleReadClick()}>
 
-                    <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' />
+                    <img src={`${SYSTEM_ICON_BASE_URL}/book-svgrepo-com.svg`} className='w-[24px]' />
                     <span className='mt-[0px]'>{t("read")}</span>
                 </div>
             </div>

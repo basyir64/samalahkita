@@ -96,7 +96,10 @@ export default function Chart() {
 
     return (
         <div className='mt-6 grid justify-center text-center'>
-            <div className='mt-8 text-gray-500 tracking-[0.1em]'>{t("as_of")} {formattedTime}, {formattedDate} </div>
+            <div className='mt-8 text-gray-500 tracking-[0.1em]'>{t("as_of")}</div>
+             <div className='mt-1 text-sm text-gray-500 tracking-[0.1em]'>
+                {t("goal")}
+            </div>
             {isCountAllLoading ?
                 <div className='my-2 dark:text-gray-300'>Loading...</div> :
                 <div className='flex justify-center mt-2 gap-8 dark:text-gray-300'>
@@ -123,7 +126,7 @@ export default function Chart() {
                     </div>
                 </div>
             }
-            <div className='mt-12 dark:text-gray-300'>
+            <div className='mt-14 dark:text-gray-300'>
                 <div className='text-gray-500 tracking-[0.1em] mb-2'>{t("situations_chart_title")}</div>
                 {isRankingLoading ?
                     <div>Loading...</div> :
