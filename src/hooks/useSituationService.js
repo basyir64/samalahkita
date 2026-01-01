@@ -8,6 +8,9 @@ import { db } from "../fb_cloud_firestore";
 // import and export dev data, and temporarily allow self signed certs (command session)->
 // NODE_TLS_REJECT_UNAUTHORIZED=0 firebase emulators:start --import=./firestore-export --export-on-exit=./firestore-export --only firestore
 
+//make sure rules is deployed
+// firebase deploy --only firestore:rules
+
 export function useSituationService() {
 
   // Load all situations

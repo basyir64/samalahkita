@@ -83,7 +83,7 @@ html {
 
 .pill-feed-addstory {
     @apply inline-flex 
-    text-[#030000] py-[18px] px-[20px]
+    text-[#030000] px-[20px]
     rounded-[25px] hover:bg-[#f1efe3] bg-white/10 backdrop-blur-md
     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
     dark:bg-black/10 dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800;
@@ -122,9 +122,9 @@ html {
 .pill-card-story {
   @apply 
     bg-white text-[#030000] px-[20px] py-[20px]
-    border border-white transition
-    duration-500 
-    dark:bg-black dark:text-gray-300 dark:border-black;
+    border border-white transition shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
+    duration-500 rounded-[25px] border border-white
+    dark:bg-black dark:text-gray-300 dark:border-black dark:shadow-white;
 }
 
 .pill-card-story-example {
@@ -151,7 +151,7 @@ html {
 }
 
 .pill-searchresult {
-  @apply absolute top-full left-0 mt-2
+  @apply absolute left-0 mt-2
     whitespace-normal break-words w-full
     bg-white z-50
     rounded-[25px] transition duration-500 

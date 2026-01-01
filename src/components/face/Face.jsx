@@ -24,7 +24,7 @@ export default function Face() {
     }
 
     return (
-        <div className='my-2 grid grid-col justify-center text-center dark:text-gray-300'>
+        <div className='mt-10 mb-2 grid grid-col justify-center text-center dark:text-gray-300'>
             <div ref={ref} className='flex justify-center text-3xl font-bold mt-4 mb-2 dark:text-gray-300'>
                 {t('title')}
             </div>

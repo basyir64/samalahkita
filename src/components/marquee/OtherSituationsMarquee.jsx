@@ -7,7 +7,7 @@ import { useMediaService } from '../../hooks/useMediaService';
 
 export default function OtherSituationsMarquee({ size, story, setStory, situationsRef }) {
   const [selectedSituations, setSelectedSituations] = useState([]);
-  const rows = [{ id: 1 }, { id: 2 }];
+  const rows = [{ id: 1 }];
   const shuffledRowsRef = useRef([]);
   const [keyword, setKeyword] = useState("");
   const [isShufflingRows, setIsShufflingRows] = useState(true);

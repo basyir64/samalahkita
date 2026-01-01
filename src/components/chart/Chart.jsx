@@ -184,7 +184,7 @@ export default function Chart() {
                     </div>
                 </div>
             </div>
-            <div className='tracking-[0.1em] dark:text-gray-300'>
+            {/* <div className='tracking-[0.1em] dark:text-gray-300'>
                 {t("story_example")}
             </div>
             <div className='mt-2 tracking-[0.1em] text-gray-500 text-sm'>
@@ -199,7 +199,7 @@ export default function Chart() {
                 <img className='pill-card-story-example' 
                 src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-cr.jpeg`} />
 
-            </div>
+            </div> */}
         </div>
     );
 }

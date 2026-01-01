@@ -38,7 +38,8 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
             {t('send_confirm_instruction')}
         </>,
         <>
-            {t('story_share_instruction')}
+            {/* {t('story_share_instruction')} */}
+            {null}
         </>
     ]
     const [currentPage, setCurrentPage] = useState(1);

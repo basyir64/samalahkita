@@ -177,22 +177,54 @@ export default function StoryCardShare({ story, situationName }) {
 
     }, [eyes, selectedConcealer]);
 
-    function handleDownloadClick() {
-        htmlToImage
-            .toJpeg(document.getElementById('story-download'), { pixelRatio: 4 })
-            .then(function (dataUrl) {
-                var link = document.createElement('a');
-                link.download = 'samalahkita.jpeg';
-                link.href = dataUrl;
-                link.click();
+    function nextFrame() {
+        return new Promise(resolve => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(resolve);
             });
+        });
+    }
+
+    async function waitForImages(el) {
+        const imgs = el.querySelectorAll("img");
+
+        await Promise.all(
+            [...imgs].map(img =>
+                img.complete
+                    ? Promise.resolve()
+                    : img.decode().catch(() => { }) // iOS safety
+            )
+        );
+    }
+
+    const [isDLProcessing, setIsDLProcessing] = useState(false);
+
+    async function handleDownloadClick() {
+        setIsDLProcessing(true);
+        try {
+            const node = document.getElementById("story-download");
+            if (!node) return;
+
+            htmlToImage
+                .toJpeg(node, { pixelRatio: 4 })
+                .then(function (dataUrl) {
+                    var link = document.createElement('a');
+                    link.download = 'samalahkita.jpeg';
+                    link.href = dataUrl;
+                    link.click();
+                });
+        } catch (error) {
+            console.error("Error downloading image: " + error);
+            setIsDLProcessing(false);
+        }
+        setIsDLProcessing(false);
     }
 
     return (
 
         <div className='flex items-stretch gap-2'>
             <div className=' '>
-                <div className='mb-2 flex flex-wrap gap-2'>
+                {/* <div className='mb-2 flex flex-wrap gap-2'>
                     <div className='text-gray-500 text-sm mt-1'>{t("replace")}:</div>
                     {storyItemsConcealOptions.map((storyItem, i) => {
                         if (storyItem.name === "isOtherHidden" && !story.hasOtherSituations) {
@@ -208,8 +240,8 @@ export default function StoryCardShare({ story, situationName }) {
                         </div>)
                     }
                     )}
-                </div>
-                <div className='mt-4 mb-4 flex gap-2'>
+                </div> */}
+                {/* <div className='mt-4 mb-4 flex gap-2'>
                     <div className='text-gray-500 text-sm mt-[2px]'>{t("with")}:</div>
                     <RadioGroup value={selectedConcealer} onChange={handleConcealerChange} className={"flex flex-wrap gap-4"}>
                         {concealers.map(c =>
@@ -221,67 +253,66 @@ export default function StoryCardShare({ story, situationName }) {
                                 </Radio>
                             </Field>)}
                     </RadioGroup>
-                </div>
-                <div className='max-h-[40vh] overflow-y-auto px-1'>
-                    <div className='grid grid-cols-1 px-2 py-2'>
-                        <div id="story-download"
-                            className={`pill-card-story`}>
-
-                            <div className='flex justify-between mb-2'>
-                                <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
-                                <div className='text-center'>
-                                    <div className='text-gray-400  text-xs'>samalahkita</div>
-                                    <div className='text-gray-400 text-[10px]'>-Diari Sejagat-</div>
+                </div> */}
+                <div>
+                    <div className='max-h-[40vh] overflow-y-auto px-1'>
+                        <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
+                            <div
+                                className={`pill-card-story`}>
+                                <div className='flex justify-between mb-2'>
+                                    <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
+                                    <div className='text-center'>
+                                        <div className='text-gray-400  text-xs'>samalahkita</div>
+                                        <div className='text-gray-400 text-[10px]'>-Diari Sejagat-</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='mb-4'>
-                                {currentSituationName}
-                            </div>
-                            <div className='flex justify-between'>
-                                <div className='flex gap-2'>
-                                    <div className=''>
+                                <div className='mb-4'>
+                                    {currentSituationName}
+                                </div>
+                                <div className='flex justify-between'>
+                                    <div className='flex gap-2'>
                                         <img className='w-24' src={`${STICKERS_BASE_URL}/${story.profile}`} />
+                                        {currentInfoItems}
                                     </div>
-                                    {currentInfoItems}
                                 </div>
-                            </div>
-                            <div className='grid grid-cols-1 my-4'>{currentText}</div>
-                            {story.hasOtherSituations && (currentOtherSituations?.length > 0 ?
-                                <div className=''>
-                                    <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>
+                                <div className='grid grid-cols-1 my-4'>{currentText}</div>
+                                {story.hasOtherSituations && (currentOtherSituations?.length > 0 ?
                                     <div className=''>
-                                        {/* real value */}
-                                        {currentOtherSituations.map((s, i) => (
-                                            <div key={i} className='text-xs tracking-[0.1em]'>
-                                                {s.name}
-                                            </div>
-                                        ))}
+                                        <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>
+                                        <div className=''>
+                                            {/* real value */}
+                                            {currentOtherSituations.map((s, i) => (
+                                                <div key={i} className='text-xs'>
+                                                    {s.name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div> :
+                                    <div>
+                                        {story.hasOtherSituations && <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>}
+                                        <div className='flex flex-wrap gap-2'>
+                                            {/* the concealer (emoji) */}
+                                            {currentOtherSituations}
+                                        </div>
+                                    </div>)
+                                }
+                                {story.hasAdvice &&
+                                    <div className='mt-4'>
+                                        <div className='text-sm text-gray-500'>Nasihat</div>
+                                        <div className='text-sm'>{currentAdviceText}</div>
                                     </div>
-                                </div> :
-                                <div>
-                                    {story.hasOtherSituations && <div className='text-sm text-gray-500 mt-8'>Situasi lain</div>}
-                                    <div className='flex flex-wrap gap-2'>
-                                        {/* the concealer (emoji) */}
-                                        {currentOtherSituations}
-                                    </div>
-                                </div>)
-                            }
-                            {story.hasAdvice &&
-                                <div className='mt-4'>
-                                    <div className='text-sm text-gray-500'>Nasihat</div>
-                                    <div className='text-sm'>{currentAdviceText}</div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className='flex justify-center mt-2 cursor-pointer gap-1' onClick={() => handleDownloadClick()}>
+                {/* <div className='flex justify-center mt-2 cursor-pointer gap-1' onClick={() => handleDownloadClick()}>
                     <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/download-svgrepo-com.svg`} />
-                    {t("download_button")}
+                    {isDLProcessing ? "Loading" : t("download_button")}
                 </div>
                 <div className='text-center text-xs'>
                     {t("download_try_again")}
-                </div>
+                </div> */}
             </div>
         </div>
 

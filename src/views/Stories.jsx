@@ -9,7 +9,9 @@ import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
 import { useSearchParams, useOutletContext } from 'react-router';
-import { Link } from 'react-router';
+import SituationsSearchBar from '../components/search-bar/SituationsSearchBar';
+import { useNavigate } from 'react-router';
+import HomeSearchBar from '../components/custom-inputs/HomeSearchBar';
 
 export default function Stories() {
     const params = useParams();
@@ -25,6 +27,7 @@ export default function Stories() {
     const [isSituationsLoading, setIsSituationsLoading] = useState(true);
     const { setIsFaceTitleVisible } = useOutletContext();
     const [isSingleFeedMode, setIsSingleFeedMode] = useState(true);
+    const { navigate } = useNavigate();
 
     useEffect(() => {
         async function getAllSituations() {
@@ -59,6 +62,8 @@ export default function Stories() {
         setSituation(currentSituation ? null : allSituationsContextRef.current.find(s => (s.id === situationid)));
     }
 
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+
     return (
         <div className='grid'>
             {isSituationsLoading ?
@@ -69,6 +74,9 @@ export default function Stories() {
                             <Typewriter text={situation.name} />
                         </div>
                     </div>}
+                    <div className='flex justify-center tracking-[0.1em] text-sm text-gray-500'>
+                        {isSingleFeedMode ? t("feed_title1") : t("feed_title2")}
+                    </div>
                     <div className='mb-4'>
                         {situation && <div className='text-center'>
                             <div className='flex justify-center'>
@@ -77,28 +85,41 @@ export default function Stories() {
                         </div>}
                         <Feed situation={situation} setSituation={setSituation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
                     </div>
-                    <div className={`sticky bottom-4 z-40 flex gap-3 justify-center transition-opacity duration-300 ${"opacity-100"}`}>
-                        {situation && <div className={`pill-feed-addstory gap-2 ${"cursor-pointer"}`} onClick={() => setIsOpen(true)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[24px]' />
-                            {t("new_story_button")}
-                        </div>}
-                        <Link to="/">
+                    <div className={`sticky bottom-4 z-40 transition-opacity duration-300 ${"opacity-100"}`}>
+                        {isSearchOpen &&
+                            <div className='mb-3 flex justify-center'>
+                                <div className=''>
+                                    <HomeSearchBar isResultOnTop={true} />
+                                </div>
+                            </div>
+                        }
+                        <div className='flex gap-3 justify-center '>
+                            {situation && <div className={`pill-feed-addstory py-[10px] gap-2 ${"cursor-pointer"}`} onClick={() => setIsOpen(true)}>
+                                <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[22px]' />
+                                {t("new_story_button")}
+                            </div>}
+                            <div
+                                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                                className={
+                                    `inline-flex
+                                    text-[#030000] py-[12px] px-[15px]
+                                    rounded-[25px] hover:bg-[#f1efe3] backdrop-blur-md
+                                    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
+                                     dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800 cursor-pointer
+                                    ${isSearchOpen ? "bg-[#f1efe3] dark:bg-gray-800" : "bg-white/10 dark:bg-black/10"}`
+                                }>
+                                <img src={`${SYSTEM_ICON_BASE_URL}/search-svgrepo-com.svg`} className='w-[20px]' />
+                            </div>
                             <div
                                 className={
-                                    `pill-feed-addstory cursor-pointer`
-                                }>
-                                <img src={`${SYSTEM_ICON_BASE_URL}/home-svgrepo-com.svg`} className='w-[24px]' />
+                                    `inline-flex
+                                    text-[#030000] py-[12px] px-[15px]
+                                    rounded-[25px] hover:bg-[#f1efe3] backdrop-blur-md
+                                    duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
+                                     dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800 cursor-pointer ${isSingleFeedMode ? "bg-[#f1efe3] dark:bg-gray-800" : "bg-white/10 dark:bg-black/10"}`
+                                } onClick={() => handleFeedModeClick(situation)}>
+                                <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[20px]' />
                             </div>
-                        </Link>
-                        <div
-                            className={
-                                `inline-flex 
-                                text-[#030000] py-[18px] px-[20px]
-                                rounded-[25px] hover:bg-[#f1efe3] backdrop-blur-md
-                                duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
-                                 dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800 ${"cursor-pointer"} ${isSingleFeedMode ? "bg-[#f1efe3] dark:bg-gray-800" : "bg-white/10 dark:bg-black/10"}`
-                            } onClick={() => handleFeedModeClick(situation)}>
-                            <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[24px]' />
                         </div>
                     </div>
                 </div>

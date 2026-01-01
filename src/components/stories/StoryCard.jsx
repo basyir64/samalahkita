@@ -168,7 +168,7 @@ export default function StoryCard({ story, setStory, isPreview, situation, setSi
                         <div className='text-sm text-gray-500'>{isPreview && "Situasi lain"}</div>
                         <div className=''>
                             {story.otherSituations.map((s, i) => (
-                                <div key={i} className='text-xs tracking-[0.1em]'>
+                                <div key={i} className='text-xs'>
                                     {s.name}
                                 </div>
                             ))}
@@ -184,7 +184,7 @@ export default function StoryCard({ story, setStory, isPreview, situation, setSi
                         </div>
                         {otherSituationsOpen && <div className=''>
                             {story.otherSituations.map((s, i) => (
-                                <div key={i} className='text-xs tracking-[0.1em]'>
+                                <div key={i} className='text-xs'>
                                     {s}
                                 </div>
                             ))}

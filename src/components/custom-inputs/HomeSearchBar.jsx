@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import SituationsSearchBar from '../search-bar/SituationsSearchBar';
 import { useNavigate, useOutletContext } from 'react-router';
 
-export default function HomeSearchBar() {
+export default function HomeSearchBar({ isResultOnTop }) {
     // will scale later, after beta test
     const { t } = useTranslation("components");
     const [keyword, setKeyword] = useState("");
@@ -21,6 +21,7 @@ export default function HomeSearchBar() {
             return;
         }
         navigate(`/stories/situation/${situationId}`);
+        window.location.reload();
     }
 
     return (
@@ -30,7 +31,9 @@ export default function HomeSearchBar() {
                 keyword={keyword}
                 setKeyword={setKeyword}
                 handleResultClick={handleResultClick}
-                isLoadingSearchResult={isLoadingSearchResult} />
+                isLoadingSearchResult={isLoadingSearchResult} 
+                isResultOnTop={isResultOnTop}
+                />
             <CreateSituationModal
                 isOpen={isSituationModalOpen}
                 setIsOpen={setIsSituationModalOpen}

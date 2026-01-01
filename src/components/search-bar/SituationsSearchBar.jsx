@@ -4,7 +4,7 @@ import { useUserOptions } from '../../hooks/useUserOptions';
 import { useTranslation } from 'react-i18next';
 import { useMediaService } from '../../hooks/useMediaService';
 
-export default function SituationsSearchBar({ size, allSituations, keyword, setKeyword, handleResultClick, isLoadingSearchResult }) {
+export default function SituationsSearchBar({ size, allSituations, keyword, setKeyword, handleResultClick, isLoadingSearchResult, isResultOnTop }) {
 
     const { homeSearchPlaceholders } = useUserOptions();
     const [isSearchBarFocused, setIsSearchBarFocused] = useState(false);
@@ -26,18 +26,11 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
 
     return (
         <div className="relative flex-1">
-            <input
-                className={`pill-searchbar w-full ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
-                type="text"
-                autoFocus={isSearchBarFocused}
-                onFocus={() => setIsSearchBarFocused(true)}
-                onBlur={() => setIsSearchBarFocused(false)}
-                value={keyword}
-                onChange={(e) => handleKeywordChange(e.target.value)}
-                placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
-            />
             {isSearchBarFocused && (
-                <div className={`pill-searchresult ${size === 'sm' ? 'text-sm' : 'px-[5px] py-[5px]'}`}>
+                <div className={`
+                    pill-searchresult
+                    ${isResultOnTop ? 'bottom-full mb-2' : 'top-full mt-2'}
+                    ${size === 'sm' ? 'text-sm' : 'px-[5px] py-[5px]'}`}>
                     {
                         keyword &&
                         (isLoadingSearchResult ?
@@ -61,6 +54,16 @@ export default function SituationsSearchBar({ size, allSituations, keyword, setK
                     </div>
                 </div>
             )}
+            <input
+                className={`pill-searchbar w-full ${size === 'sm' ? "px-[10px] py-[5px] text-sm" : "px-[20px] py-[10px]"}`}
+                type="text"
+                autoFocus={isSearchBarFocused}
+                onFocus={() => setIsSearchBarFocused(true)}
+                onBlur={() => setIsSearchBarFocused(false)}
+                value={keyword}
+                onChange={(e) => handleKeywordChange(e.target.value)}
+                placeholder={`Cari ${homeSearchPlaceholders[placeholderIndex].text}`}
+            />
         </div>
     );
 }
