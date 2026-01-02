@@ -159,6 +159,14 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
         navigate("?")
     }
 
+    function handleCloseModalClick(isSaveSuccess) {
+        setIsOpen(false);
+        if (isSaveSuccess) {
+            navigate(`/stories/situation/${situation.id}`);
+            window.location.reload();
+        }
+    }
+
     return (
         <div>
             <Dialog open={isOpen} onClose={() => handleModalOnClose()} className="relative z-50">
@@ -202,7 +210,7 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                             setStory={setStory}
                         />
                         <div className="flex justify-between gap-4 mt-2">
-                            <button className='underline cursor-pointer' onClick={() => setIsOpen(false)}>{t('close_button')}</button>
+                            <button className='underline cursor-pointer' onClick={() => handleCloseModalClick(isSaveSuccess, currentPage)}>{t('close_button')}</button>
                             <div className='flex gap-4'>
                                 {(currentPage === 1 || currentPage === 4) ? null : <button className='underline cursor-pointer' onClick={() => handleClickBack(currentPage)} >{t('back_button')}</button>}
                                 {currentPage === 3 ?
@@ -227,10 +235,10 @@ export default function CreateStoryModal({ isOpen, setIsOpen, situation, situati
                                                 {isSaveSuccess && <img className='w-[20px]' src={`${SYSTEM_ICON_BASE_URL}/check-svgrepo-com.svg`} />}
                                                 {message}
                                                 <button
-                                                    onClick={() => setIsConfirmModalOpen(true)}
+                                                    onClick={() => handleNewStoryConfirm()}
                                                     className={`underline ml-4 cursor-pointer text-right`}
                                                 >{t('new_button')}</button>
-                                                <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirm} />
+                                                {/* <NewStoryConfirmModal isOpen={isConfirmModalOpen} setIsOpen={setIsConfirmModalOpen} handleConfirm={handleNewStoryConfirm} /> */}
                                             </div>
                                             // null
                                         )

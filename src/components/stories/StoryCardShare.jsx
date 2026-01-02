@@ -222,7 +222,7 @@ export default function StoryCardShare({ story, situationName }) {
 
     return (
 
-        <div className='flex items-stretch gap-2'>
+        <div className='flex justify-center gap-2'>
             <div className=' '>
                 {/* <div className='mb-2 flex flex-wrap gap-2'>
                     <div className='text-gray-500 text-sm mt-1'>{t("replace")}:</div>
@@ -254,11 +254,10 @@ export default function StoryCardShare({ story, situationName }) {
                             </Field>)}
                     </RadioGroup>
                 </div> */}
-                <div>
+                <div className=''>
                     <div className='max-h-[40vh] overflow-y-auto px-1'>
                         <div id="story-download" className='grid grid-cols-1 px-2 py-2'>
-                            <div
-                                className={`pill-card-story`}>
+                            <div className={`pill-card-story`}>
                                 <div className='flex justify-between mb-2'>
                                     <img className='w-[36px]' src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} />
                                     <div className='text-center'>

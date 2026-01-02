@@ -78,13 +78,16 @@ export default function CreateSituationModal({ isOpen, setIsOpen, setStory, exis
 
     async function handleNewStoryClick(situation) {
         // console.log("fetching situations from situation modal")
-        const result = await loadAll();
-        if (!result) {
-            setMessage("There was a problem connecting to Google Firebase. We are fixing it, please try again later.")
-            return;
-        }
-        allSituationsContextRef.current = result;
-        navigate(`stories/situation/${situation.id}?modal=true`);
+        // const result = await loadAll();
+        // if (!result) {
+        //     setMessage("There was a problem connecting to Google Firebase. We are fixing it, please try again later.")
+        //     return;
+        // }
+        //allSituationsContextRef.current = result;
+        
+        // commented above because already fetched from Layout via reload below
+        navigate(`/stories/situation/${situation.id}?modal=true`);
+        window.location.reload();
     }
 
     useEffect(() => {

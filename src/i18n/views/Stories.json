@@ -1,12 +1,12 @@
 {
   "eng": {
     "add_story_button": "add new",
-    "feed_title1": "Single-situation stories",
-    "feed_title2": "Multiple-situation stories"
+    "feed_title1": "Single-situation",
+    "feed_title2": "Multiple-situation"
   },
   "bm": {
     "add_story_button": "Tambah cerita baru",
-    "feed_title1": "Cerita satu situasi",
-    "feed_title2": "Cerita semua situasi"
+    "feed_title1": "Satu situasi",
+    "feed_title2": "Semua situasi"
   }
 }

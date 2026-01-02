@@ -31,7 +31,7 @@ export default function Face() {
 
             <div className='mt-1 flex justify-center gap-2 mt-4'>
                 <HomeSearchBar />
-                <div
+                {allSituationsContextRef.current.length > 0 && <div
                     className={
                         `inline-flex
                         gap-2
@@ -44,7 +44,7 @@ export default function Face() {
 
                     <img src={`${SYSTEM_ICON_BASE_URL}/book-svgrepo-com.svg`} className='w-[24px]' />
                     <span className='mt-[0px]'>{t("read")}</span>
-                </div>
+                </div>}
             </div>
             <div className='mt-6 flex justify-center gap-4'>
                 <Link className='flex items-center' to="https://www.instagram.com/samalahkita.my?igsh=dXQ0Z3ppc2wzMjE3&utm_source=qr">

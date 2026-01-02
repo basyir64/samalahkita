@@ -9,8 +9,6 @@ import { useSituationService } from '../hooks/useSituationService';
 import { useDetectScroll } from '../hooks/useDetectScroll';
 import { useMediaService } from '../hooks/useMediaService';
 import { useSearchParams, useOutletContext } from 'react-router';
-import SituationsSearchBar from '../components/search-bar/SituationsSearchBar';
-import { useNavigate } from 'react-router';
 import HomeSearchBar from '../components/custom-inputs/HomeSearchBar';
 
 export default function Stories() {
@@ -27,7 +25,6 @@ export default function Stories() {
     const [isSituationsLoading, setIsSituationsLoading] = useState(true);
     const { setIsFaceTitleVisible } = useOutletContext();
     const [isSingleFeedMode, setIsSingleFeedMode] = useState(true);
-    const { navigate } = useNavigate();
 
     useEffect(() => {
         async function getAllSituations() {
@@ -74,16 +71,16 @@ export default function Stories() {
                             <Typewriter text={situation.name} />
                         </div>
                     </div>}
-                    <div className='flex justify-center tracking-[0.1em] text-sm text-gray-500'>
+                    {/* <div className='flex justify-center tracking-[0.1em] text-sm text-gray-500'>
                         {isSingleFeedMode ? t("feed_title1") : t("feed_title2")}
-                    </div>
+                    </div> */}
                     <div className='mb-4'>
                         {situation && <div className='text-center'>
                             <div className='flex justify-center'>
                                 <CreateStoryModal isOpen={isOpen} setIsOpen={setIsOpen} situation={situation} situationsRef={allSituationsContextRef} />
                             </div>
                         </div>}
-                        <Feed situation={situation} setSituation={setSituation} allSituationsContextRef={situation ? null : allSituationsContextRef} />
+                        <Feed situation={situation} setSituation={setSituation} allSituationsContextRef={situation ? null : allSituationsContextRef} isSingleFeedMode={isSingleFeedMode} />
                     </div>
                     <div className={`sticky bottom-4 z-40 transition-opacity duration-300 ${"opacity-100"}`}>
                         {isSearchOpen &&
@@ -94,7 +91,7 @@ export default function Stories() {
                             </div>
                         }
                         <div className='flex gap-3 justify-center '>
-                            {situation && <div className={`pill-feed-addstory py-[10px] gap-2 ${"cursor-pointer"}`} onClick={() => setIsOpen(true)}>
+                            {situation && <div className={`pill-feed-addstory py-[18px] gap-2 ${"cursor-pointer"}`} onClick={() => setIsOpen(true)}>
                                 <img src={`${SYSTEM_ICON_BASE_URL}/quill-pen-svgrepo-com.svg`} className='w-[22px]' />
                                 {t("new_story_button")}
                             </div>}
@@ -102,7 +99,7 @@ export default function Stories() {
                                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                                 className={
                                     `inline-flex
-                                    text-[#030000] py-[12px] px-[15px]
+                                    text-[#030000] py-[18px] px-[20px]
                                     rounded-[25px] hover:bg-[#f1efe3] backdrop-blur-md
                                     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
                                      dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800 cursor-pointer
@@ -113,12 +110,12 @@ export default function Stories() {
                             <div
                                 className={
                                     `inline-flex
-                                    text-[#030000] py-[12px] px-[15px]
+                                    text-[#030000] py-[18px] px-[20px]
                                     rounded-[25px] hover:bg-[#f1efe3] backdrop-blur-md
                                     duration-500 shadow-[0px_0px_5px_rgba(0,0,0,0.3)]
                                      dark:text-gray-300 dark:shadow-white dark:border-black dark:hover:bg-gray-800 cursor-pointer ${isSingleFeedMode ? "bg-[#f1efe3] dark:bg-gray-800" : "bg-white/10 dark:bg-black/10"}`
                                 } onClick={() => handleFeedModeClick(situation)}>
-                                <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[20px]' />
+                                <img src={`${SYSTEM_ICON_BASE_URL}/double-quotes-svgrepo-com.svg`} className='w-[21px]' />
                             </div>
                         </div>
                     </div>
