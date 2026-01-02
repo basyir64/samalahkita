@@ -19,7 +19,8 @@
     "bug_report": "Report A Bug (Anonymous)",
     "read": "Read",
     "replace": "Replace",
-    "with": "with"
+    "with": "with",
+    "date": "Date"
   },
   "bm": {
     "add_button": "Tambah",
@@ -41,6 +42,7 @@
     "bug_report": "Laporkan 'Bug' (Tanpa Nama)",
     "read": "Baca",
     "replace": "Ganti",
-    "with": "dengan"
+    "with": "dengan",
+    "date": "Tarikh"
   }
 }

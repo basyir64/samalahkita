@@ -22,7 +22,7 @@ export default function Feed({ situation, setSituation, allSituationsContextRef,
         async function getStoriesFirstPage() {
             setIsAllLoaded(false);
             setIsLoadingStories(true);
-            console.log("fetching stories")
+            // console.log("fetching stories")
 
             const result = await loadFirstPage([
                 (situation && where("situationId", "==", situation.id)),
@@ -55,7 +55,7 @@ export default function Feed({ situation, setSituation, allSituationsContextRef,
         async function getStoriesNextPage() {
             // console.log("isAllLoaded: " + isAllLoaded)
             setIsLoadingStories(true);
-            
+
             const result = await loadNextPage([
                 (situation && where("situationId", "==", situation.id)),
                 orderBy("createdAt", isSortDateDesc ? "desc" : "asc")]);
@@ -87,7 +87,7 @@ export default function Feed({ situation, setSituation, allSituationsContextRef,
                 <div className='text-gray-500'>{isSingleFeedMode ? t("feed_title1") : t("feed_title2")}</div>
                 <div className='flex gap-1 cursor-pointer underline' onClick={() => handleDateSortClick()}>
                     <img src={`${SYSTEM_ICON_BASE_URL}/${isSortDateDesc ? "down-svgrepo-com.svg" : "up-svgrepo-com.svg"}`} className='w-[22px]' />
-                    Date
+                    {t("date")}
                 </div>
             </div>
             {storiesRef.current.length > 0 ?
