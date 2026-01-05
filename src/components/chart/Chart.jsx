@@ -186,7 +186,7 @@ export default function Chart() {
                 <div className='justify-center tracking-[0.1em]'>
                     Dapatkan sokongan kesihatan mental untuk rakyat Malaysia di <a href='https://takpe.my' target="_blank" className='cursor-pointer underline'>takpe.my</a>
                 </div>
-                <div className='flex justify-center tracking-[0.1em] text-gray-500'>
+                <div className='flex justify-center tracking-[0.1em] text-gray-500 text-sm'>
                     Terima kasih Norshazwani Subri!
                 </div>
             </div>
