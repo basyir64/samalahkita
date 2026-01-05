@@ -19,7 +19,7 @@ export default function Chart() {
     const [counts, setCounts] = useState({ situation: "-", story: "-", views: "-" });
     const [ranking, setRanking] = useState([]);
     const [profileUrls, setProfileUrls] = useState([]);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         async function getAllSituationCount() {
@@ -97,7 +97,7 @@ export default function Chart() {
     return (
         <div className='mt-6 grid justify-center text-center'>
             <div className='mt-8 text-gray-500 tracking-[0.1em]'>{t("as_of")}</div>
-             <div className='mt-1 text-sm text-gray-500 tracking-[0.1em]'>
+            <div className='mt-1 text-sm text-gray-500 tracking-[0.1em]'>
                 {t("goal")}
             </div>
             {isCountAllLoading ?
@@ -158,7 +158,7 @@ export default function Chart() {
                 <div className='text-gray-500 tracking-[0.1em] text-sm'> {t("sticker_subtitle")} </div>
                 {/* <div className='text-gray-500 tracking-[0.1em] text-sm'>{t("sticker_mood")}</div> */}
                 <div className='flex justify-center'>
-                    <div className='relative mt-8 mb-50 w-30'>
+                    <div className='relative mt-8 mb-40 w-30'>
                         {
                             profileUrls.length > 0 &&
                             profileUrls.map((url, i) => {
@@ -183,23 +183,13 @@ export default function Chart() {
                         }
                     </div>
                 </div>
+                <div className='justify-center tracking-[0.1em]'>
+                    Dapatkan sokongan kesihatan mental untuk rakyat Malaysia di <a href='https://takpe.my' target="_blank" className='cursor-pointer underline'>takpe.my</a>
+                </div>
+                <div className='flex justify-center tracking-[0.1em] text-gray-500'>
+                    Terima kasih Norshazwani Subri!
+                </div>
             </div>
-            {/* <div className='tracking-[0.1em] dark:text-gray-300'>
-                {t("story_example")}
-            </div>
-            <div className='mt-2 tracking-[0.1em] text-gray-500 text-sm'>
-                {t("story_example_subheading")}
-            </div>
-            <div className='mt-4 flex flex-wrap justify-center gap-6'>
-
-                <img className='pill-card-story-example' 
-                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-fr.jpeg`} />
-                <img className='pill-card-story-example' 
-                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-boss.jpeg`} />
-                <img className='pill-card-story-example' 
-                src={`${STORY_EXAMPLES_BASE_URL}/samalahkita-cr.jpeg`} />
-
-            </div> */}
         </div>
     );
 }
