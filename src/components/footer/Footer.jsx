@@ -49,7 +49,7 @@ export default function Footer() {
                     {t("media_disclaimer")}
                 </div>
                 <div className='mt-2 text-xs'>
-                    samalahkita <br/> v0.1.0-beta.7 released 30 Dec 2025 <br/> Copyright (c) 2026 Mohamad Basyir bin Zainuddin <br/> MIT License
+                    samalahkita <br/> v1.0 released 5 January 2026 <br/> Copyright (c) 2026 Mohamad Basyir bin Zainuddin <br/> MIT License
                 </div>
             </div>
         </div>
